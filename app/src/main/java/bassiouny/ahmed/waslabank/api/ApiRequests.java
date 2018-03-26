@@ -16,7 +16,7 @@ public class ApiRequests {
         // get response body
         ParentResponse parentResponse = response.body();
         if (parentResponse == null) {
-            // if body == null this mean responde from server total bad
+            // if body == null this mean respond from server total bad
             anInterface.onFailed(apiError);
             return;
         }

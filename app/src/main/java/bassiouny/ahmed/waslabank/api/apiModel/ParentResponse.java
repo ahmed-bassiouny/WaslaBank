@@ -13,8 +13,10 @@ import bassiouny.ahmed.waslabank.utils.MyUtils;
 public class ParentResponse {
 
     @SerializedName(ApiKey.STATUS)
+    @SuppressWarnings({"UnusedDeclaration"})
     private boolean status;
     @SerializedName(ApiKey.MESSAGE)
+    @SuppressWarnings({"UnusedDeclaration"})
     private String message;
 
     public boolean getStatus() {
