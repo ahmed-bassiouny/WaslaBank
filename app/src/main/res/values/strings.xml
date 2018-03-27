@@ -6,6 +6,6 @@
     <string name="slogan">FREE..FAST..ON DEMAND</string>
     <string name="sign_in">Sign In</string>
     <string name="sign_up">Sign Up</string>
-    <string name="phone">phone number</string>
+    <string name="phone">Phone number</string>
     <string name="password">Password</string>
 </resources>
