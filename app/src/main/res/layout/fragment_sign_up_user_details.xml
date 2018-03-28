@@ -13,43 +13,65 @@
         android:contentDescription="@null"
         android:src="@drawable/ic_arrow_back" />
 
+    <ImageView
+        android:id="@+id/iv_avatar"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:contentDescription="@null"
+        android:src="@drawable/person" />
+
 
     <EditText
-        android:id="@+id/et_car_number"
+        android:id="@+id/et_identify_number"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/iv_back"
+        android:layout_below="@+id/iv_avatar"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="40dp"
         android:background="@drawable/round_fill_white_border"
         android:gravity="center"
-        android:hint="@string/car_number"
-        android:inputType="text"
-        android:nextFocusForward="@id/et_license_number"
+        android:hint="@string/identify_number"
+        android:inputType="number"
+        android:nextFocusForward="@id/et_phone"
         android:padding="10dp"
         android:textColorHint="@color/colorPrimary"
         android:textSize="20sp" />
 
-    <EditText
-        android:id="@+id/et_license_number"
+    <RadioGroup
+        android:id="@+id/rd_gender"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/et_car_number"
+        android:layout_below="@+id/et_identify_number"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:background="@drawable/round_fill_white_border"
-        android:gravity="center"
-        android:hint="@string/license_number"
-        android:inputType="text"
-        android:padding="10dp"
-        android:textColorHint="@color/colorPrimary"
-        android:textSize="20sp" />
+        android:orientation="horizontal"
+        android:checkedButton="@id/rb_male"
+        android:padding="10dp">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/male"
+            android:id="@+id/rb_male"
+            android:textColor="@color/colorPrimary" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/female"
+            android:textColor="@color/colorPrimary" />
+    </RadioGroup>
 
     <LinearLayout
-        android:id="@+id/linear_car_size"
+        android:id="@+id/linear_cities"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/et_license_number"
+        android:layout_below="@+id/rd_gender"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:background="@drawable/round_fill_white_border"
@@ -63,7 +85,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="@string/car_size"
+            android:text="@string/city"
             android:textColor="@color/colorPrimary"
             android:textSize="20sp" />
 
@@ -72,21 +94,38 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:entries="@array/car_size"
+            android:entries="@array/cities"
             android:textAlignment="center" />
     </LinearLayout>
 
+    <EditText
+        android:id="@+id/et_interesting"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linear_cities"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/round_fill_white_border"
+        android:gravity="center"
+        android:hint="@string/interesting"
+        android:inputType="text"
+        android:nextFocusForward="@id/et_phone"
+        android:padding="10dp"
+        android:textColorHint="@color/colorPrimary"
+        android:textSize="20sp" />
+
+
     <Button
-        android:id="@+id/btn_next"
+        android:id="@+id/btn_sign_up"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/linear_car_size"
+        android:layout_below="@+id/et_interesting"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
         android:background="@drawable/round_fill_white"
         android:paddingEnd="50sp"
         android:paddingStart="50sp"
-        android:text="@string/next"
+        android:text="@string/sign_up"
         android:textColor="@color/colorPrimary"
         android:textSize="20sp" />
 </RelativeLayout>

@@ -35,6 +35,8 @@
         android:gravity="center"
         android:hint="@string/phone"
         android:padding="10dp"
+        android:inputType="phone"
+        android:maxLength="11"
         android:textColorHint="@color/colorPrimary"
         android:textSize="20sp" />
 
@@ -51,6 +53,7 @@
         android:hint="@string/password"
         android:padding="10dp"
         android:id="@+id/et_password"
+        android:inputType="textPassword"
         android:textColorHint="@color/colorPrimary"
         android:textSize="20sp" />
 

@@ -13,58 +13,101 @@
         android:contentDescription="@null"
         android:src="@drawable/ic_arrow_back" />
 
-    <ImageView
-        android:id="@+id/iv_logo"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_below="@+id/iv_back"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="25dp"
-        android:contentDescription="@null"
-        android:src="@drawable/logo" />
 
     <EditText
-        android:id="@+id/et_phone"
+        android:id="@+id/et_name"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/iv_logo"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="50dp"
         android:background="@drawable/round_fill_white_border"
-        android:drawableEnd="@drawable/ic_call"
+        android:drawableEnd="@drawable/ic_person"
         android:gravity="center"
-        android:hint="@string/phone"
+        android:hint="@string/name"
+        android:inputType="textPersonName"
+        android:nextFocusForward="@id/et_phone"
         android:padding="10dp"
         android:textColorHint="@color/colorPrimary"
         android:textSize="20sp" />
 
     <EditText
+        android:id="@+id/et_phone"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/et_name"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/round_fill_white_border"
+        android:drawableEnd="@drawable/ic_call"
+        android:gravity="center"
+        android:hint="@string/phone"
+        android:inputType="phone"
+        android:nextFocusForward="@id/et_email"
+        android:padding="10dp"
+        android:textColorHint="@color/colorPrimary"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/et_email"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/et_phone"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:background="@drawable/round_fill_white_border"
+        android:drawableEnd="@drawable/ic_email"
+        android:gravity="center"
+        android:hint="@string/email"
+        android:inputType="textEmailAddress"
+        android:nextFocusForward="@id/et_password"
+        android:padding="10dp"
+        android:textColorHint="@color/colorPrimary"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/et_password"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/et_email"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/round_fill_white_border"
         android:drawableEnd="@drawable/ic_vpn_key"
-        android:drawableStart="@drawable/ic_visibility"
         android:gravity="center"
         android:hint="@string/password"
+        android:inputType="textPassword"
+        android:nextFocusForward="@string/confirm_password"
         android:padding="10dp"
-        android:id="@+id/et_password"
+        android:textColorHint="@color/colorPrimary"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/et_confirm_password"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/et_password"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/round_fill_white_border"
+        android:drawableEnd="@drawable/ic_vpn_key"
+        android:gravity="center"
+        android:hint="@string/confirm_password"
+        android:inputType="textPassword"
+        android:padding="10dp"
         android:textColorHint="@color/colorPrimary"
         android:textSize="20sp" />
 
     <Button
-        android:id="@+id/btn_sign_in"
+        android:id="@+id/btn_next"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/et_confirm_password"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/et_password"
         android:layout_marginTop="40dp"
         android:background="@drawable/round_fill_white"
         android:paddingEnd="50sp"
         android:paddingStart="50sp"
-        android:text="@string/sign_in"
+        android:text="@string/next"
         android:textColor="@color/colorPrimary"
         android:textSize="20sp" />
 </RelativeLayout>
