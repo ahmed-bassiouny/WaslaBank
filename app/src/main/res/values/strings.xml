@@ -22,7 +22,7 @@
         <item>@string/four</item>
         <item>@string/three</item>
         <item>@string/two</item>
-        <item>@string/two</item>
+        <item>@string/one</item>
     </array>
     <string name="car_size">Car Size</string>
     <string name="identify_number">Identify Number</string>

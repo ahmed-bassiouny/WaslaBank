@@ -1,69 +1,119 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_gravity="center_horizontal"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:gravity="center"
     tools:context="bassiouny.ahmed.waslabank.fragments.view.SignUpFragment">
 
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:alpha=".7"
+        android:text="@string/sign_up"
+        android:textColor="@color/colorPrimary"
+        android:textSize="20sp" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+        <View
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_margin="4dp"
+            android:alpha=".7"
+            android:background="@drawable/circle_fill"/>
+
+        <View
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_margin="4dp"
+            android:alpha=".7"
+            android:background="@drawable/circle_fill"/>
+
+        <View
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_margin="4dp"
+            android:background="@drawable/empty_circle"/>
+    </LinearLayout>
     <EditText
         android:id="@+id/et_car_number"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/iv_back"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="50dp"
         android:background="@drawable/round_fill_white_border"
         android:gravity="center"
         android:hint="@string/car_number"
         android:inputType="text"
+        android:drawableStart="@drawable/ic_more_horiz"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:alpha="0.7"
         android:nextFocusForward="@id/et_license_number"
         android:padding="10dp"
         android:textColorHint="@color/colorPrimary"
-        android:textSize="20sp" />
+        android:textSize="@dimen/input_size" />
 
     <EditText
         android:id="@+id/et_license_number"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/et_car_number"
-        android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:background="@drawable/round_fill_white_border"
         android:gravity="center"
         android:hint="@string/license_number"
-        android:inputType="text"
+        android:inputType="number"
+        android:drawableStart="@drawable/ic_credit_card"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
         android:padding="10dp"
+        android:alpha="0.7"
         android:textColorHint="@color/colorPrimary"
-        android:textSize="20sp" />
+        android:textSize="@dimen/input_size" />
 
     <LinearLayout
         android:id="@+id/linear_car_size"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/et_license_number"
-        android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:background="@drawable/round_fill_white_border"
         android:gravity="center"
-        android:orientation="horizontal"
-        android:padding="10dp"
-        android:weightSum="2">
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/round_fill_white_border"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:alpha="0.7"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_directions_car"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
+            android:alpha="0.7"
             android:text="@string/car_size"
+            android:layout_marginStart="10dp"
             android:textColor="@color/colorPrimary"
-            android:textSize="20sp" />
+            android:textSize="@dimen/input_size" />
+
 
         <Spinner
             android:id="@+id/sp_car_size"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="10dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:padding="5dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:alpha="0.7"
             android:entries="@array/car_size"
             android:textAlignment="center" />
     </LinearLayout>
@@ -72,13 +122,11 @@
         android:id="@+id/btn_next"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/linear_car_size"
-        android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
-        android:background="@drawable/round_fill_white"
+        android:background="@drawable/round_fill_primary"
         android:paddingEnd="50sp"
         android:paddingStart="50sp"
         android:text="@string/next"
-        android:textColor="@color/colorPrimary"
-        android:textSize="20sp" />
-</RelativeLayout>
+        android:textColor="@color/white"
+        android:textSize="@dimen/button_size" />
+</LinearLayout>
