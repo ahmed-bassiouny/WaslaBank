@@ -2,9 +2,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background1"
-    android:paddingBottom="60dp"
-    android:paddingTop="60dp">
+    android:background="@drawable/bg"
+    android:paddingBottom="100dp"
+    android:paddingTop="80dp">
 
     <ImageView
         android:id="@+id/iv_logo"
@@ -32,12 +32,12 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:layout_marginStart="-20dp"
-        android:background="@drawable/round_fill_primary"
+        android:background="@drawable/round_fill_white_border"
         android:paddingEnd="50sp"
         android:paddingStart="50sp"
         android:text="@string/sign_up"
-        android:textColor="@color/white"
-        android:textSize="20sp" />
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/button_size" />
 
     <Button
         android:id="@+id/btn_sign_in"
@@ -46,10 +46,10 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="-20dp"
-        android:background="@drawable/round_fill_white"
+        android:background="@drawable/round_fill_primary"
         android:paddingEnd="50sp"
         android:paddingStart="50sp"
         android:text="@string/sign_in"
-        android:textColor="@color/colorPrimary"
-        android:textSize="20sp" />
+        android:textColor="@color/white"
+        android:textSize="@dimen/button_size" />
 </RelativeLayout>

@@ -25,8 +25,8 @@ public class SplashActivity extends AppCompatActivity {
     private void findView() {
         btnSignIn = findViewById(R.id.btn_sign_in);
         btnSignUp = findViewById(R.id.btn_sign_up);
-        SlideAnimationUtil.slideInFromRight(this, btnSignIn);
-        SlideAnimationUtil.slideInFromLeft(this, btnSignUp);
+        //SlideAnimationUtil.slideInFromRight(this, btnSignIn);
+        //SlideAnimationUtil.slideInFromLeft(this, btnSignUp);
     }
 
     private void onClick() {
@@ -34,14 +34,14 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(SplashActivity.this,SignInActivity.class));
-                overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
+                //overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
             }
         });
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(SplashActivity.this,SignUpActivity.class));
-                overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
+                //overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
             }
         });
     }

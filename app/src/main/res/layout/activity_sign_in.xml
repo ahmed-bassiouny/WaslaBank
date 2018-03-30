@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background1"
+    android:background="@drawable/bg"
     android:padding="15dp"
     tools:context="bassiouny.ahmed.waslabank.fragments.view.SignUpFragment">
 
@@ -13,13 +13,17 @@
         android:contentDescription="@null"
         android:src="@drawable/ic_arrow_back" />
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerInParent="true">
     <ImageView
         android:id="@+id/iv_logo"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_below="@+id/iv_back"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="25dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
         android:contentDescription="@null"
         android:src="@drawable/logo" />
 
@@ -27,47 +31,51 @@
         android:id="@+id/et_phone"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/iv_logo"
-        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
         android:layout_marginTop="40dp"
         android:background="@drawable/round_fill_white_border"
-        android:drawableEnd="@drawable/ic_call"
+        android:drawableStart="@drawable/ic_call"
         android:gravity="center"
         android:hint="@string/phone"
         android:padding="10dp"
         android:inputType="phone"
+        android:paddingStart="15dp"
+        android:alpha=".7"
+        android:paddingEnd="15dp"
         android:maxLength="11"
         android:textColorHint="@color/colorPrimary"
-        android:textSize="20sp" />
+        android:textSize="@dimen/input_size" />
 
     <EditText
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/et_phone"
-        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
         android:layout_marginTop="10dp"
         android:background="@drawable/round_fill_white_border"
-        android:drawableEnd="@drawable/ic_vpn_key"
-        android:drawableStart="@drawable/ic_visibility"
+        android:drawableStart="@drawable/ic_vpn_key"
+        android:drawableEnd="@drawable/ic_visibility"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:alpha=".7"
         android:gravity="center"
         android:hint="@string/password"
         android:padding="10dp"
         android:id="@+id/et_password"
         android:inputType="textPassword"
         android:textColorHint="@color/colorPrimary"
-        android:textSize="20sp" />
+        android:textSize="@dimen/input_size" />
 
     <Button
         android:id="@+id/btn_sign_in"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/et_password"
+        android:layout_gravity="center"
         android:layout_marginTop="40dp"
-        android:background="@drawable/round_fill_white"
+        android:background="@drawable/round_fill_primary"
         android:paddingEnd="50sp"
         android:paddingStart="50sp"
         android:text="@string/sign_in"
-        android:textColor="@color/colorPrimary"
-        android:textSize="20sp" />
+        android:textColor="@color/white"
+        android:textSize="@dimen/button_size" />
+    </LinearLayout>
 </RelativeLayout>
