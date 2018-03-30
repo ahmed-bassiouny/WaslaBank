@@ -9,16 +9,16 @@ import bassiouny.ahmed.waslabank.R;
  * Created by bassiouny on 30/03/18.
  */
 
-public class SignUpCarController {
+public class SignUpUserDetailsController {
+
     private Context context;
 
-    public SignUpCarController(Context context) {
+    public SignUpUserDetailsController(Context context) {
         this.context = context;
     }
-
     @SuppressWarnings("unchecked")
-    public ArrayAdapter getCarSizeAdapter(){
-        // get array adapter contain car size
-        return new ArrayAdapter(context, R.layout.spinner_row,context.getResources().getStringArray(R.array.car_size));
+    public ArrayAdapter getCitiesAdapter(){
+        // get array adapter contain cities
+        return new ArrayAdapter(context, R.layout.spinner_row,context.getResources().getStringArray(R.array.cities));
     }
 }

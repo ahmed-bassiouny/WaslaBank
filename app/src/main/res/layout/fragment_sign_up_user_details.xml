@@ -1,17 +1,54 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_gravity="center_horizontal"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:orientation="vertical"
     tools:context="bassiouny.ahmed.waslabank.fragments.view.SignUpFragment">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:alpha=".7"
+        android:text="@string/sign_up"
+        android:textColor="@color/colorPrimary"
+        android:textSize="20sp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_margin="4dp"
+            android:alpha=".7"
+            android:background="@drawable/circle_fill" />
+
+        <View
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_margin="4dp"
+            android:alpha=".7"
+            android:background="@drawable/circle_fill" />
+
+        <View
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_margin="4dp"
+            android:alpha=".7"
+            android:background="@drawable/circle_fill" />
+    </LinearLayout>
 
     <ImageView
         android:id="@+id/iv_avatar"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginTop="20dp"
-        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
         android:contentDescription="@null"
         android:src="@drawable/person" />
 
@@ -20,70 +57,83 @@
         android:id="@+id/et_identify_number"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/iv_avatar"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
+        android:alpha="0.7"
         android:background="@drawable/round_fill_white_border"
+        android:drawableStart="@drawable/ic_person_pin"
         android:gravity="center"
         android:hint="@string/identify_number"
         android:inputType="number"
         android:nextFocusForward="@id/et_phone"
         android:padding="10dp"
+        android:paddingEnd="10dp"
+        android:paddingStart="10dp"
         android:textColorHint="@color/colorPrimary"
-        android:textSize="20sp" />
+        android:textSize="@dimen/input_size" />
 
     <RadioGroup
         android:id="@+id/rd_gender"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/et_identify_number"
-        android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
+        android:alpha="0.7"
         android:background="@drawable/round_fill_white_border"
-        android:orientation="horizontal"
         android:checkedButton="@id/rb_male"
-        android:padding="10dp">
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:paddingEnd="10dp"
+        android:paddingStart="10dp">
 
-        <RadioButton
+        <android.support.v7.widget.AppCompatRadioButton
+            android:id="@+id/rb_male"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/male"
-            android:id="@+id/rb_male"
-            android:textColor="@color/colorPrimary" />
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/input_size"
+            app:buttonTint="@color/yellow" />
 
-        <RadioButton
+        <android.support.v7.widget.AppCompatRadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:buttonTint="@color/yellow"
             android:text="@string/female"
-            android:textColor="@color/colorPrimary" />
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/input_size" />
     </RadioGroup>
 
     <LinearLayout
         android:id="@+id/linear_cities"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/rd_gender"
-        android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
+        android:alpha="0.7"
         android:background="@drawable/round_fill_white_border"
         android:gravity="center"
         android:orientation="horizontal"
-        android:padding="10dp"
-        android:weightSum="2">
+        android:padding="5dp"
+        android:paddingEnd="10dp"
+        android:paddingStart="10dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_home" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:layout_weight="1"
-            android:gravity="center"
             android:text="@string/city"
             android:textColor="@color/colorPrimary"
-            android:textSize="20sp" />
+            android:textSize="@dimen/input_size" />
 
         <Spinner
-            android:id="@+id/sp_car_size"
+            android:id="@+id/sp_cities"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -91,34 +141,16 @@
             android:textAlignment="center" />
     </LinearLayout>
 
-    <EditText
-        android:id="@+id/et_interesting"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/linear_cities"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/round_fill_white_border"
-        android:gravity="center"
-        android:hint="@string/interesting"
-        android:inputType="text"
-        android:nextFocusForward="@id/et_phone"
-        android:padding="10dp"
-        android:textColorHint="@color/colorPrimary"
-        android:textSize="20sp" />
-
 
     <Button
         android:id="@+id/btn_sign_up"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/et_interesting"
-        android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
-        android:background="@drawable/round_fill_white"
+        android:background="@drawable/round_fill_primary"
         android:paddingEnd="50sp"
         android:paddingStart="50sp"
         android:text="@string/sign_up"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/white"
         android:textSize="20sp" />
-</RelativeLayout>
+</LinearLayout>
