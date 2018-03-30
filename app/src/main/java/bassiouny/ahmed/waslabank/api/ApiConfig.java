@@ -6,6 +6,7 @@ import com.google.gson.GsonBuilder;
 import java.util.concurrent.TimeUnit;
 
 import bassiouny.ahmed.waslabank.interfaces.BaseResponseInterface;
+import bassiouny.ahmed.waslabank.interfaces.HttpApiInterface;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -18,8 +19,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ApiConfig {
 
     private static Retrofit retrofit;
-    private static final String baseUrl = "";
-    private static BaseResponseInterface baseRequestInterface ;
+    private static final String baseUrl = "http://www.esameisa.com/demo/waslabank/public/api/";
+    public static HttpApiInterface httpApiInterface;
 
 
     private ApiConfig() {
@@ -43,7 +44,7 @@ public class ApiConfig {
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .client(client)
                     .build();
-            baseRequestInterface = retrofit.create(BaseResponseInterface.class);
+            httpApiInterface = retrofit.create(HttpApiInterface.class);
         }
     }
 }

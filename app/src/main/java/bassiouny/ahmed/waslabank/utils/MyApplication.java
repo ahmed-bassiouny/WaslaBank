@@ -15,6 +15,6 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         SharedPrefManager.init(this,getString(R.string.app_name));
-        //ApiConfig.initRetrofitConfig();
+        ApiConfig.initRetrofitConfig();
     }
 }

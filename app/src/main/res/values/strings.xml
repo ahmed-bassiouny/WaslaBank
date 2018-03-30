@@ -35,4 +35,7 @@
     </array>
     <string name="interesting">Interesting</string>
 
+    <!-- invalid data -->
+    <string name="invalid_phone_lenght">Your phone must be 11 number</string>
+    <string name="invalid_password_lenght">Your password must greater than 6 character</string>
 </resources>

@@ -39,4 +39,11 @@ public class MyUtils {
         fragmentTransaction.commit();
     }
 
+    // check return type from server and convert int type to boolean
+    public static boolean getBoolean(int item) {
+        if (item == 1)
+            return true;
+        return false;
+    }
+
 }

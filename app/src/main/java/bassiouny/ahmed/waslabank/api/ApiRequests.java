@@ -1,7 +1,10 @@
 package bassiouny.ahmed.waslabank.api;
 
 import bassiouny.ahmed.waslabank.api.apiModel.ParentResponse;
+import bassiouny.ahmed.waslabank.api.apiModel.requests.UserLoginRequest;
 import bassiouny.ahmed.waslabank.interfaces.BaseResponseInterface;
+import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
@@ -34,5 +37,25 @@ public class ApiRequests {
             // this case mean response code not equal 200
             anInterface.onFailed(response.message());
         }
+    }
+
+    // login user
+    // url => login
+    // paramater => phone , password , notification token
+    public static void login(UserLoginRequest userLoginRequest, final BaseResponseInterface anInterface) {
+        Call<ParentResponse> response = ApiConfig.httpApiInterface.login("login", userLoginRequest);
+        response.enqueue(new Callback<ParentResponse>() {
+            @Override
+            public void onResponse(Call<ParentResponse> call, Response<ParentResponse> response) {
+                // check on response and get data
+                checkValidResult(response, anInterface, null);
+            }
+
+            @Override
+            public void onFailure(Call<ParentResponse> call, Throwable t) {
+                // get error message
+                anInterface.onFailed(t.getLocalizedMessage());
+            }
+        });
     }
 }
