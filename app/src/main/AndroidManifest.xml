@@ -35,6 +35,9 @@
         <activity
             android:name=".activities.view.WaitingAdminActivity"
             android:screenOrientation="portrait" />
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="a07905da1fb4c784f0369b04a71691297ca15843" />
     </application>
 
 </manifest>
