@@ -1,6 +1,8 @@
 package bassiouny.ahmed.waslabank.fragments.controller;
 
 import android.content.Context;
+import android.content.Intent;
+import android.support.v4.app.Fragment;
 import android.widget.ArrayAdapter;
 
 import java.io.File;
@@ -10,6 +12,7 @@ import bassiouny.ahmed.waslabank.R;
 import bassiouny.ahmed.waslabank.api.ApiRequests;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.UserSignUpRequest;
 import bassiouny.ahmed.waslabank.interfaces.BaseResponseInterface;
+import bassiouny.ahmed.waslabank.utils.Constant;
 import bassiouny.ahmed.waslabank.utils.MyUtils;
 import bassiouny.ahmed.waslabank.utils.SharedPrefKey;
 
@@ -20,6 +23,7 @@ import bassiouny.ahmed.waslabank.utils.SharedPrefKey;
 public class SignUpUserDetailsController {
 
     private Context context;
+    public final int PICK_IMAGE = 1;
 
     public SignUpUserDetailsController(Context context) {
         this.context = context;
@@ -32,12 +36,19 @@ public class SignUpUserDetailsController {
     }
 
     public void registerUser(String identifyNumber, String gender, String city, File image, BaseResponseInterface anInterface) {
-        // save user data in shared pref
-        UserSignUpRequest.Builder builder = new UserSignUpRequest.Builder();
+        // get user data from shared pref
+        UserSignUpRequest.Builder builder = SharedPrefManager.getObject(SharedPrefKey.USER_REGISTER,UserSignUpRequest.Builder.class);
         builder.identifyNumber(identifyNumber);
         builder.gender(gender);
         builder.city(city);
-        // send object to data base
-        ApiRequests.signUp(builder.build(), MyUtils.convertFileToPart(image), anInterface);
+        builder.notificationToken(Constant.NOTIFICATION_TOKEN);
+        // save user data in shared pref
+        ApiRequests.signUp(builder.build(),MyUtils.convertFileToPart(image), anInterface);
+    }
+    public void selectImage(Fragment fragment){
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        fragment.startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
     }
 }

@@ -2,7 +2,10 @@ package bassiouny.ahmed.waslabank.api.apiModel.requests;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.File;
+
 import bassiouny.ahmed.waslabank.api.apiModel.ApiKey;
+import okhttp3.MultipartBody;
 
 /**
  * Created by bassiouny on 30/03/18.
@@ -116,4 +119,37 @@ public class UserSignUpRequest extends UserLoginRequest {
             return new UserSignUpRequest(this);
         }
     }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getCarNumber() {
+        return carNumber;
+    }
+
+    public String getLicenseNumber() {
+        return licenseNumber;
+    }
+
+    public String getCarSize() {
+        return carSize;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public String getIdentifyNumber() {
+        return identifyNumber;
+    }
+
 }

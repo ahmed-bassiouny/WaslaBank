@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentTransaction;
 
 import java.io.File;
 
+import bassiouny.ahmed.waslabank.api.apiModel.ApiKey;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -53,7 +54,11 @@ public class MyUtils {
     }
     // convert normal image as file to part for upload to server
     public static MultipartBody.Part convertFileToPart(File file){
-        return MultipartBody.Part.createFormData("profileImage", file.getName(), RequestBody.create(MediaType.parse("image/*"), file));
+        return MultipartBody.Part.createFormData(ApiKey.IMAGE, file.getName(), RequestBody.create(MediaType.parse("image/*"), file));
+    }
+
+    public static RequestBody createPartFromString(String str) {
+        return RequestBody.create(okhttp3.MultipartBody.FORM, str);
     }
 
 }

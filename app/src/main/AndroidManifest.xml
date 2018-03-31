@@ -3,6 +3,11 @@
     package="bassiouny.ahmed.waslabank">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+
+
     <application
         android:name=".utils.MyApplication"
         android:allowBackup="true"
@@ -15,14 +20,21 @@
         <activity
             android:name=".activities.view.SignUpActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activities.view.SignInActivity" />
-        <activity android:name=".activities.view.SplashActivity">
+        <activity
+            android:name=".activities.view.SignInActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.view.SplashActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".activities.view.WaitingAdminActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

@@ -17,6 +17,18 @@ public class UserLoginRequest {
     @SerializedName(ApiKey.NOTIFICATION_TOKEN)
     protected String notificationToken;
 
+    public String getPhone() {
+        return phone;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getNotificationToken() {
+        return notificationToken;
+    }
+
     private UserLoginRequest(Builder builder) {
         phone = builder.phone;
         password = builder.password;

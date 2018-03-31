@@ -1,6 +1,8 @@
 package bassiouny.ahmed.waslabank.fragments.view;
 
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -18,10 +20,13 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.io.File;
+
 import bassiouny.ahmed.waslabank.R;
 import bassiouny.ahmed.waslabank.fragments.controller.SignUpUserDetailsController;
 import bassiouny.ahmed.waslabank.interfaces.BaseResponseInterface;
 import bassiouny.ahmed.waslabank.utils.Constant;
+import bassiouny.ahmed.waslabank.utils.FilePath;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -37,9 +42,12 @@ public class SignUpUserDetailsFragment extends Fragment {
     private AppCompatRadioButton rbMale;
     private Button btnSignUp;
     private ProgressBar progress;
+    private File image;
 
     // local variable
     private SignUpUserDetailsController controller;
+    //----------------------------------------------
+    // methods auto generated
 
     public SignUpUserDetailsFragment() {
         // Required empty public constructor
@@ -65,6 +73,18 @@ public class SignUpUserDetailsFragment extends Fragment {
         onClick();
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK && data.getData() != null && requestCode == getController().PICK_IMAGE) {
+                image = new File(FilePath.getRealPathFromURI(getContext(),data.getData()));
+                ivAvatar.setImageURI(data.getData());
+        }
+    }
+
+    // ----------------------------------------------------
+    // generate method by me
+
     private void onClick() {
         linearCities.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,12 +96,12 @@ public class SignUpUserDetailsFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (etIdentifyNumber.getText().toString().trim().isEmpty()) {
-
+                    etIdentifyNumber.setError(getString(R.string.invalid_identify_number));
                 } else {
                     loading(true);
                     String gender = rbMale.isChecked() ? Constant.MALE : Constant.FEMALE;
                     getController().registerUser(etIdentifyNumber.getText().toString(), gender, spCities.getSelectedItem().toString(),
-                            null, new BaseResponseInterface() {
+                            image, new BaseResponseInterface() {
                                 @Override
                                 public void onSuccess(Object o) {
                                     Toast.makeText(getContext(), "Done", Toast.LENGTH_SHORT).show();
@@ -90,9 +110,16 @@ public class SignUpUserDetailsFragment extends Fragment {
                                 @Override
                                 public void onFailed(String errorMessage) {
                                     Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
+                                    loading(false);
                                 }
                             });
                 }
+            }
+        });
+        ivAvatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getController().selectImage(SignUpUserDetailsFragment.this);
             }
         });
     }
@@ -111,13 +138,14 @@ public class SignUpUserDetailsFragment extends Fragment {
         // make spinner start from botton
         spCities.setDropDownVerticalOffset(120);
     }
+
     // start loading
     // todo i will remove this method
-    private void loading(boolean start){
-        if(start){
+    private void loading(boolean start) {
+        if (start) {
             progress.setVisibility(View.VISIBLE);
             btnSignUp.setEnabled(false);
-        }else {
+        } else {
             progress.setVisibility(View.INVISIBLE);
             btnSignUp.setEnabled(true);
         }

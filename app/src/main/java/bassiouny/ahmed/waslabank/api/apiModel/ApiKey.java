@@ -25,5 +25,14 @@ public class ApiKey {
     public static final String CITY = "city";
     public static final String IMAGE = "image";
     public static final String IDENTIFY_NUMBER = "identify_number";
+    public static final String TOKEN = "jwt_token";
+    public static final String CAR_ID = "car_id";
+    public static final String CURRENT_REQUEST_ID = "current_request_id";
+    public static final String INTERESTING = "interesting";
+    public static final String TOTAL_POINT = "total_points";
+    public static final String TOTAL_RATE = "total_rates";
+    public static final String VERIFICATION_CODE = "verification_code";
+    public static final String USER_DETAILS = "user_details";
+    public static final String CAR = "car";
 
 }

@@ -14,9 +14,11 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import bassiouny.ahmed.waslabank.R;
 import bassiouny.ahmed.waslabank.fragments.controller.SignUpCarController;
+import bassiouny.ahmed.waslabank.interfaces.BaseResponseInterface;
 import bassiouny.ahmed.waslabank.utils.MyUtils;
 
 /**
@@ -84,11 +86,22 @@ public class SignUpCarFragment extends Fragment {
                     etLicenseNumber.setError(getString(R.string.invalid_license_number));
                 } else {
                     loading(true);
-                    //Todo send request to check if car number and license number unique
-                    // todo if unique save in shared pref else stop this step
-                    getController().saveUserObject(etCarNumber.getText().toString()
-                            , etLicenseNumber.getText().toString(), spCarSize.getSelectedItem().toString());
-                    MyUtils.openFragment(R.id.container, getActivity(), new SignUpUserDetailsFragment(), true, null);
+                    getController().checkLicenseCarNumber(etCarNumber.getText().toString(),
+                            etLicenseNumber.getText().toString(), new BaseResponseInterface() {
+                                @Override
+                                public void onSuccess(Object o) {
+                                    getController().saveUserObject(etCarNumber.getText().toString()
+                                            , etLicenseNumber.getText().toString(), spCarSize.getSelectedItem().toString());
+                                    loading(false);
+                                    MyUtils.openFragment(R.id.container, getActivity(), new SignUpUserDetailsFragment(), true, null);
+                                }
+
+                                @Override
+                                public void onFailed(String errorMessage) {
+                                    Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
+                                    loading(false);
+                                }
+                            });
                 }
             }
         });

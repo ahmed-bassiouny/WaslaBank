@@ -30,25 +30,29 @@ public class User {
     private int approved;
     @SerializedName(ApiKey.BLOCKED)
     private int blocked;
+    @SerializedName(ApiKey.TOKEN)
+    private String token;
+    @SerializedName(ApiKey.USER_DETAILS)
+    private UserDetails userDetails;
 
     public int getId() {
         return id;
     }
 
     public String getName() {
-        return name;
+        return MyUtils.getString(name);
     }
 
     public String getPhone() {
-        return phone;
+        return MyUtils.getString(phone);
     }
 
     public String getEmail() {
-        return email;
+        return MyUtils.getString(email);
     }
 
     public String getPassword() {
-        return password;
+        return MyUtils.getString(password);
     }
     public boolean getOnline() {
         return MyUtils.getBoolean(online);
@@ -64,5 +68,15 @@ public class User {
 
     public boolean getBlocked() {
         return MyUtils.getBoolean(blocked);
+    }
+
+    public String getToken() {
+        return MyUtils.getString(token);
+    }
+
+    public UserDetails getUserDetails() {
+        if(userDetails == null)
+            userDetails = new UserDetails();
+        return userDetails;
     }
 }

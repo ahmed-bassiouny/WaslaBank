@@ -1,23 +1,21 @@
 package bassiouny.ahmed.waslabank.activities.view;
 
-import android.graphics.BitmapFactory;
-import android.os.Handler;
-import android.os.Looper;
-import android.support.v4.content.ContextCompat;
+import android.content.Intent;
+import android.support.v4.content.IntentCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import bassiouny.ahmed.genericmanager.SharedPrefManager;
 import bassiouny.ahmed.waslabank.R;
 import bassiouny.ahmed.waslabank.activities.controller.SignInController;
-import bassiouny.ahmed.waslabank.api.apiModel.ParentResponse;
 import bassiouny.ahmed.waslabank.interfaces.BaseResponseInterface;
-import bassiouny.ahmed.waslabank.utils.SlideAnimationUtil;
+import bassiouny.ahmed.waslabank.model.User;
+import bassiouny.ahmed.waslabank.utils.SharedPrefKey;
 
 public class SignInActivity extends AppCompatActivity {
 
@@ -62,11 +60,20 @@ public class SignInActivity extends AppCompatActivity {
                     // start login process
                     loading(true);
                     getController().login(etPhone.getText().toString(),
-                            etPassword.getText().toString(), new BaseResponseInterface() {
+                            etPassword.getText().toString(), new BaseResponseInterface<User>() {
                                 @Override
-                                public void onSuccess(Object o) {
-                                    Toast.makeText(SignInActivity.this, "Done", Toast.LENGTH_SHORT).show();
+                                public void onSuccess(User user) {
+                                    // save user data in shared pref
+                                    SharedPrefManager.setObject(SharedPrefKey.USER,user);
+                                    // create intent
+                                    Intent intent = new Intent(SignInActivity.this,WaitingAdminActivity.class);
+                                    // close splash screen activity
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    // stop loading
                                     loading(false);
+                                    startActivity(intent);
+                                    finish();
                                 }
 
                                 @Override

@@ -1,16 +1,17 @@
-package bassiouny.ahmed.waslabank.api.apiModel;
+package bassiouny.ahmed.waslabank.api.apiModel.response;
 
 import android.support.annotation.NonNull;
 
 import com.google.gson.annotations.SerializedName;
 
+import bassiouny.ahmed.waslabank.api.apiModel.ApiKey;
 import bassiouny.ahmed.waslabank.utils.MyUtils;
 
 /**
  * Created by bassiouny on 26/03/18.
  */
 
-public class ParentResponse {
+public abstract class ParentResponse <T>{
 
     @SerializedName(ApiKey.STATUS)
     @SuppressWarnings({"UnusedDeclaration"})
@@ -26,4 +27,6 @@ public class ParentResponse {
     public String getMessage() {
         return MyUtils.getString(message);
     }
+
+    public abstract T getObject();
 }

@@ -3,10 +3,9 @@ package bassiouny.ahmed.waslabank.activities.controller;
 import android.content.Context;
 
 import bassiouny.ahmed.waslabank.api.ApiRequests;
-import bassiouny.ahmed.waslabank.api.apiModel.ApiKey;
-import bassiouny.ahmed.waslabank.api.apiModel.ParentResponse;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.UserLoginRequest;
 import bassiouny.ahmed.waslabank.interfaces.BaseResponseInterface;
+import bassiouny.ahmed.waslabank.utils.Constant;
 
 /**
  * Created by bassiouny on 30/03/18.
@@ -24,7 +23,7 @@ public class SignInController {
         UserLoginRequest.Builder builder = new UserLoginRequest.Builder();
         builder.phone(phone);
         builder.password(password);
-        builder.notificationToken("jkfdngkdfj");
+        builder.notificationToken(Constant.NOTIFICATION_TOKEN);
         ApiRequests.login(builder.build(),anInterface);
     }
 }

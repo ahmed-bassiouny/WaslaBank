@@ -7,4 +7,5 @@ package bassiouny.ahmed.waslabank.utils;
 public class Constant {
     public final static String MALE = "Male";
     public final static String FEMALE = "Female";
+    public final static String NOTIFICATION_TOKEN = "mdfkldsnfmsd";
 }
