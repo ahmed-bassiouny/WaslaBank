@@ -25,6 +25,7 @@ public class SignUpUserDetailsController {
 
     private Context context;
     public final int PICK_IMAGE = 1;
+    public final int MY_PERMISSIONS_REQUEST_READ_CONTACTS = 2;
 
     public SignUpUserDetailsController(Context context) {
         this.context = context;
