@@ -98,7 +98,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:buttonTint="@color/yellow"
+            app:buttonTint="@color/yellow"
             android:text="@string/female"
             android:textColor="@color/colorPrimary"
             android:textSize="@dimen/input_size" />
@@ -153,4 +153,11 @@
         android:text="@string/sign_up"
         android:textColor="@color/white"
         android:textSize="20sp" />
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="invisible"
+        android:layout_marginTop="10dp"
+        android:id="@+id/progress"/>
 </LinearLayout>

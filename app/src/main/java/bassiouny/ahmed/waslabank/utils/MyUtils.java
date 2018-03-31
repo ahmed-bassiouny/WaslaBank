@@ -7,6 +7,12 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
+import java.io.File;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+
 /**
  * Created by ahmed bassiouny on 26/03/18.
  */
@@ -44,6 +50,10 @@ public class MyUtils {
         if (item == 1)
             return true;
         return false;
+    }
+    // convert normal image as file to part for upload to server
+    public static MultipartBody.Part convertFileToPart(File file){
+        return MultipartBody.Part.createFormData("profileImage", file.getName(), RequestBody.create(MediaType.parse("image/*"), file));
     }
 
 }

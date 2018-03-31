@@ -21,7 +21,10 @@ public class SignInController {
 
     public void login(String phone , String password,BaseResponseInterface anInterface){
         // create UserLoginRequest Object
-        UserLoginRequest object = new UserLoginRequest(phone,password,"gdfkljgndl");
-        ApiRequests.login(object,anInterface);
+        UserLoginRequest.Builder builder = new UserLoginRequest.Builder();
+        builder.phone(phone);
+        builder.password(password);
+        builder.notificationToken("jkfdngkdfj");
+        ApiRequests.login(builder.build(),anInterface);
     }
 }

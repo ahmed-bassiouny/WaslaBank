@@ -26,9 +26,4 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
     }
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        //overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
-    }
 }

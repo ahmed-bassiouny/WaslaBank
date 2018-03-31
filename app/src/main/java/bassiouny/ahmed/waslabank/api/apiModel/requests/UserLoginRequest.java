@@ -11,15 +11,46 @@ import bassiouny.ahmed.waslabank.api.apiModel.ApiKey;
 @SuppressWarnings({"UnusedDeclaration"})
 public class UserLoginRequest {
     @SerializedName(ApiKey.PHONE)
-    private String phone;
+    protected String phone;
     @SerializedName(ApiKey.PASSWORD)
-    private String password;
+    protected String password;
     @SerializedName(ApiKey.NOTIFICATION_TOKEN)
-    private String notificationToken;
+    protected String notificationToken;
 
-    public UserLoginRequest(String phone, String password, String notificationToken) {
-        this.phone = phone;
-        this.password = password;
-        this.notificationToken = notificationToken;
+    private UserLoginRequest(Builder builder) {
+        phone = builder.phone;
+        password = builder.password;
+        notificationToken = builder.notificationToken;
+    }
+
+    public UserLoginRequest() {
+    }
+
+    public static final class Builder {
+        private String phone;
+        private String password;
+        private String notificationToken;
+
+        public Builder() {
+        }
+
+        public Builder phone(String val) {
+            phone = val;
+            return this;
+        }
+
+        public Builder password(String val) {
+            password = val;
+            return this;
+        }
+
+        public Builder notificationToken(String val) {
+            notificationToken = val;
+            return this;
+        }
+
+        public UserLoginRequest build() {
+            return new UserLoginRequest(this);
+        }
     }
 }

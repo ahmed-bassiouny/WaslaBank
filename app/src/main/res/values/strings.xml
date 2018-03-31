@@ -38,4 +38,8 @@
     <!-- invalid data -->
     <string name="invalid_phone_lenght">Your phone must be 11 number</string>
     <string name="invalid_password_lenght">Your password must greater than 6 character</string>
+    <string name="invalid_name">Name is empty</string>
+    <string name="invalid_confirm">Your password and confirm not match</string>
+    <string name="invalid_car_number">Car number is empty</string>
+    <string name="invalid_license_number">License number is empty</string>
 </resources>

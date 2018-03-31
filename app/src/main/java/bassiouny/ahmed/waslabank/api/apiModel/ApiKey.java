@@ -18,4 +18,12 @@ public class ApiKey {
     public static final String APPROVED = "is_approved";
     public static final String BLOCKED = "is_blocked";
     public static final String NOTIFICATION_TOKEN = "notification_token";
+    public static final String CAR_NUMBER = "car_number";
+    public static final String LICENSE_NUMBER = "license_number";
+    public static final String CAR_SIZE = "car_size";
+    public static final String GENDER= "gender";
+    public static final String CITY = "city";
+    public static final String IMAGE = "image";
+    public static final String IDENTIFY_NUMBER = "identify_number";
+
 }
