@@ -22,11 +22,16 @@ import android.widget.Toast;
 
 import java.io.File;
 
+import bassiouny.ahmed.genericmanager.SharedPrefManager;
 import bassiouny.ahmed.waslabank.R;
+import bassiouny.ahmed.waslabank.activities.view.SignInActivity;
+import bassiouny.ahmed.waslabank.activities.view.WaitingAdminActivity;
 import bassiouny.ahmed.waslabank.fragments.controller.SignUpUserDetailsController;
 import bassiouny.ahmed.waslabank.interfaces.BaseResponseInterface;
+import bassiouny.ahmed.waslabank.model.User;
 import bassiouny.ahmed.waslabank.utils.Constant;
 import bassiouny.ahmed.waslabank.utils.FilePath;
+import bassiouny.ahmed.waslabank.utils.SharedPrefKey;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -101,10 +106,20 @@ public class SignUpUserDetailsFragment extends Fragment {
                     loading(true);
                     String gender = rbMale.isChecked() ? Constant.MALE : Constant.FEMALE;
                     getController().registerUser(etIdentifyNumber.getText().toString(), gender, spCities.getSelectedItem().toString(),
-                            image, new BaseResponseInterface() {
+                            image, new BaseResponseInterface<User>(){
                                 @Override
-                                public void onSuccess(Object o) {
-                                    Toast.makeText(getContext(), "Done", Toast.LENGTH_SHORT).show();
+                                public void onSuccess(User user) {
+                                    // save user data in shared pref
+                                    SharedPrefManager.setObject(SharedPrefKey.USER,user);
+                                    // create intent
+                                    Intent intent = new Intent(getContext(),WaitingAdminActivity.class);
+                                    // close splash screen activity
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    // stop loading
+                                    loading(false);
+                                    startActivity(intent);
+                                    getActivity().finish();
                                 }
 
                                 @Override

@@ -1,5 +1,6 @@
 package bassiouny.ahmed.waslabank.api;
 
+import bassiouny.ahmed.waslabank.api.apiModel.response.GenericResponse;
 import bassiouny.ahmed.waslabank.api.apiModel.response.ParentResponse;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.UserLoginRequest;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.UserSignUpRequest;
@@ -100,16 +101,16 @@ public class ApiRequests {
     // url => registration/check_email_phone
     // parameter => phone , email
     public static void checkEmailAndPhone(UserSignUpRequest userSignUpRequest, final BaseResponseInterface anInterface) {
-        Call<ParentResponse> response = ApiConfig.httpApiInterface.checkUserData("registration/check_email_phone", userSignUpRequest);
-        response.enqueue(new Callback<ParentResponse>() {
+        Call<GenericResponse> response = ApiConfig.httpApiInterface.checkUserData("registration/check_email_phone", userSignUpRequest);
+        response.enqueue(new Callback<GenericResponse>() {
             @Override
-            public void onResponse(Call<ParentResponse> call, Response<ParentResponse> response) {
+            public void onResponse(Call<GenericResponse> call, Response<GenericResponse> response) {
                 // check on response and get data
                 checkValidResult(response, anInterface);
             }
 
             @Override
-            public void onFailure(Call<ParentResponse> call, Throwable t) {
+            public void onFailure(Call<GenericResponse> call, Throwable t) {
                 // get error message
                 anInterface.onFailed(t.getLocalizedMessage());
             }
@@ -120,16 +121,16 @@ public class ApiRequests {
     // url => registration/check_license_car_number
     // parameter => license number , car number
     public static void checkLicenseCarNumber(UserSignUpRequest userSignUpRequest, final BaseResponseInterface anInterface) {
-        Call<ParentResponse> response = ApiConfig.httpApiInterface.checkUserData("registration/check_car_number_license_number", userSignUpRequest);
-        response.enqueue(new Callback<ParentResponse>() {
+        Call<GenericResponse> response = ApiConfig.httpApiInterface.checkUserData("registration/check_car_number_license_number", userSignUpRequest);
+        response.enqueue(new Callback<GenericResponse>() {
             @Override
-            public void onResponse(Call<ParentResponse> call, Response<ParentResponse> response) {
+            public void onResponse(Call<GenericResponse> call, Response<GenericResponse> response) {
                 // check on response and get data
                 checkValidResult(response, anInterface);
             }
 
             @Override
-            public void onFailure(Call<ParentResponse> call, Throwable t) {
+            public void onFailure(Call<GenericResponse> call, Throwable t) {
                 // get error message
                 anInterface.onFailed(t.getLocalizedMessage());
             }

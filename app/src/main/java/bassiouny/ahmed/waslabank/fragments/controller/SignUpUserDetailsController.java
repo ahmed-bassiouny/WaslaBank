@@ -2,6 +2,7 @@ package bassiouny.ahmed.waslabank.fragments.controller;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.widget.ArrayAdapter;
 
@@ -43,7 +44,10 @@ public class SignUpUserDetailsController {
         builder.city(city);
         builder.notificationToken(Constant.NOTIFICATION_TOKEN);
         // save user data in shared pref
-        ApiRequests.signUp(builder.build(),MyUtils.convertFileToPart(image), anInterface);
+        if(image == null)
+            ApiRequests.signUp(builder.build(),null, anInterface);
+        else
+            ApiRequests.signUp(builder.build(),MyUtils.convertFileToPart(image), anInterface);
     }
     public void selectImage(Fragment fragment){
         Intent intent = new Intent();

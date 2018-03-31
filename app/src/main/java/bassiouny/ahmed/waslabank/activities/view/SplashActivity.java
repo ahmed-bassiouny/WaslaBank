@@ -8,7 +8,10 @@ import android.transition.TransitionInflater;
 import android.view.View;
 import android.widget.Button;
 
+import bassiouny.ahmed.genericmanager.SharedPrefManager;
 import bassiouny.ahmed.waslabank.R;
+import bassiouny.ahmed.waslabank.model.User;
+import bassiouny.ahmed.waslabank.utils.SharedPrefKey;
 import bassiouny.ahmed.waslabank.utils.SlideAnimationUtil;
 
 public class SplashActivity extends AppCompatActivity {
@@ -20,13 +23,12 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         findView();
         onClick();
+        checkUserLoged();
     }
 
     private void findView() {
         btnSignIn = findViewById(R.id.btn_sign_in);
         btnSignUp = findViewById(R.id.btn_sign_up);
-        //SlideAnimationUtil.slideInFromRight(this, btnSignIn);
-        //SlideAnimationUtil.slideInFromLeft(this, btnSignUp);
     }
 
     private void onClick() {
@@ -34,15 +36,21 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(SplashActivity.this,SignInActivity.class));
-                //overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
             }
         });
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(SplashActivity.this,SignUpActivity.class));
-                //overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
             }
         });
+    }
+    private void checkUserLoged(){
+        User user = SharedPrefManager.getObject(SharedPrefKey.USER,User.class);
+        if(user != null){
+            Intent intent = new Intent(SplashActivity.this,WaitingAdminActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 }

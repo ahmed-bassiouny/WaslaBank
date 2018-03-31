@@ -1,6 +1,7 @@
 package bassiouny.ahmed.waslabank.interfaces;
 
 import bassiouny.ahmed.waslabank.api.apiModel.ApiKey;
+import bassiouny.ahmed.waslabank.api.apiModel.response.GenericResponse;
 import bassiouny.ahmed.waslabank.api.apiModel.response.ParentResponse;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.UserLoginRequest;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.UserSignUpRequest;
@@ -32,5 +33,5 @@ public interface HttpApiInterface {
     , @Part(ApiKey.NOTIFICATION_TOKEN) RequestBody notificationToken);
 
     @POST()
-    Call<ParentResponse> checkUserData(@Url String url,@Body UserSignUpRequest user);
+    Call<GenericResponse> checkUserData(@Url String url, @Body UserSignUpRequest user);
 }
