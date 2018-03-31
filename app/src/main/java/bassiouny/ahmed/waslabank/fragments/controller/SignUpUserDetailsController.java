@@ -16,6 +16,7 @@ import bassiouny.ahmed.waslabank.interfaces.BaseResponseInterface;
 import bassiouny.ahmed.waslabank.utils.Constant;
 import bassiouny.ahmed.waslabank.utils.MyUtils;
 import bassiouny.ahmed.waslabank.utils.SharedPrefKey;
+import pl.aprilapps.easyphotopicker.EasyImage;
 
 /**
  * Created by bassiouny on 30/03/18.
@@ -51,9 +52,7 @@ public class SignUpUserDetailsController {
             ApiRequests.signUp(builder.build(),MyUtils.convertFileToPart(image), anInterface);
     }
     public void selectImage(Fragment fragment){
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        fragment.startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
+        EasyImage.openChooserWithGallery(fragment,"Select Picture", EasyImage.REQ_SOURCE_CHOOSER);
+
     }
 }

@@ -5,6 +5,8 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -24,6 +26,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.io.File;
+import java.util.List;
 
 import bassiouny.ahmed.genericmanager.SharedPrefManager;
 import bassiouny.ahmed.waslabank.R;
@@ -35,6 +38,8 @@ import bassiouny.ahmed.waslabank.model.User;
 import bassiouny.ahmed.waslabank.utils.Constant;
 import bassiouny.ahmed.waslabank.utils.FilePath;
 import bassiouny.ahmed.waslabank.utils.SharedPrefKey;
+import pl.aprilapps.easyphotopicker.DefaultCallback;
+import pl.aprilapps.easyphotopicker.EasyImage;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -84,10 +89,21 @@ public class SignUpUserDetailsFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK && data.getData() != null && requestCode == getController().PICK_IMAGE) {
-            image = new File(FilePath.getRealPathFromURI(getContext(), data.getData()));
-            ivAvatar.setImageURI(data.getData());
-        }
+        EasyImage.handleActivityResult(requestCode, resultCode, data, getActivity(), new DefaultCallback() {
+            @Override
+            public void onImagePickerError(Exception e, EasyImage.ImageSource source, int type) {
+                //Some error handling
+                Toast.makeText(getActivity(), e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onImagePicked(File imageFile, EasyImage.ImageSource source, int type) {
+                image = imageFile;
+                Bitmap myBitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
+                ivAvatar.setImageBitmap(myBitmap);
+            }
+
+        });
     }
 
     @Override
