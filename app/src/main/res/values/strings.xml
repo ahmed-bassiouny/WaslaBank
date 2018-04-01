@@ -6,14 +6,18 @@
     <string name="slogan">FREE..FAST..ON DEMAND</string>
     <string name="sign_in">Sign In</string>
     <string name="sign_up">Sign Up</string>
-    <string name="phone">Phone number</string>
+    <string name="phone">Phone Number</string>
+    <string name="phone_dots">Phone Number : </string>
     <string name="password">Password</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="name">Name</string>
     <string name="email">Email</string>
+    <string name="email_dots">Email : </string>
     <string name="next">Next</string>
     <string name="car_number">Car Number</string>
+    <string name="car_number_dots">Car Number : </string>
     <string name="license_number">License Number</string>
+    <string name="feedback">Feedback</string>
     <string name="one">1</string>
     <string name="two">2</string>
     <string name="three">3</string>
@@ -44,4 +48,7 @@
     <string name="invalid_license_number">License number is empty</string>
     <string name="invalid_identify_number">Idetify Number must be 14 number</string>
     <string name="waiting_admin">Waiting Admin Approve</string>
+    <string name="about">About</string>
+    <string name="current_requests">Current Requests</string>
+    <string name="history">History</string>
 </resources>

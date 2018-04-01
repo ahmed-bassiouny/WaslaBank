@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:context="bassiouny.ahmed.waslabank.activities.view.UserProfileActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:fitsSystemWindows="true"
+            android:scaleType="fitXY"
+            android:contentDescription="@null"
+            android:src="@drawable/jac"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:fitsSystemWindows="true"
+            android:scaleType="fitXY"
+            android:alpha="0.7"
+            android:contentDescription="@null"
+            android:src="@drawable/bgprimary"/>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/toolbar"
+            android:layout_margin="10dp">
+
+            <ImageView
+                android:layout_width="@dimen/tool_bar_icon_size"
+                android:layout_height="@dimen/tool_bar_icon_size"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_arrow_back"
+                android:tint="@color/white" />
+
+            <ImageView
+                android:layout_width="@dimen/tool_bar_icon_size"
+                android:layout_height="@dimen/tool_bar_icon_size"
+                android:layout_gravity="end"
+                android:layout_marginEnd="40dp"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_edit" />
+
+            <ImageView
+                android:layout_width="@dimen/tool_bar_icon_size"
+                android:layout_height="@dimen/tool_bar_icon_size"
+                android:layout_gravity="end"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_notifications_none" />
+        </FrameLayout>
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_avatar"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:contentDescription="@null"
+            android:layout_below="@+id/toolbar"
+            android:layout_centerInParent="true"
+            android:src="@drawable/jac" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_centerInParent="true"
+            android:textStyle="bold"
+            android:id="@+id/tv_user_name"
+            android:text="jackie chan"
+            android:textAllCaps="true"
+            android:layout_below="@+id/iv_avatar"
+            android:textColor="@color/white"
+            android:textSize="@dimen/button_size" />
+        <RatingBar
+            style="?android:attr/ratingBarStyleIndicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:numStars="5"
+            android:rating="5"
+            android:id="@+id/raring"
+            android:scaleX=".5"
+            android:scaleY=".5"
+            android:layout_below="@+id/tv_user_name"
+            android:layout_centerInParent="true"
+            android:stepSize="1" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/raring"
+            android:orientation="horizontal"
+            android:id="@+id/linear_number"
+            android:weightSum="3">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/colorPrimary"
+                android:gravity="center"
+                android:padding="15dp"
+                android:text="173 \n REQUESTS"
+                android:textColor="@color/white"
+                android:textSize="@dimen/small_text"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/second"
+                android:gravity="center"
+                android:padding="15dp"
+                android:text="2450 \n POINTS"
+                android:textColor="@color/white"
+                android:textSize="@dimen/small_text"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/third"
+                android:gravity="center"
+                android:padding="15dp"
+                android:text="96 \n ORDERS"
+                android:textColor="@color/white"
+                android:textSize="@dimen/small_text"
+                android:textStyle="bold" />
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:id="@+id/view"
+            android:layout_below="@+id/linear_number"
+            android:background="@color/gray_light"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/colorPrimary"
+            android:layout_alignTop="@+id/view"
+            android:layout_alignBottom="@+id/view"
+            android:textSize="@dimen/small_text"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:text="@string/about"
+            android:textAllCaps="true"
+            android:textColor="@color/white" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingBottom="5dp"
+            android:layout_alignTop="@+id/view"
+            android:layout_alignBottom="@+id/view"
+            android:textSize="@dimen/small_text"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="10dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:paddingTop="5dp"
+            android:text="@string/feedback"
+            android:textAllCaps="true"
+            android:textColor="@color/colorPrimary" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/view"
+            android:layout_alignBottom="@+id/view"
+            android:textSize="@dimen/small_text"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="20dp"
+            android:text="@string/history"
+            android:gravity="center"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:textAllCaps="true"
+            android:textColor="@color/colorPrimary" />
+        <FrameLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/view">
+            <!-- todo i will remove this fragment and make it with java -->
+            <fragment
+                android:name="bassiouny.ahmed.waslabank.fragments.view.AboutFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </FrameLayout>
+    </RelativeLayout>
+</ScrollView>
