@@ -6,7 +6,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray"
     tools:context=".activities.view.HomeActivity">
 
     <ImageView
@@ -16,7 +15,7 @@
         android:contentDescription="@null"
         android:fitsSystemWindows="true"
         android:scaleType="fitXY"
-        android:src="@drawable/bg" />
+        android:src="@drawable/bg_gray" />
 
     <ImageView
         android:id="@+id/bgprimary"
@@ -201,8 +200,8 @@
     <!-- first icon-->
     <android.support.v7.widget.CardView
         android:id="@+id/iv_create_service"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_below="@+id/bgprimary"
         android:layout_marginEnd="50dp"
         android:layout_marginTop="30dp"
@@ -215,17 +214,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="5dp"
-            android:tint="@color/yellow"
             android:contentDescription="@null"
-            android:src="@drawable/ic_directions_car" />
+            android:src="@drawable/car_plus" />
 
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_margin="5dp"
-            android:contentDescription="@null"
-            android:layout_gravity="end"
-            android:src="@drawable/ic_add_circle_" />
 
     </android.support.v7.widget.CardView>
 
@@ -235,7 +226,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/iv_create_service"
         android:layout_toStartOf="@+id/view"
-        android:layout_marginEnd="30dp"
+        android:layout_marginEnd="20dp"
         android:gravity="center"
         android:layout_marginTop="10dp"
         android:id="@+id/tv_create_service"
@@ -247,8 +238,8 @@
     <!-- second icon-->
     <android.support.v7.widget.CardView
         android:id="@+id/iv_all_service"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_below="@+id/bgprimary"
         android:layout_marginStart="50dp"
         android:layout_marginTop="30dp"
@@ -263,7 +254,7 @@
             android:layout_margin="5dp"
             android:padding="3dp"
             android:contentDescription="@null"
-            android:src="@drawable/ic_directions_car" />
+            android:src="@drawable/car" />
 
     </android.support.v7.widget.CardView>
 
@@ -274,7 +265,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/iv_all_service"
         android:layout_alignStart="@+id/iv_all_service"
-        android:layout_marginStart="-10dp"
+        android:layout_marginStart="-20dp"
         android:gravity="center"
         android:layout_marginTop="10dp"
         android:text="All Services"
@@ -285,8 +276,8 @@
     <!-- third icon-->
     <android.support.v7.widget.CardView
         android:id="@+id/iv_contact_us"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_below="@+id/tv_create_service"
         android:layout_marginEnd="50dp"
         android:layout_marginTop="30dp"
@@ -310,7 +301,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/iv_contact_us"
         android:layout_toStartOf="@+id/view"
-        android:layout_marginEnd="45dp"
+        android:layout_marginEnd="30dp"
         android:gravity="center"
         android:layout_marginTop="10dp"
         android:id="@+id/tv_contact_us"
@@ -321,8 +312,8 @@
     <!-- second icon-->
     <android.support.v7.widget.CardView
         android:id="@+id/iv_about"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_below="@+id/tv_all_service"
         android:layout_marginStart="50dp"
         android:layout_marginTop="30dp"
@@ -348,7 +339,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/iv_about"
         android:layout_alignStart="@+id/iv_all_service"
-        android:layout_marginStart="12dp"
         android:gravity="center"
         android:layout_marginTop="10dp"
         android:text="About"
@@ -358,8 +348,8 @@
     <!-- second icon-->
     <android.support.v7.widget.CardView
         android:id="@+id/iv_setting"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_below="@+id/tv_about"
         android:layout_marginStart="50dp"
         android:layout_marginTop="30dp"
@@ -388,7 +378,7 @@
         android:layout_marginStart="12dp"
         android:gravity="center"
         android:layout_marginTop="10dp"
-        android:text="About"
+        android:text="Setting"
         android:textColor="@color/colorPrimary"
         android:textAllCaps="true"/>
 
