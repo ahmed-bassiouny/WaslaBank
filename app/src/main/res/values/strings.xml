@@ -29,7 +29,7 @@
         <item>@string/one</item>
     </array>
     <string name="car_size">Car Size</string>
-    <string name="identify_number">Identify Number</string>
+    <string name="identify_number">ID Number</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
     <string name="city">City</string>
@@ -46,7 +46,7 @@
     <string name="invalid_confirm">Your password and confirm not match</string>
     <string name="invalid_car_number">Car number is empty</string>
     <string name="invalid_license_number">License number is empty</string>
-    <string name="invalid_identify_number">Idetify Number must be 14 number</string>
+    <string name="invalid_identify_number">ID Number must be 14 number</string>
     <string name="waiting_admin">Waiting Admin Approve</string>
     <string name="about">About</string>
     <string name="current_requests">Current Requests</string>

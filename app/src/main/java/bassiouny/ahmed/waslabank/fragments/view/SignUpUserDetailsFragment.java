@@ -30,6 +30,7 @@ import java.util.List;
 
 import bassiouny.ahmed.genericmanager.SharedPrefManager;
 import bassiouny.ahmed.waslabank.R;
+import bassiouny.ahmed.waslabank.activities.view.HomeActivity;
 import bassiouny.ahmed.waslabank.activities.view.SignInActivity;
 import bassiouny.ahmed.waslabank.activities.view.WaitingAdminActivity;
 import bassiouny.ahmed.waslabank.fragments.controller.SignUpUserDetailsController;
@@ -127,7 +128,7 @@ public class SignUpUserDetailsFragment extends Fragment {
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (etIdentifyNumber.getText().toString().trim().isEmpty()) {
+                if (etIdentifyNumber.getText().toString().length() != 14) {
                     etIdentifyNumber.setError(getString(R.string.invalid_identify_number));
                 } else {
                     loading(true);
@@ -139,7 +140,7 @@ public class SignUpUserDetailsFragment extends Fragment {
                                     // save user data in shared pref
                                     SharedPrefManager.setObject(SharedPrefKey.USER, user);
                                     // create intent
-                                    Intent intent = new Intent(getContext(), WaitingAdminActivity.class);
+                                    Intent intent = new Intent(getContext(), HomeActivity.class);
                                     // close splash screen activity
                                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

@@ -48,7 +48,7 @@ public class SplashActivity extends AppCompatActivity {
     private void checkUserLoged(){
         User user = SharedPrefManager.getObject(SharedPrefKey.USER,User.class);
         if(user != null){
-            Intent intent = new Intent(SplashActivity.this,WaitingAdminActivity.class);
+            Intent intent = new Intent(SplashActivity.this,HomeActivity.class);
             startActivity(intent);
             finish();
         }

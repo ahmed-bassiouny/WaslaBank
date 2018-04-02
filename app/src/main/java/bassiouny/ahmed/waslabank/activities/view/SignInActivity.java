@@ -66,7 +66,7 @@ public class SignInActivity extends AppCompatActivity {
                                     // save user data in shared pref
                                     SharedPrefManager.setObject(SharedPrefKey.USER,user);
                                     // create intent
-                                    Intent intent = new Intent(SignInActivity.this,WaitingAdminActivity.class);
+                                    Intent intent = new Intent(SignInActivity.this,HomeActivity.class);
                                     // close splash screen activity
                                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

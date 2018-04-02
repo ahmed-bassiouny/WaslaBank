@@ -2,17 +2,29 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/gray"
     tools:context=".activities.view.HomeActivity">
+
     <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.7"
+        android:contentDescription="@null"
+        android:fitsSystemWindows="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/bg" />
+
+    <ImageView
+        android:id="@+id/bgprimary"
         android:layout_width="match_parent"
         android:layout_height="220dp"
         android:contentDescription="@null"
         android:fitsSystemWindows="true"
         android:scaleType="fitXY"
-        android:id="@+id/bgprimary"
         android:src="@drawable/bgprimary" />
 
     <FrameLayout
@@ -26,15 +38,19 @@
             android:layout_height="@dimen/tool_bar_icon_size"
             android:contentDescription="@null"
             android:src="@drawable/ic_person"
+            android:id="@+id/iv_profile"
             android:tint="@color/white" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:text="jackie chan"
+            android:textAllCaps="true"
             android:textColor="@color/white"
             android:textSize="@dimen/input_size"
-            android:layout_gravity="center"
-            android:textAllCaps="true"/>
+            android:textStyle="bold" />
+
         <ImageView
             android:layout_width="@dimen/tool_bar_icon_size"
             android:layout_height="@dimen/tool_bar_icon_size"
@@ -43,22 +59,338 @@
             android:src="@drawable/ic_notifications_none" />
     </FrameLayout>
 
-    <TextView
+    <LinearLayout
+        android:id="@+id/linear_point"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar"
         android:layout_centerInParent="true"
-        android:textSize="20sp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/round_fill_black_alpha"
         android:gravity="center"
-        android:textColor="@color/third"
-        android:text="2450 \n POINTS"/>
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:contentDescription="@null"
-        android:fitsSystemWindows="true"
-        android:scaleType="fitXY"
+        android:orientation="vertical"
+        android:paddingBottom="7dp"
+        android:paddingEnd="15dp"
+        android:paddingStart="15dp"
+        android:paddingTop="5dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="false"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:lineSpacingExtra="0dp"
+            android:text="2450"
+            android:textColor="@color/third"
+            android:textSize="40sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="0.7"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:lineSpacingExtra="0dp"
+            android:text="POINTS"
+            android:textColor="@color/third"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/linear_point"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/linear_point"
+        android:layout_below="@+id/toolbar"
+        android:layout_toEndOf="@+id/linear_point"
+        android:gravity="center"
+
+        android:orientation="vertical"
+        android:paddingBottom="7dp"
+        android:paddingEnd="10dp"
+        android:paddingStart="10dp"
+        android:paddingTop="5dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="false"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:lineSpacingExtra="0dp"
+            android:text="96"
+            android:textColor="@color/third"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="0.7"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:lineSpacingExtra="0dp"
+            android:text="ORDERS"
+            android:textColor="@color/third"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/linear_point"
+        android:layout_alignParentStart="true"
+        android:layout_alignTop="@+id/linear_point"
+        android:layout_below="@+id/toolbar"
+        android:layout_toStartOf="@+id/linear_point"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingBottom="7dp"
+        android:paddingEnd="10dp"
+        android:paddingStart="10dp"
+        android:paddingTop="5dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="false"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:lineSpacingExtra="0dp"
+            android:text="173"
+            android:textColor="@color/third"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="0.7"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:lineSpacingExtra="0dp"
+            android:text="REQUESTS"
+            android:textColor="@color/third"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+
+    <RatingBar
+        android:id="@+id/raring"
+        style="?android:attr/ratingBarStyleIndicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linear_point"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:numStars="5"
+        android:rating="5"
+        android:scaleX=".5"
+        android:scaleY=".5"
+        android:stepSize="1" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_centerHorizontal="true" />
+
+    <!-- first icon-->
+    <android.support.v7.widget.CardView
+        android:id="@+id/iv_create_service"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:layout_below="@+id/bgprimary"
-        android:src="@drawable/bg" />
+        android:layout_marginEnd="50dp"
+        android:layout_marginTop="30dp"
+        android:layout_toStartOf="@+id/view"
+        app:cardBackgroundColor="@color/white"
+        card_view:cardCornerRadius="8dp"
+        android:elevation="8dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:tint="@color/yellow"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_directions_car" />
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="5dp"
+            android:contentDescription="@null"
+            android:layout_gravity="end"
+            android:src="@drawable/ic_add_circle_" />
+
+    </android.support.v7.widget.CardView>
+
+    <!-- first text-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_create_service"
+        android:layout_toStartOf="@+id/view"
+        android:layout_marginEnd="30dp"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:id="@+id/tv_create_service"
+        android:text="Create Service"
+        android:textAllCaps="true"
+        android:textColor="@color/colorPrimary"/>
+
+
+    <!-- second icon-->
+    <android.support.v7.widget.CardView
+        android:id="@+id/iv_all_service"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_below="@+id/bgprimary"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="30dp"
+        android:layout_toEndOf="@+id/view"
+        app:cardBackgroundColor="@color/white"
+        card_view:cardCornerRadius="8dp"
+        android:elevation="8dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:padding="3dp"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_directions_car" />
+
+    </android.support.v7.widget.CardView>
+
+    <!-- second text-->
+    <TextView
+        android:id="@+id/tv_all_service"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_all_service"
+        android:layout_alignStart="@+id/iv_all_service"
+        android:layout_marginStart="-10dp"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:text="All Services"
+        android:textColor="@color/colorPrimary"
+        android:textAllCaps="true"/>
+
+
+    <!-- third icon-->
+    <android.support.v7.widget.CardView
+        android:id="@+id/iv_contact_us"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_below="@+id/tv_create_service"
+        android:layout_marginEnd="50dp"
+        android:layout_marginTop="30dp"
+        android:layout_toStartOf="@+id/view"
+        app:cardBackgroundColor="@color/white"
+        card_view:cardCornerRadius="8dp"
+        android:elevation="8dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="7dp"
+            android:layout_margin="5dp"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_call" />
+    </android.support.v7.widget.CardView>
+
+    <!-- third text-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_contact_us"
+        android:layout_toStartOf="@+id/view"
+        android:layout_marginEnd="45dp"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:id="@+id/tv_contact_us"
+        android:text="Contact Us"
+        android:textAllCaps="true"
+        android:textColor="@color/colorPrimary"/>
+
+    <!-- second icon-->
+    <android.support.v7.widget.CardView
+        android:id="@+id/iv_about"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_below="@+id/tv_all_service"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="30dp"
+        android:layout_toEndOf="@+id/view"
+        app:cardBackgroundColor="@color/white"
+        card_view:cardCornerRadius="8dp"
+        android:elevation="8dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:contentDescription="@null"
+            android:padding="7dp"
+            android:src="@drawable/logo_w" />
+
+    </android.support.v7.widget.CardView>
+
+    <!-- second text-->
+    <TextView
+        android:id="@+id/tv_about"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_about"
+        android:layout_alignStart="@+id/iv_all_service"
+        android:layout_marginStart="12dp"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:text="About"
+        android:textColor="@color/colorPrimary"
+        android:textAllCaps="true"/>
+
+    <!-- second icon-->
+    <android.support.v7.widget.CardView
+        android:id="@+id/iv_setting"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_below="@+id/tv_about"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="30dp"
+        app:cardBackgroundColor="@color/white"
+        card_view:cardCornerRadius="8dp"
+        android:layout_centerHorizontal="true"
+        android:elevation="8dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:padding="7dp"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_settings" />
+
+    </android.support.v7.widget.CardView>
+
+    <!-- second text-->
+    <TextView
+        android:id="@+id/tv_setting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_setting"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="12dp"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:text="About"
+        android:textColor="@color/colorPrimary"
+        android:textAllCaps="true"/>
+
 
 </RelativeLayout>
