@@ -77,15 +77,14 @@
             android:textColor="@color/white"
             android:textSize="@dimen/button_size" />
         <RatingBar
-            style="?android:attr/ratingBarStyleIndicator"
+            style="?android:attr/ratingBarStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:numStars="5"
             android:rating="5"
             android:id="@+id/raring"
-            android:scaleX=".5"
-            android:scaleY=".5"
+            android:layout_margin="5dp"
             android:layout_below="@+id/tv_user_name"
             android:layout_centerInParent="true"
             android:stepSize="1" />
