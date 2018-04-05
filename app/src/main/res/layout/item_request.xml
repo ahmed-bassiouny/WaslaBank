@@ -12,14 +12,15 @@
     <View
         android:layout_width="10dp"
         android:layout_height="10dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="15dp"
         android:background="@drawable/circle_fill_white"
         android:id="@+id/view_circle"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="9:00 AM"
-        android:layout_marginStart="5dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="15dp"
         android:id="@+id/tv_time"
         android:includeFontPadding="false"
         android:lineSpacingExtra="0dp"
@@ -42,7 +43,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="john deo"
-                android:layout_marginStart="5dp"
+                android:layout_marginStart="10dp"
                 android:id="@+id/tv_user_name"
                 android:layout_toStartOf="@+id/raring"
                 android:textColor="@color/black"
@@ -59,8 +60,8 @@
                 android:layout_gravity="center"
                 android:numStars="5"
                 android:rating="5"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
                 android:layout_alignParentEnd="true"
                 android:stepSize="1" />
 
@@ -68,7 +69,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="From : Smouha Sports Club Smouha"
-                android:layout_marginStart="5dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
                 android:id="@+id/tv_location_from"
                 android:includeFontPadding="false"
                 android:lineSpacingExtra="0dp"
@@ -80,7 +82,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="To : Borg El-Arab"
-                android:layout_marginStart="5dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
                 android:includeFontPadding="false"
                 android:lineSpacingExtra="0dp"
                 android:id="@+id/tv_location_to"
@@ -94,17 +97,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginEnd="5dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="10dp"
                 android:includeFontPadding="false"
                 android:lineSpacingExtra="0dp"
                 android:layout_alignParentEnd="true" />
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="120dp"
                 android:scaleType="fitXY"
                 android:contentDescription="@null"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:layout_below="@+id/tv_location_to"
                 android:src="@drawable/map"/>
         </RelativeLayout>

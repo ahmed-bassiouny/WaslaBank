@@ -38,6 +38,7 @@ import bassiouny.ahmed.waslabank.interfaces.BaseResponseInterface;
 import bassiouny.ahmed.waslabank.model.User;
 import bassiouny.ahmed.waslabank.utils.Constant;
 import bassiouny.ahmed.waslabank.utils.FilePath;
+import bassiouny.ahmed.waslabank.utils.MyUtils;
 import bassiouny.ahmed.waslabank.utils.SharedPrefKey;
 import pl.aprilapps.easyphotopicker.DefaultCallback;
 import pl.aprilapps.easyphotopicker.EasyImage;
@@ -139,15 +140,7 @@ public class SignUpUserDetailsFragment extends Fragment {
                                 public void onSuccess(User user) {
                                     // save user data in shared pref
                                     SharedPrefManager.setObject(SharedPrefKey.USER, user);
-                                    // create intent
-                                    Intent intent = new Intent(getContext(), HomeActivity.class);
-                                    // close splash screen activity
-                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                    // stop loading
-                                    loading(false);
-                                    startActivity(intent);
-                                    getActivity().finish();
+                                    MyUtils.openHomeScreen(getActivity(),user);
                                 }
 
                                 @Override

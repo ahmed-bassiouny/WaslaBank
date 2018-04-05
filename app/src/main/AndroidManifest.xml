@@ -34,12 +34,12 @@
             android:name="io.fabric.ApiKey"
             android:value="a07905da1fb4c784f0369b04a71691297ca15843" />
 
-        <activity android:name=".activities.view.UserProfileActivity" />
+        <activity android:name=".activities.view.UserProfileActivity" >
+        </activity>
         <activity android:name=".activities.view.HomeActivity" />
         <activity
             android:name=".activities.view.RequestsActivity"
-            android:label="@string/title_activity_requests"
-            android:theme="@style/NoAction">
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

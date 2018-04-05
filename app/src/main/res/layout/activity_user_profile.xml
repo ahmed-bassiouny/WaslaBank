@@ -26,6 +26,7 @@
             android:alpha="0.7"
             android:contentDescription="@null"
             android:src="@drawable/bgprimary"/>
+<!--
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -54,6 +55,9 @@
                 android:contentDescription="@null"
                 android:src="@drawable/ic_notifications_none" />
         </FrameLayout>
+-->
+        <include layout="@layout/toolbar"
+            android:id="@+id/toolbar"/>
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/iv_avatar"
             android:layout_width="100dp"
@@ -61,7 +65,7 @@
             android:layout_gravity="center"
             android:contentDescription="@null"
             android:layout_below="@+id/toolbar"
-            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true"
             android:src="@drawable/jac" />
         <TextView
             android:layout_width="wrap_content"

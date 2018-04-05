@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         app:mcv_calendarMode="week"
         android:background="@color/white"
+        android:padding="5dp"
         app:mcv_selectionColor="@color/colorPrimary"
         app:mcv_tileHeight="40dp" />
 
@@ -19,13 +20,13 @@
         android:layout_width="1dp"
         android:layout_height="match_parent"
         android:background="@color/gray"
-        android:layout_marginStart="15dp"
+        android:layout_marginStart="20dp"
         android:layout_below="@+id/calendarView"/>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler"
         android:layout_width="match_parent"
         android:layout_marginEnd="10dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="15dp"
         android:layout_below="@+id/calendarView"
         android:layout_height="match_parent" />
 

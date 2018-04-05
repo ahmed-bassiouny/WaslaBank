@@ -1,5 +1,7 @@
 package bassiouny.ahmed.waslabank.utils;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,7 +11,11 @@ import android.support.v4.app.FragmentTransaction;
 
 import java.io.File;
 
+import bassiouny.ahmed.waslabank.activities.view.HomeActivity;
+import bassiouny.ahmed.waslabank.activities.view.SignInActivity;
+import bassiouny.ahmed.waslabank.activities.view.WaitingAdminActivity;
 import bassiouny.ahmed.waslabank.api.apiModel.ApiKey;
+import bassiouny.ahmed.waslabank.model.User;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -61,4 +67,19 @@ public class MyUtils {
         return RequestBody.create(okhttp3.MultipartBody.FORM, str);
     }
 
+    public static void openHomeScreen(Activity activity, User user){
+        // create intent
+        Intent intent;
+
+        if(user.getApproved()){
+            intent = new Intent(activity,HomeActivity.class);
+        }else {
+            intent = new Intent(activity,WaitingAdminActivity.class);
+        }
+        // close splash screen activity
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        activity.startActivity(intent);
+        activity.finish();
+    }
 }

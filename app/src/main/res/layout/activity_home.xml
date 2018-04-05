@@ -363,7 +363,7 @@
             android:layout_margin="5dp"
             android:padding="7dp"
             android:contentDescription="@null"
-            android:src="@drawable/ic_settings" />
+            android:src="@drawable/ic_call_missed" />
 
     </android.support.v7.widget.CardView>
 
@@ -377,7 +377,7 @@
         android:layout_marginStart="12dp"
         android:gravity="center"
         android:layout_marginTop="10dp"
-        android:text="Setting"
+        android:text="Logout"
         android:textColor="@color/colorPrimary"
         android:textAllCaps="true"/>
 
