@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg"
+    android:background="@drawable/background1"
     android:padding="15dp"
     tools:context="bassiouny.ahmed.waslabank.fragments.view.SignUpFragment">
 
@@ -53,7 +53,6 @@
         android:layout_marginTop="10dp"
         android:background="@drawable/round_fill_white_border"
         android:drawableStart="@drawable/ic_vpn_key"
-        android:drawableEnd="@drawable/ic_visibility"
         android:paddingStart="15dp"
         android:paddingEnd="15dp"
         android:alpha=".7"

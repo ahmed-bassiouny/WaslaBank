@@ -46,6 +46,8 @@ public class RequestsActivity extends MyToolbar {
         setContentView(R.layout.activity_requests);
         //set toolbar setting
         initToolbar("Requests");
+        addNotificationImage();
+        addBackImage();
         addSupportActionbar();
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.

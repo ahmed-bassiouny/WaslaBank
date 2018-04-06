@@ -15,6 +15,8 @@ public class UserProfileActivity extends MyToolbar {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
         initToolbar("Profile");
+        addBackImage();
+        addNotificationImage();
         addSupportActionbar();
     }
 }

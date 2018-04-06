@@ -14,9 +14,10 @@ import bassiouny.ahmed.genericmanager.SharedPrefManager;
 import bassiouny.ahmed.waslabank.R;
 import bassiouny.ahmed.waslabank.adapter.HomeMenuItem;
 import bassiouny.ahmed.waslabank.interfaces.ItemClickInterface;
+import bassiouny.ahmed.waslabank.utils.MyToolbar;
 import bassiouny.ahmed.waslabank.utils.SharedPrefKey;
 
-public class HomeActivity extends AppCompatActivity implements ItemClickInterface {
+public class HomeActivity extends MyToolbar implements ItemClickInterface {
 
     private RecyclerView recyclerView;
     private int[] menuImages;
@@ -26,15 +27,13 @@ public class HomeActivity extends AppCompatActivity implements ItemClickInterfac
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        initToolbar("John Deo");
+        addProfileImage();
+        addNotificationImage();
+        addSupportActionbar();
         findView();
         initObject();
         onClick();
-        findViewById(R.id.iv_profile).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(HomeActivity.this, UserProfileActivity.class));
-            }
-        });
     }
 
     private void initObject() {
@@ -89,7 +88,7 @@ public class HomeActivity extends AppCompatActivity implements ItemClickInterfac
     @Override
     public void getItem(@Nullable Object o, int position) {
         if(position == 4){
-            SharedPrefManager.setObject(SharedPrefKey.USER,"");
+            SharedPrefManager.clearSharedPref();
             startActivity(new Intent(HomeActivity.this,SplashActivity.class));
             finish();
         }

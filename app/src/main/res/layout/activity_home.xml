@@ -20,43 +20,15 @@
     <ImageView
         android:id="@+id/bgprimary"
         android:layout_width="match_parent"
-        android:layout_height="220dp"
+        android:layout_height="200dp"
         android:contentDescription="@null"
         android:fitsSystemWindows="true"
         android:scaleType="fitXY"
         android:src="@drawable/bgprimary" />
 
-    <FrameLayout
+    <include
         android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp">
-
-        <ImageView
-            android:layout_width="@dimen/tool_bar_icon_size"
-            android:layout_height="@dimen/tool_bar_icon_size"
-            android:contentDescription="@null"
-            android:src="@drawable/ic_person"
-            android:id="@+id/iv_profile"
-            android:tint="@color/white" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="jackie chan"
-            android:textAllCaps="true"
-            android:textColor="@color/white"
-            android:textSize="@dimen/input_size"
-            android:textStyle="bold" />
-
-        <ImageView
-            android:layout_width="@dimen/tool_bar_icon_size"
-            android:layout_height="@dimen/tool_bar_icon_size"
-            android:layout_gravity="end"
-            android:contentDescription="@null"
-            android:src="@drawable/ic_notifications_none" />
-    </FrameLayout>
+        layout="@layout/toolbar" />
 
     <LinearLayout
         android:id="@+id/linear_point"

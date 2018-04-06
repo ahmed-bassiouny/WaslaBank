@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="15dp"
-    android:background="@drawable/bg"
+    android:background="@drawable/background1"
     tools:context="bassiouny.ahmed.waslabank.activities.view.SignUpActivity">
 
     <ImageView

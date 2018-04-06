@@ -44,7 +44,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     // my library
-    implementation 'com.github.ahmed-bassiouny:GenericManager-Android:1.2'
+    implementation 'com.github.ahmed-bassiouny:GenericManager-Android:1.7'
     // retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.4.1'
