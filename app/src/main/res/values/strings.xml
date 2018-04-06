@@ -56,4 +56,11 @@
     <string name="past_requests">Past Requests</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
+    <array name="menu">
+        <item>Create Service</item>
+        <item>All Services</item>
+        <item>Contact Us</item>
+        <item>About</item>
+        <item>Logout</item>
+    </array>
 </resources>
