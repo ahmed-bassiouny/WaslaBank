@@ -24,11 +24,7 @@
         <activity
             android:name=".activities.view.SplashActivity"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".activities.view.WaitingAdminActivity"
@@ -39,6 +35,11 @@
             android:value="a07905da1fb4c784f0369b04a71691297ca15843" />
 
         <activity android:name=".activities.view.UserProfileActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".activities.view.HomeActivity" />
         <activity

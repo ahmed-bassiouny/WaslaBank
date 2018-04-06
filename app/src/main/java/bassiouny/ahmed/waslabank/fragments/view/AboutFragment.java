@@ -15,8 +15,17 @@ import bassiouny.ahmed.waslabank.R;
 public class AboutFragment extends Fragment {
 
 
+    private static AboutFragment mInstance;
+
     public AboutFragment() {
         // Required empty public constructor
+    }
+
+    public static AboutFragment getInstance() {
+        if (mInstance == null) {
+            mInstance = new AboutFragment();
+        }
+        return mInstance;
     }
 
 
