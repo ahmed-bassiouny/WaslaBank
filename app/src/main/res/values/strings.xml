@@ -49,10 +49,12 @@
     <string name="invalid_identify_number">ID Number must be 14 number</string>
     <string name="waiting_admin">Waiting Admin Approve</string>
     <string name="about">About</string>
+    <string name="driver">Driver</string>
     <string name="current_requests">Current Requests</string>
     <string name="history">History</string>
     <string name="title_activity_requests">RequestsActivity</string>
     <string name="requests">Requests</string>
+    <string name="request">Request</string>
     <string name="past_requests">Past Requests</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
@@ -64,4 +66,7 @@
         <item>Logout</item>
     </array>
     <string name="join_trip">Join Trip</string>
+    <string name="trip_details">Trip Details</string>
+    <string name="title_activity_request_info">RequestInfoActivity</string>
+
 </resources>

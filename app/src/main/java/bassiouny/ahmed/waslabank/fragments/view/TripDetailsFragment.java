@@ -15,8 +15,17 @@ import bassiouny.ahmed.waslabank.R;
 public class TripDetailsFragment extends Fragment {
 
 
+    private static TripDetailsFragment mInstance;
+
     public TripDetailsFragment() {
         // Required empty public constructor
+    }
+
+    public static TripDetailsFragment getInstance() {
+        if (mInstance == null) {
+            mInstance = new TripDetailsFragment();
+        }
+        return mInstance;
     }
 
 
