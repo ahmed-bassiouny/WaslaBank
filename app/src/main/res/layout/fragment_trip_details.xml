@@ -1,0 +1,99 @@
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    tools:context="bassiouny.ahmed.waslabank.fragments.view.TripDetailsFragment">
+
+    <TextView
+        android:id="@+id/tv_from_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:text="From : "
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/input_size"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_from"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:text="Smouha Sports Club Smouha"
+        android:textSize="@dimen/input_size"
+        app:layout_constraintStart_toEndOf="@+id/tv_from_name"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_to_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:text="To : "
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/input_size"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_from" />
+
+    <TextView
+        android:id="@+id/tv_to"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="Borg El-Arab"
+        android:textSize="@dimen/input_size"
+        app:layout_constraintStart_toEndOf="@+id/tv_to_name"
+        app:layout_constraintTop_toTopOf="@+id/tv_to_name" />
+
+    <TextView
+        android:id="@+id/tv_car_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:textSize="@dimen/input_size"
+        android:text="3/4"
+        android:drawablePadding="8dp"
+        android:drawableStart="@drawable/ic_directions_car"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_to" />
+
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:textSize="@dimen/input_size"
+        android:text="15-4-2018"
+        android:drawablePadding="8dp"
+        android:drawableStart="@drawable/ic_date_range"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_car_size" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/join_trip"
+        android:background="@drawable/round_fill_accent"
+        android:textColor="@color/white"
+        android:paddingStart="50dp"
+        android:paddingEnd="50dp"
+        android:textSize="@dimen/button_size"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_date" />
+</android.support.constraint.ConstraintLayout>

@@ -63,4 +63,5 @@
         <item>About</item>
         <item>Logout</item>
     </array>
+    <string name="join_trip">Join Trip</string>
 </resources>
