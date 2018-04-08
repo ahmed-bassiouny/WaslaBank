@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import bassiouny.ahmed.waslabank.R;
+import bassiouny.ahmed.waslabank.fragments.view.AboutDriverFragment;
 import bassiouny.ahmed.waslabank.fragments.view.AboutFragment;
 import bassiouny.ahmed.waslabank.fragments.view.FeedbackFragment;
 import bassiouny.ahmed.waslabank.fragments.view.TripDetailsFragment;
@@ -84,7 +85,7 @@ public class RequestInfoActivity extends MyToolbar {
                 case 0:
                     return TripDetailsFragment.getInstance();
                 case 1:
-                    return AboutFragment.getInstance();
+                    return AboutDriverFragment.getInstance();
                 case 2:
                     return FeedbackFragment.getInstance();
 
