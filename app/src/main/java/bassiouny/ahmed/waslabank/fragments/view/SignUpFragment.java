@@ -43,7 +43,7 @@ public class SignUpFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_sign_up, container, false);
@@ -83,9 +83,9 @@ public class SignUpFragment extends Fragment {
                 if (etName.getText().toString().trim().isEmpty()) {
                     etName.setError(getString(R.string.invalid_name));
                 } else if (etPhone.getText().toString().length() != 11) {
-                    etPhone.setError(getString(R.string.invalid_phone_lenght));
+                    etPhone.setError(getString(R.string.invalid_phone_length));
                 } else if (etPassword.getText().toString().length() < 6) {
-                    etPassword.setError(getString(R.string.invalid_password_lenght));
+                    etPassword.setError(getString(R.string.invalid_password_length));
                 } else if (!etPassword.getText().toString().equals(etConfirmPassword.getText().toString())) {
                     etPassword.setError(getString(R.string.invalid_confirm));
                 } else {

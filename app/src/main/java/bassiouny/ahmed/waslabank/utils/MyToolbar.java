@@ -1,5 +1,6 @@
 package bassiouny.ahmed.waslabank.utils;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -22,6 +23,7 @@ import bassiouny.ahmed.waslabank.activities.view.UserProfileActivity;
  * Created by bassiouny on 05/04/18.
  */
 
+@SuppressLint("Registered")
 public class MyToolbar extends AppCompatActivity {
 
     private Toolbar toolbar;

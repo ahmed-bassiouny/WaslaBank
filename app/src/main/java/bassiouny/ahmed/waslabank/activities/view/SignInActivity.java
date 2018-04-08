@@ -1,7 +1,5 @@
 package bassiouny.ahmed.waslabank.activities.view;
 
-import android.content.Intent;
-import android.support.v4.content.IntentCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -54,9 +52,9 @@ public class SignInActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (etPhone.getText().toString().length() != 11) {
-                    etPhone.setError(getString(R.string.invalid_phone_lenght));
+                    etPhone.setError(getString(R.string.invalid_phone_length));
                 } else if (etPassword.getText().toString().length() < 6) {
-                    etPassword.setError(getString(R.string.invalid_password_lenght));
+                    etPassword.setError(getString(R.string.invalid_password_length));
                 } else {
                     // start login process
                     loading(true);

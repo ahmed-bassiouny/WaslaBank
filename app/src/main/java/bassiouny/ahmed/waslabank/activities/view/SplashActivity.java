@@ -3,8 +3,6 @@ package bassiouny.ahmed.waslabank.activities.view;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.transition.Transition;
-import android.transition.TransitionInflater;
 import android.view.View;
 import android.widget.Button;
 
@@ -12,7 +10,6 @@ import bassiouny.ahmed.genericmanager.SharedPrefManager;
 import bassiouny.ahmed.waslabank.R;
 import bassiouny.ahmed.waslabank.model.User;
 import bassiouny.ahmed.waslabank.utils.SharedPrefKey;
-import bassiouny.ahmed.waslabank.utils.SlideAnimationUtil;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -23,7 +20,7 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         findView();
         onClick();
-        checkUserLoged();
+        checkUserAccess();
     }
 
     private void findView() {
@@ -45,7 +42,7 @@ public class SplashActivity extends AppCompatActivity {
             }
         });
     }
-    private void checkUserLoged(){
+    private void checkUserAccess(){
         User user = SharedPrefManager.getObject(SharedPrefKey.USER,User.class);
         if(user != null){
             Intent intent = new Intent(SplashActivity.this,HomeActivity.class);

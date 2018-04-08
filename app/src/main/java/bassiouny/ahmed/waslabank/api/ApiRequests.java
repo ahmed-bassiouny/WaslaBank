@@ -1,5 +1,7 @@
 package bassiouny.ahmed.waslabank.api;
 
+import android.support.annotation.NonNull;
+
 import bassiouny.ahmed.waslabank.api.apiModel.response.GenericResponse;
 import bassiouny.ahmed.waslabank.api.apiModel.response.ParentResponse;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.UserLoginRequest;
@@ -53,13 +55,13 @@ public class ApiRequests {
         Call<UserResponse> response = ApiConfig.httpApiInterface.login(userLoginRequest);
         response.enqueue(new Callback<UserResponse>() {
             @Override
-            public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
+            public void onResponse(@NonNull Call<UserResponse> call, @NonNull Response<UserResponse> response) {
                 // check on response and get data
                 checkValidResult(response, anInterface);
             }
 
             @Override
-            public void onFailure(Call<UserResponse> call, Throwable t) {
+            public void onFailure(@NonNull Call<UserResponse> call, @NonNull Throwable t) {
                 // get error message
                 anInterface.onFailed(t.getLocalizedMessage());
             }
@@ -84,13 +86,13 @@ public class ApiRequests {
                 , MyUtils.createPartFromString(userSignUpRequest.getNotificationToken()));
         response.enqueue(new Callback<UserResponse>() {
             @Override
-            public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
+            public void onResponse(@NonNull Call<UserResponse> call, @NonNull Response<UserResponse> response) {
                 // check on response and get data
                 checkValidResult(response, anInterface);
             }
 
             @Override
-            public void onFailure(Call<UserResponse> call, Throwable t) {
+            public void onFailure(@NonNull Call<UserResponse> call, @NonNull Throwable t) {
                 // get error message
                 anInterface.onFailed(t.getLocalizedMessage());
             }
@@ -104,13 +106,13 @@ public class ApiRequests {
         Call<GenericResponse> response = ApiConfig.httpApiInterface.checkUserData("registration/check_email_phone", userSignUpRequest);
         response.enqueue(new Callback<GenericResponse>() {
             @Override
-            public void onResponse(Call<GenericResponse> call, Response<GenericResponse> response) {
+            public void onResponse(@NonNull Call<GenericResponse> call, @NonNull Response<GenericResponse> response) {
                 // check on response and get data
                 checkValidResult(response, anInterface);
             }
 
             @Override
-            public void onFailure(Call<GenericResponse> call, Throwable t) {
+            public void onFailure(@NonNull Call<GenericResponse> call, @NonNull Throwable t) {
                 // get error message
                 anInterface.onFailed(t.getLocalizedMessage());
             }
@@ -124,13 +126,13 @@ public class ApiRequests {
         Call<GenericResponse> response = ApiConfig.httpApiInterface.checkUserData("registration/check_car_number_license_number", userSignUpRequest);
         response.enqueue(new Callback<GenericResponse>() {
             @Override
-            public void onResponse(Call<GenericResponse> call, Response<GenericResponse> response) {
+            public void onResponse(@NonNull Call<GenericResponse> call, @NonNull Response<GenericResponse> response) {
                 // check on response and get data
                 checkValidResult(response, anInterface);
             }
 
             @Override
-            public void onFailure(Call<GenericResponse> call, Throwable t) {
+            public void onFailure(@NonNull Call<GenericResponse> call, @NonNull Throwable t) {
                 // get error message
                 anInterface.onFailed(t.getLocalizedMessage());
             }

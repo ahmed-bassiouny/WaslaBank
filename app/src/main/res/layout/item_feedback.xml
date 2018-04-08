@@ -36,6 +36,7 @@
         android:layout_width="15dp"
         android:layout_height="15dp"
         android:src="@drawable/arrow"
+        android:contentDescription="@null"
         android:id="@+id/arrow"
         android:scaleType="fitXY"
         android:layout_marginStart="10dp"
