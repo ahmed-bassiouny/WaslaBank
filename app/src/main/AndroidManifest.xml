@@ -23,9 +23,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.view.SplashActivity"
-            android:screenOrientation="portrait">
-
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".activities.view.WaitingAdminActivity"
             android:screenOrientation="portrait" />
@@ -34,18 +32,21 @@
             android:name="io.fabric.ApiKey"
             android:value="a07905da1fb4c784f0369b04a71691297ca15843" />
 
-        <activity android:name=".activities.view.UserProfileActivity"/>
+        <activity android:name=".activities.view.UserProfileActivity" />
         <activity android:name=".activities.view.HomeActivity" />
         <activity
             android:name=".activities.view.RequestsActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.view.RequestInfoActivity"
-            android:screenOrientation="portrait"><intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter></activity>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activities.view.CurrentTripActivity"></activity>
     </application>
 
 </manifest>
