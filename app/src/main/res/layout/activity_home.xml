@@ -149,18 +149,13 @@
     </LinearLayout>
 
 
-    <RatingBar
-        android:id="@+id/raring"
-        style="?android:attr/ratingBarStyleSmall"
+    <include
+        layout="@layout/my_rating_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/linear_point"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center"
-        android:numStars="5"
-        android:rating="5"
         android:layout_marginTop="10dp"
-        android:stepSize="1" />
+        android:layout_centerHorizontal="true" />
 
     <View
         android:id="@+id/view"

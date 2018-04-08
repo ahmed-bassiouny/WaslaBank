@@ -52,18 +52,14 @@
                 android:lineSpacingExtra="0dp"
                 android:textSize="@dimen/input_size"
                 android:textAllCaps="true"/>
-            <RatingBar
-                android:id="@+id/raring"
-                style="?android:attr/ratingBarStyleSmall"
+            <include
+                layout="@layout/my_rating_bar"
+                android:id="@+id/rating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:numStars="5"
-                android:rating="5"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
-                android:layout_alignParentEnd="true"
-                android:stepSize="1" />
+                android:layout_alignParentEnd="true" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -75,7 +71,7 @@
                 android:includeFontPadding="false"
                 android:lineSpacingExtra="0dp"
                 android:layout_below="@+id/tv_user_name"
-                android:layout_toStartOf="@+id/raring"
+                android:layout_toStartOf="@+id/rating"
                 android:textSize="@dimen/small_text" />
 
             <TextView
@@ -88,10 +84,10 @@
                 android:lineSpacingExtra="0dp"
                 android:id="@+id/tv_location_to"
                 android:layout_below="@+id/tv_location_from"
-                android:layout_toStartOf="@+id/raring"
+                android:layout_toStartOf="@+id/rating"
                 android:textSize="@dimen/small_text" />
             <TextView
-                android:layout_below="@+id/raring"
+                android:layout_below="@+id/rating"
                 android:id="@+id/tv_rate"
                 android:text="3/4"
                 android:layout_width="wrap_content"

@@ -29,14 +29,8 @@
         android:text="ADAM"
         android:textColor="@color/black" />
 
-    <RatingBar
-        android:id="@+id/raring"
-        style="?android:attr/ratingBarStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:numStars="5"
-        android:rating="5"
-        android:stepSize="1" />
+    <include
+        layout="@layout/my_rating_bar" />
     </LinearLayout>
     <ImageView
         android:layout_width="15dp"

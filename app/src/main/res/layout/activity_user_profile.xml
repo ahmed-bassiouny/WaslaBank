@@ -51,23 +51,19 @@
             android:layout_below="@+id/iv_avatar"
             android:textColor="@color/white"
             android:textSize="@dimen/button_size" />
-        <RatingBar
-            style="?android:attr/ratingBarStyleSmall"
+        <include
+            layout="@layout/my_rating_bar"
+            android:id="@+id/rating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:numStars="5"
-            android:rating="5"
-            android:id="@+id/raring"
             android:layout_margin="5dp"
             android:layout_below="@+id/tv_user_name"
-            android:layout_centerInParent="true"
-            android:stepSize="1" />
+            android:layout_centerInParent="true" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/raring"
+            android:layout_below="@+id/rating"
             android:orientation="horizontal"
             android:id="@+id/linear_number"
             android:weightSum="3">

@@ -32,15 +32,12 @@
         app:layout_constraintStart_toEndOf="@+id/iv_avatar"
         app:layout_constraintTop_toTopOf="@+id/iv_avatar" />
 
-    <RatingBar
+    <include
+        layout="@layout/my_rating_bar"
         android:id="@+id/raring"
-        style="?android:attr/ratingBarStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:numStars="5"
-        android:rating="5"
-        android:stepSize="1"
         app:layout_constraintBottom_toBottomOf="@+id/iv_avatar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/iv_avatar"
