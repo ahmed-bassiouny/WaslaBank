@@ -34,5 +34,19 @@ public class ApiKey {
     public static final String VERIFICATION_CODE = "verification_code";
     public static final String USER_DETAILS = "user_details";
     public static final String CAR = "car";
+    public static final String PAGE = "page";
 
+    public static final String END_POINT_ADDRESS = "end_point_string";
+    public static final String END_POINT_LAT = "end_point_lat";
+    public static final String END_POINT_LNG = "end_point_lng";
+    public static final String IS_CANCELED = "is_canceled";
+    public static final String START_POINT_LNG = "start_point_lng";
+    public static final String START_POINT_LAT = "start_point_lat";
+    public static final String START_POINT_ADDRESS = "start_point_string";
+
+    public static final String RATE = "rate";
+    public static final String COMMENT = "comment";
+    public static final String DRIVER = "driver";
+    public static final String FEEDBACK = "";
+    public static final String DATE = "date";
 }

@@ -2,14 +2,21 @@ package bassiouny.ahmed.waslabank.api;
 
 import android.support.annotation.NonNull;
 
+import java.util.List;
+
+import bassiouny.ahmed.genericmanager.SharedPrefManager;
+import bassiouny.ahmed.waslabank.api.apiModel.requests.TripsByDate;
 import bassiouny.ahmed.waslabank.api.apiModel.response.GenericResponse;
 import bassiouny.ahmed.waslabank.api.apiModel.response.ParentResponse;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.UserLoginRequest;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.UserSignUpRequest;
+import bassiouny.ahmed.waslabank.api.apiModel.response.TripDetailsListResponse;
 import bassiouny.ahmed.waslabank.api.apiModel.response.UserResponse;
 import bassiouny.ahmed.waslabank.interfaces.BaseResponseInterface;
+import bassiouny.ahmed.waslabank.model.TripDetails;
 import bassiouny.ahmed.waslabank.model.User;
 import bassiouny.ahmed.waslabank.utils.MyUtils;
+import bassiouny.ahmed.waslabank.utils.SharedPrefKey;
 import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -133,6 +140,28 @@ public class ApiRequests {
 
             @Override
             public void onFailure(@NonNull Call<GenericResponse> call, @NonNull Throwable t) {
+                // get error message
+                anInterface.onFailed(t.getLocalizedMessage());
+            }
+        });
+    }
+
+
+    // get all trips created by user
+    // url => requests/drivers
+    // parameter => date , page getTripsByDate ( 10 , 20 , .. etc )
+    public static void getTripsByDate(TripsByDate tripsByDate, final BaseResponseInterface<List<TripDetails>> anInterface) {
+        String jwtToken = "Bearer "+ SharedPrefManager.getObject(SharedPrefKey.USER,User.class).getToken();
+        Call<TripDetailsListResponse> response = ApiConfig.httpApiInterface.getTripsByDate(jwtToken,tripsByDate);
+        response.enqueue(new Callback<TripDetailsListResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<TripDetailsListResponse> call, @NonNull Response<TripDetailsListResponse> response) {
+                // check on response and get data
+                checkValidResult(response, anInterface);
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<TripDetailsListResponse> call, @NonNull Throwable t) {
                 // get error message
                 anInterface.onFailed(t.getLocalizedMessage());
             }

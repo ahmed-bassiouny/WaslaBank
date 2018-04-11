@@ -1,15 +1,18 @@
 package bassiouny.ahmed.waslabank.interfaces;
 
 import bassiouny.ahmed.waslabank.api.apiModel.ApiKey;
+import bassiouny.ahmed.waslabank.api.apiModel.requests.TripsByDate;
 import bassiouny.ahmed.waslabank.api.apiModel.response.GenericResponse;
-import bassiouny.ahmed.waslabank.api.apiModel.response.ParentResponse;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.UserLoginRequest;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.UserSignUpRequest;
+import bassiouny.ahmed.waslabank.api.apiModel.response.TripDetailsListResponse;
 import bassiouny.ahmed.waslabank.api.apiModel.response.UserResponse;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.Header;
+import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
@@ -20,6 +23,8 @@ import retrofit2.http.Url;
  */
 
 public interface HttpApiInterface {
+    String HEADER_KEY = "Accept:application/json";
+    String AUTHORIZATION = "Authorization";
 
     @POST("auth/login")
     Call<UserResponse> login(@Body UserLoginRequest user);
@@ -34,4 +39,10 @@ public interface HttpApiInterface {
 
     @POST()
     Call<GenericResponse> checkUserData(@Url String url, @Body UserSignUpRequest user);
+
+    @POST("requests/drivers")
+    @Headers(HEADER_KEY)
+    Call<TripDetailsListResponse> getTripsByDate(@Header(AUTHORIZATION) String token, @Body TripsByDate tripsByDate);
+
+
 }

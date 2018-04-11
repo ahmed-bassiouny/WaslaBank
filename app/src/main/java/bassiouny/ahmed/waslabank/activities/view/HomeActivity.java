@@ -43,7 +43,7 @@ public class HomeActivity extends MyToolbar implements ItemClickInterface {
         menuStrings = getResources().getStringArray(R.array.menu);
         // check image and string array
         // if not equal throw exception to make app crush
-        if(menuImages.length != menuStrings.length)
+        if (menuImages.length != menuStrings.length)
             throw new RuntimeException("Image Array Not Equal String Array");
         // set item menu in recycler view
         setHomeMenu();
@@ -87,10 +87,17 @@ public class HomeActivity extends MyToolbar implements ItemClickInterface {
 
     @Override
     public void getItem(@Nullable Object o, int position) {
-        if(position == 4){
-            SharedPrefManager.clearSharedPref();
-            startActivity(new Intent(HomeActivity.this,SplashActivity.class));
-            finish();
+        switch (position) {
+            // all services
+            case 1:
+                startActivity(new Intent(HomeActivity.this, RequestsActivity.class));
+                break;
+            // log out
+            case 4:
+                SharedPrefManager.clearSharedPref();
+                startActivity(new Intent(HomeActivity.this, SplashActivity.class));
+                finish();
+                break;
         }
     }
 }
