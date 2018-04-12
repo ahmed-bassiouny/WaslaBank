@@ -8,4 +8,5 @@ public class SharedPrefKey {
 
     public static final String USER_REGISTER = "user_register";
     public static final String USER= "user";
+    public static final String USER_INFO = "user_info";
 }

@@ -13,10 +13,13 @@ import bassiouny.ahmed.waslabank.api.apiModel.requests.UserLoginRequest;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.UserSignUpRequest;
 import bassiouny.ahmed.waslabank.api.apiModel.response.TripDetailsListResponse;
 import bassiouny.ahmed.waslabank.api.apiModel.response.TripDetailsResponse;
+import bassiouny.ahmed.waslabank.api.apiModel.response.UserInfoResponse;
 import bassiouny.ahmed.waslabank.api.apiModel.response.UserResponse;
 import bassiouny.ahmed.waslabank.interfaces.BaseResponseInterface;
 import bassiouny.ahmed.waslabank.model.TripDetails;
 import bassiouny.ahmed.waslabank.model.User;
+import bassiouny.ahmed.waslabank.model.UserInfo;
+import bassiouny.ahmed.waslabank.utils.MyApplication;
 import bassiouny.ahmed.waslabank.utils.MyUtils;
 import bassiouny.ahmed.waslabank.utils.SharedPrefKey;
 import okhttp3.MultipartBody;
@@ -153,8 +156,7 @@ public class ApiRequests {
     // url => requests/drivers
     // parameter => date , page getTripsByDate ( 10 , 20 , .. etc )
     public static void getTripsByDate(TripsByDate tripsByDate, final BaseResponseInterface<List<TripDetails>> anInterface) {
-        String jwtToken = "Bearer "+ SharedPrefManager.getObject(SharedPrefKey.USER,User.class).getToken();
-        Call<TripDetailsListResponse> response = ApiConfig.httpApiInterface.getTripsByDate(jwtToken,tripsByDate);
+        Call<TripDetailsListResponse> response = ApiConfig.httpApiInterface.getTripsByDate(MyApplication.getUserToken(),tripsByDate);
         response.enqueue(new Callback<TripDetailsListResponse>() {
             @Override
             public void onResponse(@NonNull Call<TripDetailsListResponse> call, @NonNull Response<TripDetailsListResponse> response) {
@@ -174,8 +176,7 @@ public class ApiRequests {
     // url => requests/one/request
     // parameter => trip id
     public static void getTripRequestById(int tripId, final BaseResponseInterface<TripDetails> anInterface) {
-        String jwtToken = "Bearer "+ SharedPrefManager.getObject(SharedPrefKey.USER,User.class).getToken();
-        Call<TripDetailsResponse> response = ApiConfig.httpApiInterface.getTripRequestById(jwtToken,tripId);
+        Call<TripDetailsResponse> response = ApiConfig.httpApiInterface.getTripRequestById(MyApplication.getUserToken(),tripId);
         response.enqueue(new Callback<TripDetailsResponse>() {
             @Override
             public void onResponse(@NonNull Call<TripDetailsResponse> call, @NonNull Response<TripDetailsResponse> response) {
@@ -194,8 +195,7 @@ public class ApiRequests {
     // url => contact
     // parameter => user id , name, phone,subject , message
     public static void contactUs(ContactUsRequest contactUsRequest, final BaseResponseInterface anInterface) {
-        String jwtToken = "Bearer "+ SharedPrefManager.getObject(SharedPrefKey.USER,User.class).getToken();
-        Call<GenericResponse> response = ApiConfig.httpApiInterface.contactUs(jwtToken,contactUsRequest);
+        Call<GenericResponse> response = ApiConfig.httpApiInterface.contactUs(MyApplication.getUserToken(),contactUsRequest);
         response.enqueue(new Callback<GenericResponse>() {
             @Override
             public void onResponse(@NonNull Call<GenericResponse> call, @NonNull Response<GenericResponse> response) {
@@ -205,6 +205,26 @@ public class ApiRequests {
 
             @Override
             public void onFailure(@NonNull Call<GenericResponse> call, @NonNull Throwable t) {
+                // get error message
+                anInterface.onFailed(t.getLocalizedMessage());
+            }
+        });
+    }
+
+    // user information
+    // url =>
+    // parameter => token
+    public static void getUserInfo(final BaseResponseInterface<UserInfo> anInterface) {
+        Call<UserInfoResponse> response = ApiConfig.httpApiInterface.getUserInfo(MyApplication.getUserToken());
+        response.enqueue(new Callback<UserInfoResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<UserInfoResponse> call, @NonNull Response<UserInfoResponse> response) {
+                // check on response and get data
+                checkValidResult(response, anInterface);
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<UserInfoResponse> call, @NonNull Throwable t) {
                 // get error message
                 anInterface.onFailed(t.getLocalizedMessage());
             }

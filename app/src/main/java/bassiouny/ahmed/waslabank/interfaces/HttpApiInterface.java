@@ -8,6 +8,7 @@ import bassiouny.ahmed.waslabank.api.apiModel.requests.UserLoginRequest;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.UserSignUpRequest;
 import bassiouny.ahmed.waslabank.api.apiModel.response.TripDetailsListResponse;
 import bassiouny.ahmed.waslabank.api.apiModel.response.TripDetailsResponse;
+import bassiouny.ahmed.waslabank.api.apiModel.response.UserInfoResponse;
 import bassiouny.ahmed.waslabank.api.apiModel.response.UserResponse;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -57,6 +58,11 @@ public interface HttpApiInterface {
     @POST("contact")
     @Headers(HEADER_KEY)
     Call<GenericResponse> contactUs(@Header(AUTHORIZATION) String token, @Body ContactUsRequest contactUsRequest);
+
+
+    @POST("")
+    @Headers(HEADER_KEY)
+    Call<UserInfoResponse> getUserInfo(@Header(AUTHORIZATION) String token);
 
 
 }

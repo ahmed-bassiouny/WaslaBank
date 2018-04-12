@@ -8,18 +8,28 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.GridView;
+import android.widget.RatingBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import bassiouny.ahmed.genericmanager.SharedPrefManager;
 import bassiouny.ahmed.waslabank.R;
 import bassiouny.ahmed.waslabank.adapter.HomeMenuItem;
+import bassiouny.ahmed.waslabank.api.ApiRequests;
+import bassiouny.ahmed.waslabank.interfaces.BaseResponseInterface;
 import bassiouny.ahmed.waslabank.interfaces.ItemClickInterface;
+import bassiouny.ahmed.waslabank.model.User;
+import bassiouny.ahmed.waslabank.model.UserInfo;
 import bassiouny.ahmed.waslabank.utils.MyToolbar;
 import bassiouny.ahmed.waslabank.utils.SharedPrefKey;
 
 public class HomeActivity extends MyToolbar implements ItemClickInterface {
 
+    // view
     private RecyclerView recyclerView;
+    private TextView tvPoint, tvRequests, tvOrders;
+    private RatingBar rating;
+    //local variable
     private int[] menuImages;
     private String[] menuStrings;
 
@@ -27,13 +37,31 @@ public class HomeActivity extends MyToolbar implements ItemClickInterface {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        initToolbar("John Deo");
+        // add toolbar title
+        initToolbar(SharedPrefManager.getObject(SharedPrefKey.USER, User.class).getName());
+        // add profile image button
         addProfileImage();
+        // add notification image button
         addNotificationImage();
+        // set tool bar
         addSupportActionbar();
         findView();
         initObject();
-        onClick();
+        // get user information from shared pref
+        setUserData(SharedPrefManager.getObject(SharedPrefKey.USER_INFO, UserInfo.class));
+        // refresh user information
+        loadUserInformation();
+
+    }
+
+    // set user information in layout
+    private void setUserData(UserInfo userInfo) {
+        if (userInfo == null)
+            userInfo = new UserInfo();
+        tvRequests.setText(String.valueOf(userInfo.getRequests()));
+        tvPoint.setText(String.valueOf(userInfo.getPoint()));
+        tvOrders.setText(String.valueOf(userInfo.getOrders()));
+        rating.setRating(userInfo.getRate());
     }
 
     private void initObject() {
@@ -49,11 +77,12 @@ public class HomeActivity extends MyToolbar implements ItemClickInterface {
         setHomeMenu();
     }
 
-    private void onClick() {
-    }
-
     private void findView() {
         recyclerView = findViewById(R.id.recycler);
+        tvPoint = findViewById(R.id.tv_point);
+        tvRequests = findViewById(R.id.tv_requests);
+        tvOrders = findViewById(R.id.tv_order);
+        rating = findViewById(R.id.rating);
     }
 
     /*
@@ -103,5 +132,21 @@ public class HomeActivity extends MyToolbar implements ItemClickInterface {
                 finish();
                 break;
         }
+    }
+
+    // load user information from server
+    private void loadUserInformation(){
+        ApiRequests.getUserInfo(new BaseResponseInterface<UserInfo>() {
+            @Override
+            public void onSuccess(UserInfo userInfo) {
+                SharedPrefManager.setObject(SharedPrefKey.USER_INFO,userInfo);
+                setUserData(userInfo);
+            }
+
+            @Override
+            public void onFailed(String errorMessage) {
+
+            }
+        });
     }
 }

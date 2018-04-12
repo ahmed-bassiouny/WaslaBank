@@ -78,4 +78,6 @@
     <string name="invalid_subject">Subject Is Empty</string>
     <string name="invalid_message">Message Is Empty</string>
     <string name="thanks">Thanks</string>
+    <string name="points">Points</string>
+    <string name="orders">Orders</string>
 </resources>

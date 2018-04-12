@@ -50,7 +50,7 @@
             android:gravity="center"
             android:includeFontPadding="false"
             android:lineSpacingExtra="0dp"
-            android:text="2450"
+            android:id="@+id/tv_point"
             android:textColor="@color/third"
             android:textSize="40sp"
             android:textStyle="bold" />
@@ -62,7 +62,8 @@
             android:gravity="center"
             android:includeFontPadding="false"
             android:lineSpacingExtra="0dp"
-            android:text="POINTS"
+            android:text="@string/points"
+            android:textAllCaps="true"
             android:textColor="@color/third"
             android:textSize="15sp" />
     </LinearLayout>
@@ -90,7 +91,7 @@
             android:gravity="center"
             android:includeFontPadding="false"
             android:lineSpacingExtra="0dp"
-            android:text="96"
+            android:id="@+id/tv_order"
             android:textColor="@color/third"
             android:textSize="25sp"
             android:textStyle="bold" />
@@ -102,7 +103,8 @@
             android:gravity="center"
             android:includeFontPadding="false"
             android:lineSpacingExtra="0dp"
-            android:text="ORDERS"
+            android:text="@string/orders"
+            android:textAllCaps="true"
             android:textColor="@color/third"
             android:textSize="15sp" />
     </LinearLayout>
@@ -129,7 +131,7 @@
             android:gravity="center"
             android:includeFontPadding="false"
             android:lineSpacingExtra="0dp"
-            android:text="173"
+            android:id="@+id/tv_requests"
             android:textColor="@color/third"
             android:textSize="25sp"
             android:textStyle="bold" />
@@ -141,7 +143,8 @@
             android:gravity="center"
             android:includeFontPadding="false"
             android:lineSpacingExtra="0dp"
-            android:text="REQUESTS"
+            android:text="@string/requests"
+            android:textAllCaps="true"
             android:textColor="@color/third"
             android:textSize="15sp" />
     </LinearLayout>
