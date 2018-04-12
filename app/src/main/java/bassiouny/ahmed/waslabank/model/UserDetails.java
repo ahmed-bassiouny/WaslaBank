@@ -52,8 +52,12 @@ public class UserDetails {
         return MyUtils.getString(totalPoints);
     }
 
-    public String getTotalRate() {
-        return MyUtils.getString(totalRate);
+    public float getTotalRate() {
+        try {
+            return Float.parseFloat(MyUtils.getString(totalRate));
+        }catch (Exception e){
+            return 0;
+        }
     }
 
     public String getCity() {

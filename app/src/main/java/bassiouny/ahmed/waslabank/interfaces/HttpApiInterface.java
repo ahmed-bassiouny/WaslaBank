@@ -6,11 +6,14 @@ import bassiouny.ahmed.waslabank.api.apiModel.response.GenericResponse;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.UserLoginRequest;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.UserSignUpRequest;
 import bassiouny.ahmed.waslabank.api.apiModel.response.TripDetailsListResponse;
+import bassiouny.ahmed.waslabank.api.apiModel.response.TripDetailsResponse;
 import bassiouny.ahmed.waslabank.api.apiModel.response.UserResponse;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
@@ -43,6 +46,11 @@ public interface HttpApiInterface {
     @POST("requests/drivers")
     @Headers(HEADER_KEY)
     Call<TripDetailsListResponse> getTripsByDate(@Header(AUTHORIZATION) String token, @Body TripsByDate tripsByDate);
+/*
+    @FormUrlEncoded
+    @POST("requests/drivers")
+    @Headers(HEADER_KEY)
+    Call<TripDetailsResponse> getTripRequestById(@Header(AUTHORIZATION) String token, @Field(ApiKey.) String requestId);*/
 
 
 }

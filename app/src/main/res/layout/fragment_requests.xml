@@ -19,6 +19,8 @@
         android:layout_width="1dp"
         android:layout_height="match_parent"
         android:background="@color/gray"
+        android:id="@+id/line"
+        android:visibility="invisible"
         android:layout_marginStart="20dp"
         android:layout_below="@+id/calendarView"/>
     <android.support.v7.widget.RecyclerView
@@ -28,5 +30,11 @@
         android:layout_marginStart="15dp"
         android:layout_below="@+id/calendarView"
         android:layout_height="match_parent" />
-
+    <ViewStub
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout="@layout/progress"
+        android:id="@+id/view_stub_progress"
+        android:layout_below="@+id/calendarView"
+        android:layout_centerHorizontal="true"/>
 </RelativeLayout>

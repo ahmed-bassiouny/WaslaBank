@@ -90,7 +90,7 @@
                 android:textSize="@dimen/small_text" />
             <TextView
                 android:layout_below="@+id/rating"
-                android:id="@+id/tv_rate"
+                android:id="@+id/tv_car_size"
                 android:text="3/4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
