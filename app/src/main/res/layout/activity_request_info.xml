@@ -18,6 +18,13 @@
         layout="@layout/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+    <ViewStub
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout="@layout/progress"
+        android:id="@+id/view_stub_progress"
+        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"/>
 
     <TextView
         android:id="@+id/map"

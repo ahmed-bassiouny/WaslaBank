@@ -47,7 +47,7 @@ public class RequestsItem extends RecyclerView.Adapter<RequestsItem.MyViewHolder
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                    anInterface.getItem(list.get(getAdapterPosition()).getId(),getAdapterPosition());
                 }
             });
         }

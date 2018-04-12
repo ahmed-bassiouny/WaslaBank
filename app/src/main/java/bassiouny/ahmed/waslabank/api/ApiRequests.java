@@ -11,6 +11,7 @@ import bassiouny.ahmed.waslabank.api.apiModel.response.ParentResponse;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.UserLoginRequest;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.UserSignUpRequest;
 import bassiouny.ahmed.waslabank.api.apiModel.response.TripDetailsListResponse;
+import bassiouny.ahmed.waslabank.api.apiModel.response.TripDetailsResponse;
 import bassiouny.ahmed.waslabank.api.apiModel.response.UserResponse;
 import bassiouny.ahmed.waslabank.interfaces.BaseResponseInterface;
 import bassiouny.ahmed.waslabank.model.TripDetails;
@@ -162,6 +163,27 @@ public class ApiRequests {
 
             @Override
             public void onFailure(@NonNull Call<TripDetailsListResponse> call, @NonNull Throwable t) {
+                // get error message
+                anInterface.onFailed(t.getLocalizedMessage());
+            }
+        });
+    }
+
+    // get trip created by user
+    // url => requests/one/request
+    // parameter => trip id
+    public static void getTripRequestById(int tripId, final BaseResponseInterface<TripDetails> anInterface) {
+        String jwtToken = "Bearer "+ SharedPrefManager.getObject(SharedPrefKey.USER,User.class).getToken();
+        Call<TripDetailsResponse> response = ApiConfig.httpApiInterface.getTripRequestById(jwtToken,tripId);
+        response.enqueue(new Callback<TripDetailsResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<TripDetailsResponse> call, @NonNull Response<TripDetailsResponse> response) {
+                // check on response and get data
+                checkValidResult(response, anInterface);
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<TripDetailsResponse> call, @NonNull Throwable t) {
                 // get error message
                 anInterface.onFailed(t.getLocalizedMessage());
             }

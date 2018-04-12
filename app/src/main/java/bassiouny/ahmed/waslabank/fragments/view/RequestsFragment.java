@@ -1,6 +1,7 @@
 package bassiouny.ahmed.waslabank.fragments.view;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -21,6 +22,7 @@ import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 import java.util.List;
 
 import bassiouny.ahmed.waslabank.R;
+import bassiouny.ahmed.waslabank.activities.view.RequestInfoActivity;
 import bassiouny.ahmed.waslabank.adapter.RequestsItem;
 import bassiouny.ahmed.waslabank.fragments.controller.RequestsController;
 import bassiouny.ahmed.waslabank.interfaces.BaseResponseInterface;
@@ -37,7 +39,7 @@ public class RequestsFragment extends Fragment implements ItemClickInterface<Int
     private MaterialCalendarView calendarView;
     private ViewStub viewStubProgress;
     private View line;
-    // objects
+    // local variable
     private RequestsController controller;
     private int currentPage = 10;
     private RequestsItem adapter;
@@ -112,6 +114,11 @@ public class RequestsFragment extends Fragment implements ItemClickInterface<Int
 
     @Override
     public void getItem(@Nullable Integer tripId, int position) {
+        if(getActivity() == null)
+            return;
+        Intent intent = new Intent(getActivity(), RequestInfoActivity.class);
+        intent.putExtra("TRIP_ID",tripId);
+        startActivity(intent);
 
     }
     private void loading(boolean isLoading){

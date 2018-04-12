@@ -46,11 +46,11 @@ public interface HttpApiInterface {
     @POST("requests/drivers")
     @Headers(HEADER_KEY)
     Call<TripDetailsListResponse> getTripsByDate(@Header(AUTHORIZATION) String token, @Body TripsByDate tripsByDate);
-/*
+
     @FormUrlEncoded
-    @POST("requests/drivers")
+    @POST("requests/one/request")
     @Headers(HEADER_KEY)
-    Call<TripDetailsResponse> getTripRequestById(@Header(AUTHORIZATION) String token, @Field(ApiKey.) String requestId);*/
+    Call<TripDetailsResponse> getTripRequestById(@Header(AUTHORIZATION) String token, @Field(ApiKey.REQUEST_ID) int requestId);
 
 
 }

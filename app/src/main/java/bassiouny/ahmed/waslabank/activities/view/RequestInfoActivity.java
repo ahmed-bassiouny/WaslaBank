@@ -17,32 +17,35 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.view.ViewStub;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import bassiouny.ahmed.waslabank.R;
+import bassiouny.ahmed.waslabank.activities.controller.RequestInfoController;
 import bassiouny.ahmed.waslabank.fragments.view.AboutDriverFragment;
 import bassiouny.ahmed.waslabank.fragments.view.AboutFragment;
 import bassiouny.ahmed.waslabank.fragments.view.FeedbackFragment;
 import bassiouny.ahmed.waslabank.fragments.view.TripDetailsFragment;
+import bassiouny.ahmed.waslabank.interfaces.BaseResponseInterface;
+import bassiouny.ahmed.waslabank.interfaces.ParsingInterface;
+import bassiouny.ahmed.waslabank.model.TripDetails;
 import bassiouny.ahmed.waslabank.utils.MyToolbar;
 
 public class RequestInfoActivity extends MyToolbar {
 
-    /**
-     * The {@link android.support.v4.view.PagerAdapter} that will provide
-     * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
-     */
+    // view
     private SectionsPagerAdapter mSectionsPagerAdapter;
-
-    /**
-     * The {@link ViewPager} that will host the section contents.
-     */
     private ViewPager mViewPager;
+    private ViewStub viewStubProgress;
+    private TextView map;
+    private TabLayout tabLayout;
 
+
+    // local variable
+    private int tripId;
+    private RequestInfoController controller;
+    private ParsingInterface parsingInterface;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,26 +54,39 @@ public class RequestInfoActivity extends MyToolbar {
         addBackImage();
         addNotificationImage();
         addSupportActionbar();
+        findView();
+        initObjects();
+    }
 
+    private void initObjects() {
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
-        mViewPager = findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+        mViewPager.setOffscreenPageLimit(3);
 
-        TabLayout tabLayout = findViewById(R.id.tabs);
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
+
+        parsingInterface = (ParsingInterface) this;
+        // get trip id from intent
+        tripId = getIntent().getIntExtra("TRIP_ID",0);
+        if(tripId > 0 )
+            getTripDetails();
+    }
+
+    private void findView() {
+        mViewPager = findViewById(R.id.container);
+        viewStubProgress = findViewById(R.id.view_stub_progress);
+        map = findViewById(R.id.map);
+        tabLayout = findViewById(R.id.tabs);
+
     }
 
 
-    /**
-     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
-     * one of the sections/tabs/pages.
-     */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         public SectionsPagerAdapter(FragmentManager fm) {
@@ -97,6 +113,41 @@ public class RequestInfoActivity extends MyToolbar {
         public int getCount() {
             // Show 3 total pages.
             return 3;
+        }
+    }
+
+    private RequestInfoController getController() {
+        if (controller == null)
+            controller = new RequestInfoController(this);
+        return controller;
+    }
+
+    private void getTripDetails() {
+        loading(true);
+        getController().getTripRequestById(tripId, new BaseResponseInterface<TripDetails>() {
+            @Override
+            public void onSuccess(TripDetails tripDetails) {
+                parsingInterface.parseObject(truez);
+                loading(false);
+            }
+
+            @Override
+            public void onFailed(String errorMessage) {
+                viewStubProgress.setVisibility(View.INVISIBLE);
+                Toast.makeText(RequestInfoActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void loading(boolean isLoading) {
+        if (isLoading) {
+            viewStubProgress.setVisibility(View.VISIBLE);
+            tabLayout.setVisibility(View.INVISIBLE);
+            mViewPager.setVisibility(View.INVISIBLE);
+        } else {
+            viewStubProgress.setVisibility(View.INVISIBLE);
+            tabLayout.setVisibility(View.VISIBLE);
+            mViewPager.setVisibility(View.VISIBLE);
         }
     }
 }
