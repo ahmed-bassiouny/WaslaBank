@@ -13,11 +13,13 @@ import android.view.ViewGroup;
 
 import bassiouny.ahmed.waslabank.R;
 import bassiouny.ahmed.waslabank.adapter.FeedbackItem;
+import bassiouny.ahmed.waslabank.interfaces.ObserverInterface;
+import bassiouny.ahmed.waslabank.model.TripDetails;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FeedbackFragment extends Fragment {
+public class FeedbackFragment extends Fragment implements ObserverInterface<TripDetails> {
 
 
     private static FeedbackFragment mInstance;
@@ -51,6 +53,10 @@ public class FeedbackFragment extends Fragment {
     private void findView(View view) {
         recyclerView = view.findViewById(R.id.recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(new FeedbackItem());
+    }
+
+    @Override
+    public void update(TripDetails tripDetails) {
+        recyclerView.setAdapter(new FeedbackItem(tripDetails.getFeedbacks()));
     }
 }

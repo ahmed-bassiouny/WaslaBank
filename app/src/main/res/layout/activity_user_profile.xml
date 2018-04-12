@@ -146,23 +146,6 @@
             android:textAllCaps="true"
             android:textColor="@color/colorPrimary" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/view"
-            android:layout_alignBottom="@+id/view"
-            android:textSize="@dimen/small_text"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="20dp"
-            android:text="@string/history"
-            android:gravity="center"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp"
-            android:textAllCaps="true"
-            android:textColor="@color/colorPrimary" />
-
         <android.support.v4.view.ViewPager
             android:id="@+id/container"
             android:layout_width="match_parent"

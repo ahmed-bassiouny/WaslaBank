@@ -36,6 +36,8 @@ public class TripDetails {
     private String Canceled;
     @SerializedName(ApiKey.DATE_TIME)
     private String dateTime;
+    @SerializedName(ApiKey.AVAILABLE_PLACE)
+    private String availablePlaces;
     @SerializedName(ApiKey.DRIVER)
     private User driver;
     @SerializedName(ApiKey.FEEDBACK)
@@ -78,18 +80,26 @@ public class TripDetails {
     }
 
     public User getDriver() {
-        if(driver == null)
+        if (driver == null)
             driver = new User();
         return driver;
     }
 
     public List<Feedback> getFeedbacks() {
-        if(feedbacks == null)
+        if (feedbacks == null)
             feedbacks = new ArrayList<>();
         return feedbacks;
     }
 
+    public String getTime() {
+        return DateTimeManager.changeDateFormat(dateTime, DateTimeKey.DATE_TIME_24_FORMAT, DateTimeKey.TIME_24_WITHOUT_SECOND_FORMAT);
+    }
+
     public String getDateTime() {
-        return DateTimeManager.changeDateFormat(dateTime, DateTimeKey.DATE_TIME_24_FORMAT,DateTimeKey.TIME_24_WITHOUT_SECOND_FORMAT);
+        return dateTime;
+    }
+
+    public String getAvailablePlaces() {
+        return MyUtils.getString(availablePlaces);
     }
 }

@@ -51,7 +51,8 @@
             android:name=".activities.view.CurrentTripActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".activities.view.AboutUsActivity" />
-        <activity android:name=".activities.view.ContactUsActivity"></activity>
+        <activity android:name=".activities.view.ContactUsActivity"
+            android:windowSoftInputMode="adjustNothing"/>
     </application>
 
 </manifest>

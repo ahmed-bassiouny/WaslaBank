@@ -70,5 +70,12 @@
     <string name="title_activity_request_info">RequestInfoActivity</string>
     <string name="about_us">About US</string>
     <string name="contact_us">Contact US</string>
-
+    <string name="to">To :</string>
+    <string name="from">From :</string>
+    <string name="subject">Subject</string>
+    <string name="message">Message</string>
+    <string name="get_touch">Get In Touch</string>
+    <string name="invalid_subject">Subject Is Empty</string>
+    <string name="invalid_message">Message Is Empty</string>
+    <string name="thanks">Thanks</string>
 </resources>

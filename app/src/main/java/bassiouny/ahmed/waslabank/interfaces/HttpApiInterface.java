@@ -1,6 +1,7 @@
 package bassiouny.ahmed.waslabank.interfaces;
 
 import bassiouny.ahmed.waslabank.api.apiModel.ApiKey;
+import bassiouny.ahmed.waslabank.api.apiModel.requests.ContactUsRequest;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.TripsByDate;
 import bassiouny.ahmed.waslabank.api.apiModel.response.GenericResponse;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.UserLoginRequest;
@@ -51,6 +52,11 @@ public interface HttpApiInterface {
     @POST("requests/one/request")
     @Headers(HEADER_KEY)
     Call<TripDetailsResponse> getTripRequestById(@Header(AUTHORIZATION) String token, @Field(ApiKey.REQUEST_ID) int requestId);
+
+
+    @POST("contact")
+    @Headers(HEADER_KEY)
+    Call<GenericResponse> contactUs(@Header(AUTHORIZATION) String token, @Body ContactUsRequest contactUsRequest);
 
 
 }

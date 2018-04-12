@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import bassiouny.ahmed.waslabank.R;
+import bassiouny.ahmed.waslabank.fragments.view.PastRequestsFragment;
 import bassiouny.ahmed.waslabank.fragments.view.RequestsFragment;
 import bassiouny.ahmed.waslabank.utils.MyToolbar;
 
@@ -79,8 +80,13 @@ public class RequestsActivity extends MyToolbar {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-
-            return new RequestsFragment();
+            switch (position) {
+                case 0:
+                    return RequestsFragment.getInstance();
+                case 1:
+                    return PastRequestsFragment.getInstance();
+            }
+            return null;
         }
 
         @Override

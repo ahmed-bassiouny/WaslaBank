@@ -5,8 +5,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RatingBar;
+import android.widget.TextView;
+
+import java.util.List;
 
 import bassiouny.ahmed.waslabank.R;
+import bassiouny.ahmed.waslabank.model.Feedback;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by bassiouny on 03/04/18.
@@ -14,9 +20,25 @@ import bassiouny.ahmed.waslabank.R;
 
 public class FeedbackItem extends RecyclerView.Adapter<FeedbackItem.MyViewHolder> {
 
+    private List<Feedback> feedbackList;
+
+    public FeedbackItem(List<Feedback> feedbackList) {
+        this.feedbackList = feedbackList;
+    }
+
     public class MyViewHolder extends RecyclerView.ViewHolder {
+
+        private CircleImageView ivAvatar;
+        private TextView tvUserName;
+        private TextView tvComment;
+        private RatingBar ratingBar;
+
         public MyViewHolder(View view) {
             super(view);
+            ivAvatar = view.findViewById(R.id.iv_avatar);
+            tvUserName = view.findViewById(R.id.tv_user_name);
+            ratingBar = view.findViewById(R.id.rating);
+            tvComment = view.findViewById(R.id.tv_comment);
 
         }
     }
@@ -31,12 +53,15 @@ public class FeedbackItem extends RecyclerView.Adapter<FeedbackItem.MyViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-
+        Feedback item = feedbackList.get(position);
+        holder.tvComment.setText(item.getComment());
+        holder.ratingBar.setRating(item.getRate());
+        holder.tvUserName.setText(item.getUserName());
     }
 
     @Override
     public int getItemCount() {
-        return 4;
+        return feedbackList.size();
     }
 
 }

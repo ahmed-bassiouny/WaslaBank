@@ -67,7 +67,7 @@ public class RequestsItem extends RecyclerView.Adapter<RequestsItem.MyViewHolder
         holder.tvLocationFrom.setText(item.getStartPointText());
         holder.tvLocationTo.setText(item.getEndPointText());
         holder.tvUserName.setText(item.getDriver().getName());
-        holder.tvTime.setText(item.getDateTime());
+        holder.tvTime.setText(item.getTime());
         holder.rating.setRating(item.getDriver().getUserDetails().getTotalRate());
 
     }

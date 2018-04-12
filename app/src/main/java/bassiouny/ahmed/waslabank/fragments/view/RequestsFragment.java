@@ -34,6 +34,7 @@ import bassiouny.ahmed.waslabank.model.TripDetails;
  */
 public class RequestsFragment extends Fragment implements ItemClickInterface<Integer> {
 
+    private static RequestsFragment mInstance;
     // view
     private RecyclerView recyclerView;
     private MaterialCalendarView calendarView;
@@ -46,6 +47,13 @@ public class RequestsFragment extends Fragment implements ItemClickInterface<Int
 
     public RequestsFragment() {
         // Required empty public constructor
+    }
+
+    public static RequestsFragment getInstance() {
+        if (mInstance == null) {
+            mInstance = new RequestsFragment();
+        }
+        return mInstance;
     }
 
 

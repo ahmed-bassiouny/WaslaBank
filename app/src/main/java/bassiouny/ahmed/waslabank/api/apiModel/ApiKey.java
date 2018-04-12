@@ -9,6 +9,8 @@ public class ApiKey {
     public static final String MESSAGE = "message";
     public static final String DATA = "data";
     public static final String ID = "id";
+    public static final String USER_ID = "user_id";
+    public static final String SUBJECT = "subject";
     public static final String NAME = "name";
     public static final String PHONE = "phone";
     public static final String EMAIL = "email";
@@ -48,7 +50,8 @@ public class ApiKey {
     public static final String RATE = "rate";
     public static final String COMMENT = "comment";
     public static final String DRIVER = "driver";
-    public static final String FEEDBACK = "";
+    public static final String FEEDBACK = "feedback";
     public static final String DATE = "date";
     public static final String DATE_TIME = "date_time";
+    public static final String AVAILABLE_PLACE = "available_places";
 }

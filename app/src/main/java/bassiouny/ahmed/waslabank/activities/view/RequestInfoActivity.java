@@ -1,38 +1,34 @@
 package bassiouny.ahmed.waslabank.activities.view;
 
 import android.support.design.widget.TabLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 
 import android.view.ViewStub;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Observer;
+
 import bassiouny.ahmed.waslabank.R;
 import bassiouny.ahmed.waslabank.activities.controller.RequestInfoController;
 import bassiouny.ahmed.waslabank.fragments.view.AboutDriverFragment;
-import bassiouny.ahmed.waslabank.fragments.view.AboutFragment;
 import bassiouny.ahmed.waslabank.fragments.view.FeedbackFragment;
 import bassiouny.ahmed.waslabank.fragments.view.TripDetailsFragment;
 import bassiouny.ahmed.waslabank.interfaces.BaseResponseInterface;
-import bassiouny.ahmed.waslabank.interfaces.ParsingInterface;
+import bassiouny.ahmed.waslabank.interfaces.MyObserverInterface;
+import bassiouny.ahmed.waslabank.interfaces.ObserverInterface;
 import bassiouny.ahmed.waslabank.model.TripDetails;
 import bassiouny.ahmed.waslabank.utils.MyToolbar;
 
-public class RequestInfoActivity extends MyToolbar {
+public class RequestInfoActivity extends MyToolbar implements MyObserverInterface<TripDetails> {
 
     // view
     private SectionsPagerAdapter mSectionsPagerAdapter;
@@ -45,7 +41,8 @@ public class RequestInfoActivity extends MyToolbar {
     // local variable
     private int tripId;
     private RequestInfoController controller;
-    private ParsingInterface parsingInterface;
+    private List<ObserverInterface> observerInterfaces;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,10 +68,10 @@ public class RequestInfoActivity extends MyToolbar {
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
-        parsingInterface = (ParsingInterface) this;
+        observerInterfaces = new ArrayList<>();
         // get trip id from intent
-        tripId = getIntent().getIntExtra("TRIP_ID",0);
-        if(tripId > 0 )
+        tripId = getIntent().getIntExtra("TRIP_ID", 0);
+        if (tripId > 0)
             getTripDetails();
     }
 
@@ -84,6 +81,23 @@ public class RequestInfoActivity extends MyToolbar {
         map = findViewById(R.id.map);
         tabLayout = findViewById(R.id.tabs);
 
+    }
+
+    @Override
+    public void register(ObserverInterface observer) {
+        observerInterfaces.add(observer);
+    }
+
+    @Override
+    public void unregister(ObserverInterface observer) {
+        observerInterfaces.remove(observer);
+    }
+
+    @Override
+    public void notifyObservers(TripDetails tripDetails) {
+        for (ObserverInterface item : observerInterfaces) {
+            item.update(tripDetails);
+        }
     }
 
 
@@ -99,10 +113,13 @@ public class RequestInfoActivity extends MyToolbar {
             // Return a PlaceholderFragment (defined as a static inner class below).
             switch (position) {
                 case 0:
+                    register(TripDetailsFragment.getInstance());
                     return TripDetailsFragment.getInstance();
                 case 1:
+                    register(AboutDriverFragment.getInstance());
                     return AboutDriverFragment.getInstance();
                 case 2:
+                    register(FeedbackFragment.getInstance());
                     return FeedbackFragment.getInstance();
 
             }
@@ -127,8 +144,9 @@ public class RequestInfoActivity extends MyToolbar {
         getController().getTripRequestById(tripId, new BaseResponseInterface<TripDetails>() {
             @Override
             public void onSuccess(TripDetails tripDetails) {
-                parsingInterface.parseObject(truez);
+                //parsingInterface.parseObject(truez);
                 loading(false);
+                notifyObservers(tripDetails);
             }
 
             @Override
@@ -149,5 +167,14 @@ public class RequestInfoActivity extends MyToolbar {
             tabLayout.setVisibility(View.VISIBLE);
             mViewPager.setVisibility(View.VISIBLE);
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregister(TripDetailsFragment.getInstance());
+        unregister(AboutDriverFragment.getInstance());
+        unregister(FeedbackFragment.getInstance());
+
     }
 }

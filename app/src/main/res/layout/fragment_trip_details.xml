@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:text="From : "
+        android:text="@string/from"
         android:textColor="@color/colorPrimary"
         android:textSize="@dimen/input_size"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,7 +25,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:text="Smouha Sports Club Smouha"
         android:textSize="@dimen/input_size"
         app:layout_constraintStart_toEndOf="@+id/tv_from_name"
         app:layout_constraintTop_toTopOf="parent" />
@@ -36,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:text="To : "
+        android:text="@string/to"
         android:textColor="@color/colorPrimary"
         android:textSize="@dimen/input_size"
         app:layout_constraintStart_toStartOf="parent"
@@ -47,19 +46,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="Borg El-Arab"
         android:textSize="@dimen/input_size"
         app:layout_constraintStart_toEndOf="@+id/tv_to_name"
         app:layout_constraintTop_toTopOf="@+id/tv_to_name" />
 
     <TextView
-        android:id="@+id/tv_car_size"
+        android:id="@+id/tv_available_places"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:textSize="@dimen/input_size"
-        android:text="3/4"
         android:drawablePadding="8dp"
         android:drawableStart="@drawable/ic_directions_car"
         app:layout_constraintStart_toStartOf="parent"
@@ -72,14 +69,13 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:textSize="@dimen/input_size"
-        android:text="15-4-2018"
         android:drawablePadding="8dp"
         android:drawableStart="@drawable/ic_date_range"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_car_size" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_available_places" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btn_join_trip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"

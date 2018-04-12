@@ -92,6 +92,10 @@ public class HomeActivity extends MyToolbar implements ItemClickInterface {
             case 1:
                 startActivity(new Intent(HomeActivity.this, RequestsActivity.class));
                 break;
+            // contact us
+            case 2:
+                startActivity(new Intent(HomeActivity.this, ContactUsActivity.class));
+                break;
             // log out
             case 4:
                 SharedPrefManager.clearSharedPref();

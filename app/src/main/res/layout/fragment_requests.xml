@@ -1,40 +1,49 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-    <com.prolificinteractive.materialcalendarview.MaterialCalendarView
-        android:id="@+id/calendarView"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:mcv_calendarMode="week"
-        android:background="@color/white"
-        android:padding="5dp"
-        app:mcv_selectionColor="@color/colorPrimary"
-        app:mcv_tileHeight="40dp" />
+        android:layout_height="wrap_content">
 
-    <View
-        android:layout_width="1dp"
-        android:layout_height="match_parent"
-        android:background="@color/gray"
-        android:id="@+id/line"
-        android:visibility="invisible"
-        android:layout_marginStart="20dp"
-        android:layout_below="@+id/calendarView"/>
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler"
-        android:layout_width="match_parent"
-        android:layout_marginEnd="10dp"
-        android:layout_marginStart="15dp"
-        android:layout_below="@+id/calendarView"
-        android:layout_height="match_parent" />
-    <ViewStub
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout="@layout/progress"
-        android:id="@+id/view_stub_progress"
-        android:layout_below="@+id/calendarView"
-        android:layout_centerHorizontal="true"/>
-</RelativeLayout>
+        <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+            android:id="@+id/calendarView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:padding="5dp"
+            app:mcv_calendarMode="week"
+            app:mcv_selectionColor="@color/colorPrimary"
+            app:mcv_tileHeight="40dp" />
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/calendarView"
+            android:layout_marginStart="20dp"
+            android:background="@color/gray"
+            android:visibility="invisible" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/calendarView"
+            android:layout_marginEnd="10dp"
+            android:nestedScrollingEnabled="false"
+            android:layout_marginStart="15dp"
+            tools:targetApi="lollipop" />
+
+        <ViewStub
+            android:id="@+id/view_stub_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/calendarView"
+            android:layout_centerInParent="true"
+            android:layout="@layout/progress" />
+    </RelativeLayout>
+</android.support.v4.widget.NestedScrollView>
