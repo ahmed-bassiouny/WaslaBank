@@ -60,9 +60,10 @@ public interface HttpApiInterface {
     Call<GenericResponse> contactUs(@Header(AUTHORIZATION) String token, @Body ContactUsRequest contactUsRequest);
 
 
-    @POST("")
+    @FormUrlEncoded
+    @POST("home")
     @Headers(HEADER_KEY)
-    Call<UserInfoResponse> getUserInfo(@Header(AUTHORIZATION) String token);
+    Call<UserInfoResponse> getUserInfo(@Header(AUTHORIZATION) String token,@Field(ApiKey.ID) int userId);
 
 
 }

@@ -54,4 +54,6 @@ public class ApiKey {
     public static final String DATE = "date";
     public static final String DATE_TIME = "date_time";
     public static final String AVAILABLE_PLACE = "available_places";
+    public static final String TOTAL_REQUESTS = "my_total_requests";
+    public static final String TOTAL_USERS = "user_that_joined_before_with_me";
 }

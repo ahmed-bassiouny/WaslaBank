@@ -212,10 +212,10 @@ public class ApiRequests {
     }
 
     // user information
-    // url =>
+    // url => home
     // parameter => token
     public static void getUserInfo(final BaseResponseInterface<UserInfo> anInterface) {
-        Call<UserInfoResponse> response = ApiConfig.httpApiInterface.getUserInfo(MyApplication.getUserToken());
+        Call<UserInfoResponse> response = ApiConfig.httpApiInterface.getUserInfo(MyApplication.getUserToken(),SharedPrefManager.getObject(SharedPrefKey.USER,User.class).getId());
         response.enqueue(new Callback<UserInfoResponse>() {
             @Override
             public void onResponse(@NonNull Call<UserInfoResponse> call, @NonNull Response<UserInfoResponse> response) {
