@@ -46,7 +46,7 @@ public class RequestsActivity extends MyToolbar {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_requests);
         //set toolbar setting
-        initToolbar("Requests");
+        initToolbar(getString(R.string.requests));
         addNotificationImage();
         addBackImage();
         addSupportActionbar();

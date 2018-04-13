@@ -76,6 +76,8 @@ public class MyUtils {
         }else {
             intent = new Intent(activity,WaitingAdminActivity.class);
         }
+        // set token in my application
+        MyApplication.setUserToken(user.getToken());
         // close splash screen activity
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

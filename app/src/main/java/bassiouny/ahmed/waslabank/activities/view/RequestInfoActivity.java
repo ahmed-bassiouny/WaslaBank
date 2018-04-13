@@ -98,7 +98,7 @@ public class RequestInfoActivity extends MyToolbar implements MyObserverInterfac
         // TripDetailsFragment ==> trip details object
         observerInterfaces.get(0).update(tripDetails);
         // AboutDriverFragment ==> user object
-        observerInterfaces.get(1).update(tripDetails);
+        observerInterfaces.get(1).update(tripDetails.getDriver());
         // FeedbackFragment ==> feedback list object
         observerInterfaces.get(2).update(tripDetails.getFeedbacks());
     }

@@ -61,9 +61,9 @@ public interface HttpApiInterface {
 
 
     @FormUrlEncoded
-    @POST("home")
+    @POST()
     @Headers(HEADER_KEY)
-    Call<UserInfoResponse> getUserInfo(@Header(AUTHORIZATION) String token,@Field(ApiKey.ID) int userId);
+    Call<UserInfoResponse> getUserInfo(@Url String url,@Header(AUTHORIZATION) String token,@Field(ApiKey.ID) int userId);
 
 
 }

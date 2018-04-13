@@ -32,4 +32,7 @@ public class MyApplication extends Application {
             USER_TOKEN = SharedPrefManager.getObject(SharedPrefKey.USER, User.class).getToken();
         return BEARER_TOKEN + USER_TOKEN;
     }
+    public static void setUserToken(String token) {
+        USER_TOKEN =  token;
+    }
 }

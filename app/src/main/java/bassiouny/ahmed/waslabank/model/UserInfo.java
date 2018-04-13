@@ -2,13 +2,16 @@ package bassiouny.ahmed.waslabank.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import bassiouny.ahmed.waslabank.api.apiModel.ApiKey;
 
 /**
  * Created by bassiouny on 12/04/18.
  */
 
-// this class represent user data view in home screen
+// this class represent user data view in home screen , and profile
 public class UserInfo {
 
     @SerializedName(ApiKey.TOTAL_POINT)
@@ -19,6 +22,8 @@ public class UserInfo {
     private int orders;
     @SerializedName(ApiKey.TOTAL_RATE)
     private float rate;
+    @SerializedName(ApiKey.FEEDBACK)
+    private List<Feedback> feedbacks;
 
     public int getPoint() {
         return point;
@@ -34,5 +39,24 @@ public class UserInfo {
 
     public float getRate() {
         return rate;
+    }
+
+    public List<Feedback> getFeedbacks() {
+        if(feedbacks == null)
+            feedbacks = new ArrayList<>();
+        return feedbacks;
+    }
+    public void clearFeedback(){
+        feedbacks.clear();
+    }
+
+    public UserInfo() {
+    }
+
+    public UserInfo(UserInfo userInfo) {
+        this.point = userInfo.point;
+        this.requests = userInfo.requests;
+        this.orders = userInfo.orders;
+        this.rate = userInfo.rate;
     }
 }

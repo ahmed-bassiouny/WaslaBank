@@ -7,7 +7,7 @@ import java.util.List;
 
 import bassiouny.ahmed.genericmanager.DateTimeManager;
 import bassiouny.ahmed.waslabank.api.apiModel.ApiKey;
-import bassiouny.ahmed.waslabank.utils.DateTimeKey;
+import bassiouny.ahmed.waslabank.utils.DateTimeFormat;
 import bassiouny.ahmed.waslabank.utils.MyUtils;
 
 /**
@@ -92,7 +92,7 @@ public class TripDetails {
     }
 
     public String getTime() {
-        return DateTimeManager.changeDateFormat(dateTime, DateTimeKey.DATE_TIME_24_FORMAT, DateTimeKey.TIME_24_WITHOUT_SECOND_FORMAT);
+        return DateTimeManager.changeDateFormat(dateTime, DateTimeFormat.DATE_TIME_24_FORMAT, DateTimeFormat.TIME_24_WITHOUT_SECOND_FORMAT);
     }
 
     public String getDateTime() {

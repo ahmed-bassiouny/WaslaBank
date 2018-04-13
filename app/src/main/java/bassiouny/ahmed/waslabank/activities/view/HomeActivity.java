@@ -20,6 +20,7 @@ import bassiouny.ahmed.waslabank.interfaces.BaseResponseInterface;
 import bassiouny.ahmed.waslabank.interfaces.ItemClickInterface;
 import bassiouny.ahmed.waslabank.model.User;
 import bassiouny.ahmed.waslabank.model.UserInfo;
+import bassiouny.ahmed.waslabank.utils.MyApplication;
 import bassiouny.ahmed.waslabank.utils.MyToolbar;
 import bassiouny.ahmed.waslabank.utils.SharedPrefKey;
 
@@ -129,6 +130,7 @@ public class HomeActivity extends MyToolbar implements ItemClickInterface {
             case 4:
                 SharedPrefManager.clearSharedPref();
                 startActivity(new Intent(HomeActivity.this, SplashActivity.class));
+                MyApplication.setUserToken("");
                 finish();
                 break;
         }
