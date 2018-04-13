@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bgsmall"
+    android:orientation="vertical"
+    tools:context="bassiouny.ahmed.waslabank.activities.view.CreateRequestActivity">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
+    <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+        android:id="@+id/calendarView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:padding="5dp"
+        app:mcv_calendarMode="week"
+        app:mcv_selectionColor="@color/colorPrimary"
+        app:mcv_tileHeight="40dp" />
+
+    <EditText
+        android:id="@+id/et_from"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/create_request_input"
+        android:drawablePadding="5dp"
+        android:drawableStart="@drawable/ic_location_on"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:gravity="center_vertical"
+        android:hint="@string/from_"
+        android:includeFontPadding="false"
+        android:lineSpacingExtra="0dp"
+        android:padding="10dp"
+        android:textColorHint="@color/colorPrimary" />
+
+    <EditText
+        android:id="@+id/et_to"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/create_request_input"
+        android:drawablePadding="5dp"
+        android:drawableStart="@drawable/ic_location_on"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:gravity="center_vertical"
+        android:hint="@string/to_"
+        android:includeFontPadding="false"
+        android:lineSpacingExtra="0dp"
+        android:padding="10dp"
+        android:textColorHint="@color/colorPrimary" />
+
+
+    <EditText
+        android:id="@+id/et_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/create_request_input"
+        android:drawablePadding="5dp"
+        android:drawableStart="@drawable/ic_access_time"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:gravity="center_vertical"
+        android:hint="@string/when"
+        android:includeFontPadding="false"
+        android:lineSpacingExtra="0dp"
+        android:padding="10dp"
+        android:textColorHint="@color/colorPrimary" />
+
+    <Button
+        android:id="@+id/btn_create"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/round_fill_primary"
+        android:text="@string/create"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:textSize="@dimen/button_size" />
+</LinearLayout>

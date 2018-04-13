@@ -118,6 +118,10 @@ public class HomeActivity extends MyToolbar implements ItemClickInterface {
     @Override
     public void getItem(@Nullable Object o, int position) {
         switch (position) {
+            // create services
+            case 0:
+                startActivity(new Intent(HomeActivity.this, CreateRequestActivity.class));
+                break;
             // all services
             case 1:
                 startActivity(new Intent(HomeActivity.this, RequestsActivity.class));
@@ -137,11 +141,11 @@ public class HomeActivity extends MyToolbar implements ItemClickInterface {
     }
 
     // load user information from server
-    private void loadUserInformation(){
+    private void loadUserInformation() {
         ApiRequests.getUserInfo(new BaseResponseInterface<UserInfo>() {
             @Override
             public void onSuccess(UserInfo userInfo) {
-                SharedPrefManager.setObject(SharedPrefKey.USER_INFO,userInfo);
+                SharedPrefManager.setObject(SharedPrefKey.USER_INFO, userInfo);
                 setUserData(userInfo);
             }
 

@@ -71,7 +71,9 @@
     <string name="about_us">About US</string>
     <string name="contact_us">Contact US</string>
     <string name="to">To :</string>
+    <string name="to_">To </string>
     <string name="from">From :</string>
+    <string name="from_">From </string>
     <string name="subject">Subject</string>
     <string name="message">Message</string>
     <string name="get_touch">Get In Touch</string>
@@ -81,4 +83,6 @@
     <string name="points">Points</string>
     <string name="orders">Orders</string>
     <string name="profile">Profile</string>
+    <string name="when">When ..?</string>
+    <string name="create">Create</string>
 </resources>

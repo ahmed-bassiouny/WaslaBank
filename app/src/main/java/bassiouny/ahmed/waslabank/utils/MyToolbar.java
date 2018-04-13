@@ -67,6 +67,22 @@ public class MyToolbar extends AppCompatActivity {
         // set icons to frame layout
         frameLayout.addView(back,getMarginForView(Gravity.START));
     }
+    public void addBackImagePrimary(){
+
+        // create back image view
+        ImageView back = new ImageView(this);
+        // back image view src
+        back.setImageDrawable(getResources().getDrawable(R.drawable.ic_arrow_back));
+        // handle click item
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+        // set icons to frame layout
+        frameLayout.addView(back,getMarginForView(Gravity.START));
+    }
     public void addProfileImage(){
 
         // create back image view
@@ -91,6 +107,23 @@ public class MyToolbar extends AppCompatActivity {
         ImageView notification = new ImageView(this);
         // notification image view src
         notification.setImageDrawable(getResources().getDrawable(R.drawable.ic_notifications_none));
+        // handle click item
+        notification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+        // set icons to frame layout
+        frameLayout.addView(notification,getMarginForView(Gravity.END));
+    }
+    public void addNotificationImagePrimary(){
+        // create notification image view
+        ImageView notification = new ImageView(this);
+        // notification image view src
+        notification.setImageDrawable(getResources().getDrawable(R.drawable.ic_notifications_none));
+        // add tint mode
+        notification.setColorFilter(Color.argb(255, 100, 56, 125));
         // handle click item
         notification.setOnClickListener(new View.OnClickListener() {
             @Override
