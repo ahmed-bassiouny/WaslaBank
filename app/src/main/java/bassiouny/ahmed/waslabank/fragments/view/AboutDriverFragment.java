@@ -20,7 +20,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AboutDriverFragment extends Fragment implements ObserverInterface<TripDetails> {
+public class AboutDriverFragment extends Fragment implements ObserverInterface<User> {
 
 
     private static AboutDriverFragment mInstance;
@@ -70,8 +70,7 @@ public class AboutDriverFragment extends Fragment implements ObserverInterface<T
     }
 
     @Override
-    public void update(TripDetails tripDetails) {
-        User driver = tripDetails.getDriver();
+    public void update(User driver) {
         tvUserName.setText(driver.getName());
         tvEmail.setText(driver.getEmail());
         tvPhone.setText(driver.getPhone());

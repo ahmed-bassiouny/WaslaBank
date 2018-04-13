@@ -46,7 +46,6 @@
             android:layout_centerInParent="true"
             android:textStyle="bold"
             android:id="@+id/tv_user_name"
-            android:text="jackie chan"
             android:textAllCaps="true"
             android:layout_below="@+id/iv_avatar"
             android:textColor="@color/white"
@@ -75,7 +74,8 @@
                 android:background="@color/colorPrimary"
                 android:gravity="center"
                 android:padding="15dp"
-                android:text="173 \n REQUESTS"
+                android:textAllCaps="true"
+                android:id="@+id/tv_requests"
                 android:textColor="@color/white"
                 android:textSize="@dimen/small_text"
                 android:textStyle="bold" />
@@ -87,7 +87,8 @@
                 android:background="@color/second"
                 android:gravity="center"
                 android:padding="15dp"
-                android:text="2450 \n POINTS"
+                android:id="@+id/tv_point"
+                android:textAllCaps="true"
                 android:textColor="@color/white"
                 android:textSize="@dimen/small_text"
                 android:textStyle="bold" />
@@ -98,59 +99,45 @@
                 android:layout_weight="1"
                 android:background="@color/third"
                 android:gravity="center"
+                android:textAllCaps="true"
                 android:padding="15dp"
-                android:text="96 \n ORDERS"
+                android:id="@+id/tv_order"
                 android:textColor="@color/white"
                 android:textSize="@dimen/small_text"
                 android:textStyle="bold" />
         </LinearLayout>
-        <View
+
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabs"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:id="@+id/view"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/linear_number"
-            android:background="@color/gray_light"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@color/colorPrimary"
-            android:layout_alignTop="@+id/view"
-            android:layout_alignBottom="@+id/view"
-            android:textSize="@dimen/small_text"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:gravity="center"
-            android:text="@string/about"
-            android:textAllCaps="true"
-            android:textColor="@color/white" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:paddingBottom="5dp"
-            android:layout_alignTop="@+id/view"
-            android:layout_alignBottom="@+id/view"
-            android:textSize="@dimen/small_text"
-            android:layout_centerInParent="true"
-            android:layout_marginTop="10dp"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp"
-            android:layout_marginBottom="10dp"
-            android:gravity="center"
-            android:paddingTop="5dp"
-            android:text="@string/feedback"
-            android:textAllCaps="true"
-            android:textColor="@color/colorPrimary" />
+            android:background="@color/gray_light"
+            app:tabIndicatorColor="@color/colorPrimary"
+            app:tabSelectedTextColor="@color/colorPrimary"
+            app:tabTextColor="@color/colorPrimary">
+
+            <android.support.design.widget.TabItem
+                android:id="@+id/tabItem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/about" />
+
+            <android.support.design.widget.TabItem
+                android:id="@+id/tabItem2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/feedback" />
+
+        </android.support.design.widget.TabLayout>
+
 
         <android.support.v4.view.ViewPager
             android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/view"
+            android:layout_below="@+id/tabs"
             android:background="@drawable/bgsmall"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
     </RelativeLayout>

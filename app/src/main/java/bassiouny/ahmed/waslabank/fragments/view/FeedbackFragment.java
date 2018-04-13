@@ -11,15 +11,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.List;
+
 import bassiouny.ahmed.waslabank.R;
 import bassiouny.ahmed.waslabank.adapter.FeedbackItem;
 import bassiouny.ahmed.waslabank.interfaces.ObserverInterface;
+import bassiouny.ahmed.waslabank.model.Feedback;
 import bassiouny.ahmed.waslabank.model.TripDetails;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FeedbackFragment extends Fragment implements ObserverInterface<TripDetails> {
+public class FeedbackFragment extends Fragment implements ObserverInterface<List<Feedback>> {
 
 
     private static FeedbackFragment mInstance;
@@ -56,7 +59,7 @@ public class FeedbackFragment extends Fragment implements ObserverInterface<Trip
     }
 
     @Override
-    public void update(TripDetails tripDetails) {
-        recyclerView.setAdapter(new FeedbackItem(tripDetails.getFeedbacks()));
+    public void update(List<Feedback> feedbackList) {
+        recyclerView.setAdapter(new FeedbackItem(feedbackList));
     }
 }

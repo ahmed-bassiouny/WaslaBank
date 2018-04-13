@@ -39,7 +39,6 @@ public class RequestsFragment extends Fragment implements ItemClickInterface<Int
     private RecyclerView recyclerView;
     private MaterialCalendarView calendarView;
     private ViewStub viewStubProgress;
-    private View line;
     // local variable
     private RequestsController controller;
     private int currentPage = 10;
@@ -109,7 +108,6 @@ public class RequestsFragment extends Fragment implements ItemClickInterface<Int
         recyclerView = view.findViewById(R.id.recycler);
         calendarView = view.findViewById(R.id.calendarView);
         viewStubProgress = view.findViewById(R.id.view_stub_progress);
-        line = view.findViewById(R.id.line);
         // set layout manager
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     }
@@ -132,11 +130,9 @@ public class RequestsFragment extends Fragment implements ItemClickInterface<Int
     private void loading(boolean isLoading){
         if(isLoading) {
             viewStubProgress.setVisibility(View.VISIBLE);
-            line.setVisibility(View.INVISIBLE);
             recyclerView.setVisibility(View.INVISIBLE);
         }else {
             viewStubProgress.setVisibility(View.INVISIBLE);
-            line.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.VISIBLE);
         }
     }

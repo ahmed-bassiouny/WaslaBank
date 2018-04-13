@@ -95,9 +95,12 @@ public class RequestInfoActivity extends MyToolbar implements MyObserverInterfac
 
     @Override
     public void notifyObservers(TripDetails tripDetails) {
-        for (ObserverInterface item : observerInterfaces) {
-            item.update(tripDetails);
-        }
+        // TripDetailsFragment ==> trip details object
+        observerInterfaces.get(0).update(tripDetails);
+        // AboutDriverFragment ==> user object
+        observerInterfaces.get(1).update(tripDetails);
+        // FeedbackFragment ==> feedback list object
+        observerInterfaces.get(2).update(tripDetails.getFeedbacks());
     }
 
 

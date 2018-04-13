@@ -1,43 +1,52 @@
 package bassiouny.ahmed.waslabank.activities.view;
 
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.RatingBar;
+import android.widget.TextView;
 
+import bassiouny.ahmed.genericmanager.SharedPrefManager;
 import bassiouny.ahmed.waslabank.R;
 import bassiouny.ahmed.waslabank.fragments.view.AboutFragment;
+import bassiouny.ahmed.waslabank.fragments.view.FeedbackFragment;
+import bassiouny.ahmed.waslabank.model.UserInfo;
 import bassiouny.ahmed.waslabank.utils.MyToolbar;
+import bassiouny.ahmed.waslabank.utils.SharedPrefKey;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 // this activity view my profile
 // view profile user use app
 public class UserProfileActivity extends MyToolbar {
 
-    /**
-     * The {@link android.support.v4.view.PagerAdapter} that will provide
-     * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
-     */
     private SectionsPagerAdapter mSectionsPagerAdapter;
-
-    /**
-     * The {@link ViewPager} that will host the section contents.
-     */
     private ViewPager mViewPager;
+    private CircleImageView ivAvatar;
+    private TextView tvUserName;
+    private RatingBar rating;
+    private TextView tvRequests;
+    private TextView tvPoint;
+    private TextView tvOrder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
-        initToolbar("Profile");
+        // set tool bar title
+        initToolbar(getString(R.string.profile));
+        // set back image button
         addBackImage();
+        // set notification image button
         addNotificationImage();
+        // set toolbar
         addSupportActionbar();
+        // find view by id
+        findView();
+        // set user data information
+        setUserData();
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
@@ -46,6 +55,20 @@ public class UserProfileActivity extends MyToolbar {
         // Set up the ViewPager with the sections adapter.
         mViewPager = findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+
+        TabLayout tabLayout = findViewById(R.id.tabs);
+
+        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
+    }
+
+    private void findView() {
+        ivAvatar = findViewById(R.id.iv_avatar);
+        tvUserName = findViewById(R.id.tv_user_name);
+        rating = findViewById(R.id.rating);
+        tvRequests = findViewById(R.id.tv_requests);
+        tvPoint = findViewById(R.id.tv_point);
+        tvOrder = findViewById(R.id.tv_order);
     }
 
     /**
@@ -62,13 +85,31 @@ public class UserProfileActivity extends MyToolbar {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return AboutFragment.getInstance();
+            switch (position) {
+                case 0:
+                    return AboutFragment.getInstance();
+                case 1:
+                    return FeedbackFragment.getInstance();
+            }
+            return null;
         }
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
-            return 1;
+            // Show 2 total pages.
+            return 2;
         }
     }
+
+    // set user information in layout
+    private void setUserData() {
+        UserInfo userInfo = SharedPrefManager.getObject(SharedPrefKey.USER_INFO, UserInfo.class);
+        if (userInfo == null)
+            return;
+        tvRequests.setText(String.valueOf(userInfo.getRequests())+"\n"+getString(R.string.requests));
+        tvPoint.setText(String.valueOf(userInfo.getPoint())+"\n"+getString(R.string.points));
+        tvOrder.setText(String.valueOf(userInfo.getOrders())+"\n"+getString(R.string.orders));
+        rating.setRating(userInfo.getRate());
+    }
+
 }
