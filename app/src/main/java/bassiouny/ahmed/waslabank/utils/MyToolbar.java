@@ -134,8 +134,8 @@ public class MyToolbar extends AppCompatActivity {
         // set icons to frame layout
         frameLayout.addView(notification,getMarginForView(Gravity.END));
     }
-    public void addView(View view){
-        toolbar.addView(view);
+    public void addView(View view, FrameLayout.LayoutParams params){
+        frameLayout.addView(view,params);
     }
     public void addSupportActionbar(){
         if(toolbar != null) {

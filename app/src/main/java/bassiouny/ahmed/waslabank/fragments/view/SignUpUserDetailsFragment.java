@@ -2,7 +2,6 @@ package bassiouny.ahmed.waslabank.fragments.view;
 
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -21,23 +20,17 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.io.File;
-import java.util.List;
 
 import bassiouny.ahmed.genericmanager.SharedPrefManager;
 import bassiouny.ahmed.waslabank.R;
-import bassiouny.ahmed.waslabank.activities.view.HomeActivity;
-import bassiouny.ahmed.waslabank.activities.view.SignInActivity;
-import bassiouny.ahmed.waslabank.activities.view.WaitingAdminActivity;
 import bassiouny.ahmed.waslabank.fragments.controller.SignUpUserDetailsController;
 import bassiouny.ahmed.waslabank.interfaces.BaseResponseInterface;
 import bassiouny.ahmed.waslabank.model.User;
 import bassiouny.ahmed.waslabank.utils.Constant;
-import bassiouny.ahmed.waslabank.utils.FilePath;
 import bassiouny.ahmed.waslabank.utils.MyUtils;
 import bassiouny.ahmed.waslabank.utils.SharedPrefKey;
 import pl.aprilapps.easyphotopicker.DefaultCallback;
@@ -111,8 +104,8 @@ public class SignUpUserDetailsFragment extends Fragment {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if(requestCode == getController().MY_PERMISSIONS_REQUEST_READ_CONTACTS && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-            getController().selectImage(SignUpUserDetailsFragment.this);
+        if(requestCode == getController().MY_PERMISSIONS_REQUEST_IMAGE && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+            MyUtils.openChooserWithGallery(SignUpUserDetailsFragment.this);
         }
     }
 
@@ -160,10 +153,10 @@ public class SignUpUserDetailsFragment extends Fragment {
                 if (ActivityCompat.checkSelfPermission(getContext(),
                         Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                     requestPermissions(new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE},
-                            getController().MY_PERMISSIONS_REQUEST_READ_CONTACTS);
+                            getController().MY_PERMISSIONS_REQUEST_IMAGE);
                     return;
                 }
-                getController().selectImage(SignUpUserDetailsFragment.this);
+                MyUtils.openChooserWithGallery(SignUpUserDetailsFragment.this);
             }
         });
     }

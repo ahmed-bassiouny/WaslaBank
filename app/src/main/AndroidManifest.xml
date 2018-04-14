@@ -6,7 +6,6 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-
     <application
         android:name=".utils.MyApplication"
         android:allowBackup="true"
@@ -19,8 +18,10 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAkflD2JJriOyjw3DOErI1gICTsZxwQIBs" />
-        <meta-data android:name="com.google.android.gms.version"
+        <meta-data
+            android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+
         <activity
             android:name=".activities.view.SignUpActivity"
             android:screenOrientation="portrait" />
@@ -51,7 +52,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.view.RequestInfoActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.view.CurrentTripActivity"
             android:screenOrientation="portrait" />
@@ -59,7 +60,8 @@
         <activity
             android:name=".activities.view.ContactUsActivity"
             android:windowSoftInputMode="adjustNothing" />
-        <activity android:name=".activities.view.CreateRequestActivity"></activity>
+        <activity android:name=".activities.view.CreateRequestActivity" />
+        <activity android:name=".activities.view.EditProfileActivity"></activity>
     </application>
 
 </manifest>

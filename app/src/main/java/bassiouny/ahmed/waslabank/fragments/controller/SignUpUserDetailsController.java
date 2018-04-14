@@ -25,8 +25,7 @@ import pl.aprilapps.easyphotopicker.EasyImage;
 public class SignUpUserDetailsController {
 
     private Context context;
-    public final int PICK_IMAGE = 1;
-    public final int MY_PERMISSIONS_REQUEST_READ_CONTACTS = 2;
+    public final int MY_PERMISSIONS_REQUEST_IMAGE = 2;
 
     public SignUpUserDetailsController(Context context) {
         this.context = context;
@@ -50,9 +49,5 @@ public class SignUpUserDetailsController {
             ApiRequests.signUp(builder.build(),null, anInterface);
         else
             ApiRequests.signUp(builder.build(),MyUtils.convertFileToPart(image), anInterface);
-    }
-    public void selectImage(Fragment fragment){
-        EasyImage.openChooserWithGallery(fragment,"Select Picture", EasyImage.REQ_SOURCE_CHOOSER);
-
     }
 }

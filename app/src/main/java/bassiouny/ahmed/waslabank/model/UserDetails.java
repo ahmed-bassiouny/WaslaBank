@@ -77,4 +77,8 @@ public class UserDetails {
             car = new Car();
         return car;
     }
+
+    public void setInteresting(String interesting) {
+        this.interesting = interesting;
+    }
 }

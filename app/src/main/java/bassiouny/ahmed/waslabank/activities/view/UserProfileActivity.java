@@ -1,13 +1,18 @@
 package bassiouny.ahmed.waslabank.activities.view;
 
+import android.content.Intent;
+import android.graphics.Color;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewStub;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -59,6 +64,8 @@ public class UserProfileActivity extends MyToolbar implements MyObserverInterfac
         addBackImage();
         // set notification image button
         addNotificationImage();
+        // set edit icon
+        addView(editImage(),layoutParamEditIcon());
         // set toolbar
         addSupportActionbar();
         // find view by id
@@ -180,7 +187,7 @@ public class UserProfileActivity extends MyToolbar implements MyObserverInterfac
         if (user == null)
             return;
         tvUserName.setText(user.getName());
-        MyGlideApp.setImage(this,ivAvatar,user.getUserDetails().getImage());
+        MyGlideApp.setImage(this, ivAvatar, user.getUserDetails().getImage());
     }
 
     private void loadUserInfo() {
@@ -216,6 +223,33 @@ public class UserProfileActivity extends MyToolbar implements MyObserverInterfac
             viewStubProgress.setVisibility(View.INVISIBLE);
             mViewPager.setVisibility(View.VISIBLE);
         }
+    }
+
+    private ImageView editImage() {
+
+        // create back image view
+        ImageView edit = new ImageView(this);
+        // back image view src
+        edit.setImageDrawable(getResources().getDrawable(R.drawable.ic_edit));
+        // add tint mode
+        edit.setColorFilter(Color.argb(255, 255, 255, 255));
+        // handle click item
+        edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(UserProfileActivity.this,EditProfileActivity.class));
+            }
+        });
+        return edit;
+
+    }
+
+    private FrameLayout.LayoutParams layoutParamEditIcon() {
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.WRAP_CONTENT,
+                FrameLayout.LayoutParams.WRAP_CONTENT, Gravity.END);
+        params.setMargins(10, 10, 120, 10);
+        return params;
     }
 
 }

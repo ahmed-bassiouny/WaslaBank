@@ -30,11 +30,13 @@ public class UserSignUpRequest extends UserLoginRequest {
     private String city;
     @SerializedName(ApiKey.IDENTIFY_NUMBER)
     private String identifyNumber;
+    @SerializedName(ApiKey.INTERESTING)
+    private String interesting;
 
     private UserSignUpRequest(Builder builder) {
         phone = builder.phone;
-        email = builder.email;
         password = builder.password;
+        email = builder.email;
         name = builder.name;
         notificationToken = builder.notificationToken;
         carNumber = builder.carNumber;
@@ -43,12 +45,50 @@ public class UserSignUpRequest extends UserLoginRequest {
         gender = builder.gender;
         city = builder.city;
         identifyNumber = builder.identifyNumber;
+        interesting = builder.interesting;
+    }
+
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getCarNumber() {
+        return carNumber;
+    }
+
+    public String getLicenseNumber() {
+        return licenseNumber;
+    }
+
+    public String getCarSize() {
+        return carSize;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public String getIdentifyNumber() {
+        return identifyNumber;
+    }
+
+    public String getInteresting() {
+        return interesting;
     }
 
     public static final class Builder {
         private String phone;
-        private String email;
         private String password;
+        private String email;
         private String name;
         private String notificationToken;
         private String carNumber;
@@ -57,6 +97,7 @@ public class UserSignUpRequest extends UserLoginRequest {
         private String gender;
         private String city;
         private String identifyNumber;
+        private String interesting;
 
         public Builder() {
         }
@@ -66,13 +107,13 @@ public class UserSignUpRequest extends UserLoginRequest {
             return this;
         }
 
-        public Builder email(String val) {
-            email = val;
+        public Builder password(String val) {
+            password = val;
             return this;
         }
 
-        public Builder password(String val) {
-            password = val;
+        public Builder email(String val) {
+            email = val;
             return this;
         }
 
@@ -110,8 +151,14 @@ public class UserSignUpRequest extends UserLoginRequest {
             city = val;
             return this;
         }
+
         public Builder identifyNumber(String val) {
             identifyNumber = val;
+            return this;
+        }
+
+        public Builder interesting(String val) {
+            interesting = val;
             return this;
         }
 
@@ -119,37 +166,4 @@ public class UserSignUpRequest extends UserLoginRequest {
             return new UserSignUpRequest(this);
         }
     }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getCarNumber() {
-        return carNumber;
-    }
-
-    public String getLicenseNumber() {
-        return licenseNumber;
-    }
-
-    public String getCarSize() {
-        return carSize;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public String getIdentifyNumber() {
-        return identifyNumber;
-    }
-
 }

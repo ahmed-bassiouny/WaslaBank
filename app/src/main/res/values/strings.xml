@@ -85,4 +85,7 @@
     <string name="profile">Profile</string>
     <string name="when">When ..?</string>
     <string name="create">Create</string>
+    <string name="update">Update</string>
+    <string name="change_password">Change Password</string>
+    <string name="profile_updated">Profile Updated</string>
 </resources>

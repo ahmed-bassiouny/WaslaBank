@@ -81,7 +81,7 @@ public class ApiRequests {
     }
 
     // register user
-    // url =>
+    // url => registration
     // parameter => user information
     public static void signUp(UserSignUpRequest userSignUpRequest, MultipartBody.Part part, final BaseResponseInterface<User> anInterface) {
         Call<UserResponse> response = ApiConfig.httpApiInterface.signUp(
@@ -244,6 +244,29 @@ public class ApiRequests {
 
             @Override
             public void onFailure(@NonNull Call<UserInfoResponse> call, @NonNull Throwable t) {
+                // get error message
+                anInterface.onFailed(t.getLocalizedMessage());
+            }
+        });
+    }
+    // edit user profile
+    // url => auth/edit_profile
+    // parameter => user information
+    public static void editProfile(UserSignUpRequest userSignUpRequest,String userId, MultipartBody.Part part, final BaseResponseInterface<User> anInterface) {
+        Call<UserResponse> response = ApiConfig.httpApiInterface.editProfile(MyApplication.getUserToken(),
+                part, MyUtils.createPartFromString(userId)
+                ,MyUtils.createPartFromString(userSignUpRequest.getEmail())
+                ,MyUtils.createPartFromString(userSignUpRequest.getName())
+                , MyUtils.createPartFromString(userSignUpRequest.getInteresting()));
+        response.enqueue(new Callback<UserResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<UserResponse> call, @NonNull Response<UserResponse> response) {
+                // check on response and get data
+                checkValidResult(response, anInterface);
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<UserResponse> call, @NonNull Throwable t) {
                 // get error message
                 anInterface.onFailed(t.getLocalizedMessage());
             }

@@ -19,6 +19,7 @@ import bassiouny.ahmed.waslabank.model.User;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import pl.aprilapps.easyphotopicker.EasyImage;
 
 /**
  * Created by ahmed bassiouny on 26/03/18.
@@ -83,5 +84,13 @@ public class MyUtils {
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         activity.startActivity(intent);
         activity.finish();
+    }
+    // open Chooser With Gallery fragment
+    public static void openChooserWithGallery(Fragment fragment){
+        EasyImage.openChooserWithGallery(fragment,"Select Picture", EasyImage.REQ_SOURCE_CHOOSER);
+    }
+    // open Chooser With Gallery activity
+    public static void openChooserWithGallery(Activity activity){
+        EasyImage.openChooserWithGallery(activity,"Select Picture", EasyImage.REQ_SOURCE_CHOOSER);
     }
 }

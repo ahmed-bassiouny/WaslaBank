@@ -39,7 +39,7 @@ public interface HttpApiInterface {
     Call<UserResponse> signUp(@Part MultipartBody.Part file , @Part(ApiKey.NAME) RequestBody name
     , @Part(ApiKey.PHONE) RequestBody phone, @Part(ApiKey.EMAIL) RequestBody email, @Part(ApiKey.PASSWORD) RequestBody password
     , @Part(ApiKey.CAR_NUMBER) RequestBody carNumber, @Part(ApiKey.LICENSE_NUMBER) RequestBody licenseNumber, @Part(ApiKey.CAR_SIZE) RequestBody carSize
-    , @Part(ApiKey.IDENTIFY_NUMBER) RequestBody idetifyNumber, @Part(ApiKey.GENDER) RequestBody gender, @Part(ApiKey.CITY) RequestBody city
+    , @Part(ApiKey.IDENTIFY_NUMBER) RequestBody identifyNumber, @Part(ApiKey.GENDER) RequestBody gender, @Part(ApiKey.CITY) RequestBody city
     , @Part(ApiKey.NOTIFICATION_TOKEN) RequestBody notificationToken);
 
     @POST()
@@ -64,6 +64,14 @@ public interface HttpApiInterface {
     @POST()
     @Headers(HEADER_KEY)
     Call<UserInfoResponse> getUserInfo(@Url String url,@Header(AUTHORIZATION) String token,@Field(ApiKey.ID) int userId);
+
+
+    @POST("auth/edit_profile")
+    @Multipart
+    @Headers(HEADER_KEY)
+    Call<UserResponse> editProfile(@Header(AUTHORIZATION) String token,@Part MultipartBody.Part file,@Part(ApiKey.ID) RequestBody id
+            , @Part(ApiKey.EMAIL) RequestBody email,@Part(ApiKey.NAME) RequestBody name
+            , @Part(ApiKey.INTERESTING) RequestBody interesting);
 
 
 }
