@@ -15,6 +15,7 @@ import bassiouny.ahmed.waslabank.R;
 import bassiouny.ahmed.waslabank.interfaces.ObserverInterface;
 import bassiouny.ahmed.waslabank.model.TripDetails;
 import bassiouny.ahmed.waslabank.model.User;
+import bassiouny.ahmed.waslabank.utils.MyGlideApp;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
@@ -75,7 +76,9 @@ public class AboutDriverFragment extends Fragment implements ObserverInterface<U
         tvEmail.setText(driver.getEmail());
         tvPhone.setText(driver.getPhone());
         tvAbout.setText(driver.getUserDetails().getInteresting());
-        tvCarNumber.setText(driver.getCar().getCarNumber());
+        tvCarNumber.setText(driver.getUserDetails().getCar().getCarNumber());
         rating.setRating(driver.getUserDetails().getTotalRate());
+        MyGlideApp.setImage(getContext(),ivAvatar,driver.getUserDetails().getImage());
+
     }
 }

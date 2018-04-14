@@ -34,7 +34,6 @@ public class RequestInfoActivity extends MyToolbar implements MyObserverInterfac
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
     private ViewStub viewStubProgress;
-    private TextView map;
     private TabLayout tabLayout;
 
 
@@ -78,7 +77,6 @@ public class RequestInfoActivity extends MyToolbar implements MyObserverInterfac
     private void findView() {
         mViewPager = findViewById(R.id.container);
         viewStubProgress = findViewById(R.id.view_stub_progress);
-        map = findViewById(R.id.map);
         tabLayout = findViewById(R.id.tabs);
 
     }

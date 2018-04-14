@@ -1,11 +1,9 @@
 package bassiouny.ahmed.waslabank.activities.view;
 
 import android.support.design.widget.TextInputEditText;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewStub;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import bassiouny.ahmed.genericmanager.SharedPrefManager;
@@ -13,7 +11,6 @@ import bassiouny.ahmed.waslabank.R;
 import bassiouny.ahmed.waslabank.api.ApiRequests;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.ContactUsRequest;
 import bassiouny.ahmed.waslabank.interfaces.BaseResponseInterface;
-import bassiouny.ahmed.waslabank.model.TripDetails;
 import bassiouny.ahmed.waslabank.model.User;
 import bassiouny.ahmed.waslabank.utils.MyToolbar;
 import bassiouny.ahmed.waslabank.utils.SharedPrefKey;
@@ -33,11 +30,18 @@ public class ContactUsActivity extends MyToolbar {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact_us);
         initToolbar(getString(R.string.contact_us));
-        addBackImage();
-        addNotificationImage();
+        addBackImagePrimary();
+        addNotificationImagePrimary();
         addSupportActionbar();
         findView();
         onClick();
+        getUserDataToSetInLayout();
+    }
+
+    private void getUserDataToSetInLayout() {
+        User user = SharedPrefManager.getObject(SharedPrefKey.USER,User.class);
+        etName.setText(user.getName());
+        etPhone.setText(user.getPhone());
     }
 
     private void onClick() {

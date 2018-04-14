@@ -98,6 +98,9 @@ public class TripDetails {
     public String getDateTime() {
         return dateTime;
     }
+    public String getDate() {
+        return DateTimeManager.changeDateFormat(dateTime, DateTimeFormat.DATE_TIME_24_FORMAT, DateTimeFormat.DATE);
+    }
 
     public String getAvailablePlaces() {
         return MyUtils.getString(availablePlaces);

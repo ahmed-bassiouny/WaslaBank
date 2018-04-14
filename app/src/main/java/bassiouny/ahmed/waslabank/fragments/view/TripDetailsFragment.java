@@ -28,7 +28,7 @@ public class TripDetailsFragment extends Fragment implements ObserverInterface<T
     private TextView tvFrom;
     private TextView tvTo;
     private TextView tvAvailablePlaces;
-    private TextView tvDate;
+    private TextView tvDate,tvTime;
     private Button btnJoinTrip;
 
     public TripDetailsFragment() {
@@ -72,6 +72,7 @@ public class TripDetailsFragment extends Fragment implements ObserverInterface<T
         tvTo = view.findViewById(R.id.tv_to);
         tvAvailablePlaces = view.findViewById(R.id.tv_available_places);
         tvDate = view.findViewById(R.id.tv_date);
+        tvTime = view.findViewById(R.id.tv_time);
         btnJoinTrip = view.findViewById(R.id.btn_join_trip);
     }
 
@@ -79,7 +80,8 @@ public class TripDetailsFragment extends Fragment implements ObserverInterface<T
     public void update(TripDetails tripDetails) {
         tvFrom.setText(tripDetails.getStartPointText());
         tvTo.setText(tripDetails.getEndPointText());
-        tvDate.setText(tripDetails.getDateTime());
+        tvDate.setText(tripDetails.getDate());
+        tvTime.setText(tripDetails.getTime());
         tvAvailablePlaces.setText(tripDetails.getAvailablePlaces());
     }
 }

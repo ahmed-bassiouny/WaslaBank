@@ -1,5 +1,6 @@
 package bassiouny.ahmed.waslabank.adapter;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import java.util.List;
 
 import bassiouny.ahmed.waslabank.R;
 import bassiouny.ahmed.waslabank.model.Feedback;
+import bassiouny.ahmed.waslabank.utils.MyGlideApp;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
@@ -21,9 +23,11 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class FeedbackItem extends RecyclerView.Adapter<FeedbackItem.MyViewHolder> {
 
     private List<Feedback> feedbackList;
+    private Context context;
 
-    public FeedbackItem(List<Feedback> feedbackList) {
+    public FeedbackItem(Context context,List<Feedback> feedbackList) {
         this.feedbackList = feedbackList;
+        this.context = context;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -39,7 +43,6 @@ public class FeedbackItem extends RecyclerView.Adapter<FeedbackItem.MyViewHolder
             tvUserName = view.findViewById(R.id.tv_user_name);
             ratingBar = view.findViewById(R.id.rating);
             tvComment = view.findViewById(R.id.tv_comment);
-
         }
     }
 
@@ -57,6 +60,7 @@ public class FeedbackItem extends RecyclerView.Adapter<FeedbackItem.MyViewHolder
         holder.tvComment.setText(item.getComment());
         holder.ratingBar.setRating(item.getRate());
         holder.tvUserName.setText(item.getUserName());
+        MyGlideApp.setImage(context,holder.ivAvatar,item.getUserImage());
     }
 
     @Override

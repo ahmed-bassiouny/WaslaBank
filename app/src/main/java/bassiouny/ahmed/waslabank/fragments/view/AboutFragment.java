@@ -13,6 +13,7 @@ import android.widget.TextView;
 import bassiouny.ahmed.waslabank.R;
 import bassiouny.ahmed.waslabank.interfaces.ObserverInterface;
 import bassiouny.ahmed.waslabank.model.User;
+import bassiouny.ahmed.waslabank.utils.MyGlideApp;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -64,6 +65,6 @@ public class AboutFragment extends Fragment implements ObserverInterface<User> {
         tvEmail.setText(user.getEmail());
         tvPhone.setText(user.getPhone());
         tvAbout.setText(user.getUserDetails().getInteresting());
-        tvCarNumber.setText(user.getCar().getCarNumber());
+        tvCarNumber.setText(user.getUserDetails().getCar().getCarNumber());
     }
 }

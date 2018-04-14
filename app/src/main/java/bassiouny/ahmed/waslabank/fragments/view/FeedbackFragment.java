@@ -60,6 +60,6 @@ public class FeedbackFragment extends Fragment implements ObserverInterface<List
 
     @Override
     public void update(List<Feedback> feedbackList) {
-        recyclerView.setAdapter(new FeedbackItem(feedbackList));
+        recyclerView.setAdapter(new FeedbackItem(getContext(),feedbackList));
     }
 }

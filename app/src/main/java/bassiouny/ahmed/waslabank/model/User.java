@@ -34,8 +34,6 @@ public class User {
     private String token;
     @SerializedName(ApiKey.USER_DETAILS)
     private UserDetails userDetails;
-    @SerializedName(ApiKey.CAR)
-    private Car car;
 
     public int getId() {
         return id;
@@ -80,11 +78,5 @@ public class User {
         if(userDetails == null)
             userDetails = new UserDetails();
         return userDetails;
-    }
-
-    public Car getCar() {
-        if(car == null)
-            car = new Car();
-        return car;
     }
 }

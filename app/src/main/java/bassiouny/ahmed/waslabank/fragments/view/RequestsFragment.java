@@ -19,8 +19,10 @@ import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 
+import java.util.Calendar;
 import java.util.List;
 
+import bassiouny.ahmed.genericmanager.DateTimeManager;
 import bassiouny.ahmed.waslabank.R;
 import bassiouny.ahmed.waslabank.activities.view.RequestInfoActivity;
 import bassiouny.ahmed.waslabank.adapter.RequestsItem;
@@ -76,6 +78,8 @@ public class RequestsFragment extends Fragment implements ItemClickInterface<Int
         adapter = new RequestsItem(this);
         // set adapter for recycler view
         recyclerView.setAdapter(adapter);
+        // set in calendar current date
+        calendarView.setCurrentDate(Calendar.getInstance());
     }
 
     private void onCLick() {

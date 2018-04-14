@@ -16,8 +16,9 @@ import com.google.android.gms.location.places.ui.PlacePicker;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 
 import bassiouny.ahmed.waslabank.R;
+import bassiouny.ahmed.waslabank.utils.MyToolbar;
 
-public class CreateRequestActivity extends AppCompatActivity {
+public class CreateRequestActivity extends MyToolbar {
 
     //view
     private MaterialCalendarView calendarView;
@@ -35,6 +36,11 @@ public class CreateRequestActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_request);
+        // set tool bar
+        initToolbar("");
+        addBackImagePrimary();
+        addNotificationImagePrimary();
+        addSupportActionbar();
         findView();
         onClick();
         initObjects();

@@ -25,6 +25,7 @@ import bassiouny.ahmed.waslabank.interfaces.MyObserverInterface;
 import bassiouny.ahmed.waslabank.interfaces.ObserverInterface;
 import bassiouny.ahmed.waslabank.model.User;
 import bassiouny.ahmed.waslabank.model.UserInfo;
+import bassiouny.ahmed.waslabank.utils.MyGlideApp;
 import bassiouny.ahmed.waslabank.utils.MyToolbar;
 import bassiouny.ahmed.waslabank.utils.SharedPrefKey;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -53,7 +54,7 @@ public class UserProfileActivity extends MyToolbar implements MyObserverInterfac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
         // set tool bar title
-        initToolbar(getString(R.string.profile));
+        initToolbar("");
         // set back image button
         addBackImage();
         // set notification image button
@@ -179,6 +180,7 @@ public class UserProfileActivity extends MyToolbar implements MyObserverInterfac
         if (user == null)
             return;
         tvUserName.setText(user.getName());
+        MyGlideApp.setImage(this,ivAvatar,user.getUserDetails().getImage());
     }
 
     private void loadUserInfo() {
