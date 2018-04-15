@@ -88,4 +88,8 @@
     <string name="update">Update</string>
     <string name="change_password">Change Password</string>
     <string name="profile_updated">Profile Updated</string>
+    <string name="invalid_location">Please Select Location</string>
+    <string name="invalid_date">Please Select Date</string>
+    <string name="invalid_time">Please Select Time</string>
+    <string name="trip_created">Your Trip Created</string>
 </resources>

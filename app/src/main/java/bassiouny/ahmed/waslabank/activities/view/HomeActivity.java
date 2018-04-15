@@ -48,11 +48,15 @@ public class HomeActivity extends MyToolbar implements ItemClickInterface {
         addSupportActionbar();
         findView();
         initObject();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         // get user information from shared pref
         setUserData(SharedPrefManager.getObject(SharedPrefKey.USER_INFO, UserInfo.class));
         // refresh user information
         loadUserInformation();
-
     }
 
     // set user information in layout

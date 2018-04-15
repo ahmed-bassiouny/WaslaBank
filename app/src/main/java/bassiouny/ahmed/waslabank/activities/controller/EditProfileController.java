@@ -21,10 +21,9 @@ public class EditProfileController {
         this.activity = activity;
     }
 
-    public void editProfile(File file,int UserId, String name,String email, String interesting, BaseResponseInterface anInterface) {
+    public void editProfile(File file,int UserId, String name, String interesting, BaseResponseInterface anInterface) {
         UserSignUpRequest.Builder builder = new UserSignUpRequest.Builder();
         builder.name(name);
-        builder.email(email);
         builder.interesting(interesting);
         if (file == null)
             ApiRequests.editProfile(builder.build(),String.valueOf(UserId), null, anInterface);

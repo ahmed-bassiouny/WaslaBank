@@ -6,6 +6,7 @@ import java.util.List;
 
 import bassiouny.ahmed.genericmanager.SharedPrefManager;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.ContactUsRequest;
+import bassiouny.ahmed.waslabank.api.apiModel.requests.CreateTripRequest;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.TripsByDate;
 import bassiouny.ahmed.waslabank.api.apiModel.response.GenericResponse;
 import bassiouny.ahmed.waslabank.api.apiModel.response.ParentResponse;
@@ -255,7 +256,6 @@ public class ApiRequests {
     public static void editProfile(UserSignUpRequest userSignUpRequest,String userId, MultipartBody.Part part, final BaseResponseInterface<User> anInterface) {
         Call<UserResponse> response = ApiConfig.httpApiInterface.editProfile(MyApplication.getUserToken(),
                 part, MyUtils.createPartFromString(userId)
-                ,MyUtils.createPartFromString(userSignUpRequest.getEmail())
                 ,MyUtils.createPartFromString(userSignUpRequest.getName())
                 , MyUtils.createPartFromString(userSignUpRequest.getInteresting()));
         response.enqueue(new Callback<UserResponse>() {
@@ -267,6 +267,25 @@ public class ApiRequests {
 
             @Override
             public void onFailure(@NonNull Call<UserResponse> call, @NonNull Throwable t) {
+                // get error message
+                anInterface.onFailed(t.getLocalizedMessage());
+            }
+        });
+    }
+    // create trip
+    // url => requests/create
+    // parameter => location start, location end, time, driver id
+    public static void createTrip(CreateTripRequest createTripRequest, final BaseResponseInterface anInterface) {
+        Call<GenericResponse> response = ApiConfig.httpApiInterface.createTrip(MyApplication.getUserToken(),createTripRequest);
+        response.enqueue(new Callback<GenericResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<GenericResponse> call, @NonNull Response<GenericResponse> response) {
+                // check on response and get data
+                checkValidResult(response, anInterface);
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<GenericResponse> call, @NonNull Throwable t) {
                 // get error message
                 anInterface.onFailed(t.getLocalizedMessage());
             }

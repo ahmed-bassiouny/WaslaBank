@@ -76,6 +76,11 @@ public class UserProfileActivity extends MyToolbar implements MyObserverInterfac
         // get total rate , point , order from user information object
         userInfo = SharedPrefManager.getObject(SharedPrefKey.USER_INFO, UserInfo.class);
         setUserInformation();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         // set user data
         // get name and image from user object
         user = SharedPrefManager.getObject(SharedPrefKey.USER, User.class);

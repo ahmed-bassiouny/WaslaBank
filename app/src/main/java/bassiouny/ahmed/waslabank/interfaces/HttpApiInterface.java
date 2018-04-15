@@ -2,6 +2,7 @@ package bassiouny.ahmed.waslabank.interfaces;
 
 import bassiouny.ahmed.waslabank.api.apiModel.ApiKey;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.ContactUsRequest;
+import bassiouny.ahmed.waslabank.api.apiModel.requests.CreateTripRequest;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.TripsByDate;
 import bassiouny.ahmed.waslabank.api.apiModel.response.GenericResponse;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.UserLoginRequest;
@@ -70,8 +71,12 @@ public interface HttpApiInterface {
     @Multipart
     @Headers(HEADER_KEY)
     Call<UserResponse> editProfile(@Header(AUTHORIZATION) String token,@Part MultipartBody.Part file,@Part(ApiKey.ID) RequestBody id
-            , @Part(ApiKey.EMAIL) RequestBody email,@Part(ApiKey.NAME) RequestBody name
+            ,@Part(ApiKey.NAME) RequestBody name
             , @Part(ApiKey.INTERESTING) RequestBody interesting);
 
+
+    @POST("requests/create")
+    @Headers(HEADER_KEY)
+    Call<GenericResponse> createTrip(@Header(AUTHORIZATION) String token, @Body CreateTripRequest createTripRequest);
 
 }

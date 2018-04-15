@@ -39,7 +39,7 @@ public class EditProfileActivity extends MyToolbar {
     private File image;
     // view
     private CircleImageView ivAvatar;
-    private TextInputEditText etName, etEmail;
+    private TextInputEditText etName;
     private TextInputEditText etInteresting;
     private Button btnUpdate;
     private Button btnChangePassword;
@@ -63,7 +63,6 @@ public class EditProfileActivity extends MyToolbar {
         if (user == null)
             finish();
         etName.setText(user.getName());
-        etEmail.setText(user.getEmail());
         etInteresting.setText(user.getUserDetails().getInteresting());
         MyGlideApp.setImage(this, ivAvatar, user.getUserDetails().getImage());
     }
@@ -88,13 +87,13 @@ public class EditProfileActivity extends MyToolbar {
                     etName.setError(getString(R.string.invalid_name));
                 } else {
                     loading(true);
-                    getController().editProfile(image,user.getId(), etName.getText().toString(),user.getEmail(), etInteresting.getText().toString(), new BaseResponseInterface<User>() {
+                    getController().editProfile(image,user.getId(), etName.getText().toString(), etInteresting.getText().toString(), new BaseResponseInterface<User>() {
                         @Override
                         public void onSuccess(User user) {
                             // save user data in shared pref
-                            EditProfileActivity.this.user.setName(etName.getText().toString());
+                            /*EditProfileActivity.this.user.setName(etName.getText().toString());
                             EditProfileActivity.this.user.getUserDetails().setInteresting(etInteresting.getText().toString());
-                            SharedPrefManager.setObject(SharedPrefKey.USER, EditProfileActivity.this.user);
+                            */SharedPrefManager.setObject(SharedPrefKey.USER, user);
                             Toast.makeText(EditProfileActivity.this, getText(R.string.profile_updated), Toast.LENGTH_SHORT).show();
                             loading(false);
                         }
@@ -113,7 +112,6 @@ public class EditProfileActivity extends MyToolbar {
     private void findView() {
         ivAvatar = findViewById(R.id.iv_avatar);
         etName = findViewById(R.id.et_name);
-        etEmail = findViewById(R.id.et_email);
         etInteresting = findViewById(R.id.et_interesting);
         btnUpdate = findViewById(R.id.btn_update);
         btnChangePassword = findViewById(R.id.btn_change_password);

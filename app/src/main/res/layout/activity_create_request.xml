@@ -91,4 +91,11 @@
         android:textAllCaps="true"
         android:textColor="@color/white"
         android:textSize="@dimen/button_size" />
+
+    <ViewStub
+        android:id="@+id/view_stub_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:layout="@layout/progress" />
 </LinearLayout>

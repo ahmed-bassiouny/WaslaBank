@@ -56,4 +56,7 @@ public class ApiKey {
     public static final String AVAILABLE_PLACE = "available_places";
     public static final String TOTAL_REQUESTS = "my_total_requests";
     public static final String TOTAL_USERS = "user_that_joined_before_with_me";
+    public static final String DRIVER_ID = "driver_id";
+    public static final String TYPE = "type";
+    public static final String CREATED_BY = "created_by";
 }
