@@ -100,4 +100,9 @@
     <string name="date">Date</string>
     <string name="time">Time</string>
     <string name="send">Send</string>
+    <string name="no_requests">No Trip Found</string>
+    <string name="current_password">Current Passwrod</string>
+    <string name="new_password">New Password</string>
+    <string name="save">Save</string>
+    <string name="notifications">Notifications</string>
 </resources>

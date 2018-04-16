@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import bassiouny.ahmed.waslabank.R;
 import bassiouny.ahmed.waslabank.activities.view.HomeActivity;
+import bassiouny.ahmed.waslabank.activities.view.NotificationActivity;
 import bassiouny.ahmed.waslabank.activities.view.UserProfileActivity;
 
 /**
@@ -113,7 +114,7 @@ public class MyToolbar extends AppCompatActivity {
         notification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onBackPressed();
+                startActivity(new Intent(MyToolbar.this, NotificationActivity.class));
             }
         });
         // set icons to frame layout
@@ -130,7 +131,7 @@ public class MyToolbar extends AppCompatActivity {
         notification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onBackPressed();
+                startActivity(new Intent(MyToolbar.this, NotificationActivity.class));
             }
         });
         // set icons to frame layout

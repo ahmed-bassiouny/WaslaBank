@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.prolificinteractive.materialcalendarview.CalendarDay;
@@ -20,6 +21,7 @@ import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import bassiouny.ahmed.genericmanager.DateTimeManager;
@@ -41,6 +43,7 @@ public class RequestsFragment extends Fragment implements ItemClickInterface<Int
     private RecyclerView recyclerView;
     private MaterialCalendarView calendarView;
     private ViewStub viewStubProgress;
+    private TextView tvNoTrip;
     // local variable
     private RequestsController controller;
     private int currentPage = 10;
@@ -71,6 +74,10 @@ public class RequestsFragment extends Fragment implements ItemClickInterface<Int
         findView(view);
         onCLick();
         initObject();
+        //calendarView.setDateSelected(new Date(),true);
+        Calendar cal = Calendar.getInstance();
+        loadData(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
+        calendarView.setSelectedDate(cal);
     }
 
     private void initObject() {
@@ -82,28 +89,39 @@ public class RequestsFragment extends Fragment implements ItemClickInterface<Int
         calendarView.setCurrentDate(Calendar.getInstance());
     }
 
+    private void loadData(int year, int month, int day) {
+        loading(true);
+        getController().getTripsByDate(year, month + 1, day, currentPage, new BaseResponseInterface<List<TripDetails>>() {
+
+            @Override
+            public void onSuccess(List<TripDetails> tripDetails) {
+                loading(false);
+                if (tripDetails.size() != 0) {
+                    recyclerView.setVisibility(View.VISIBLE);
+                    tvNoTrip.setVisibility(View.INVISIBLE);
+                    adapter.setList(tripDetails);
+                }else {
+                    recyclerView.setVisibility(View.INVISIBLE);
+                    tvNoTrip.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onFailed(String errorMessage) {
+                if (getActivity() != null) {
+                    Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
+                    loading(false);
+                }
+            }
+        });
+    }
+
     private void onCLick() {
 
         calendarView.setOnDateChangedListener(new OnDateSelectedListener() {
             @Override
             public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
-                loading(true);
-                getController().getTripsByDate(date.getYear(), date.getMonth() + 1, date.getDay(), currentPage, new BaseResponseInterface<List<TripDetails>>() {
-
-                    @Override
-                    public void onSuccess(List<TripDetails> tripDetails) {
-                        adapter.setList(tripDetails);
-                        loading(false);
-                    }
-
-                    @Override
-                    public void onFailed(String errorMessage) {
-                        if (getActivity() != null) {
-                            Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
-                            loading(false);
-                        }
-                    }
-                });
+                loadData(date.getYear(), date.getMonth(), date.getDay());
             }
         });
     }
@@ -112,6 +130,7 @@ public class RequestsFragment extends Fragment implements ItemClickInterface<Int
         recyclerView = view.findViewById(R.id.recycler);
         calendarView = view.findViewById(R.id.calendarView);
         viewStubProgress = view.findViewById(R.id.view_stub_progress);
+        tvNoTrip = view.findViewById(R.id.tv_no_trip);
         // set layout manager
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     }
@@ -124,18 +143,20 @@ public class RequestsFragment extends Fragment implements ItemClickInterface<Int
 
     @Override
     public void getItem(@Nullable Integer tripId, int position) {
-        if(getActivity() == null)
+        if (getActivity() == null)
             return;
         Intent intent = new Intent(getActivity(), RequestInfoActivity.class);
-        intent.putExtra("TRIP_ID",tripId);
+        intent.putExtra("TRIP_ID", tripId);
         startActivity(intent);
 
     }
-    private void loading(boolean isLoading){
-        if(isLoading) {
+
+    private void loading(boolean isLoading) {
+        if (isLoading) {
             viewStubProgress.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.INVISIBLE);
-        }else {
+            tvNoTrip.setVisibility(View.INVISIBLE);
+        } else {
             viewStubProgress.setVisibility(View.INVISIBLE);
             recyclerView.setVisibility(View.VISIBLE);
         }

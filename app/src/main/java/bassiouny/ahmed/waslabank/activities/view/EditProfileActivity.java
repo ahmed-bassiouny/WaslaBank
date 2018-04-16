@@ -108,6 +108,12 @@ public class EditProfileActivity extends MyToolbar {
                 }
             }
         });
+        btnChangePassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(EditProfileActivity.this,ChangePasswordActivity.class));
+            }
+        });
     }
 
     private void findView() {
