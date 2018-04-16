@@ -39,7 +39,7 @@ public class HomeActivity extends MyToolbar implements ItemClickInterface {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         // add toolbar title
-        initToolbar(SharedPrefManager.getObject(SharedPrefKey.USER, User.class).getName(),false);
+        initToolbar(SharedPrefManager.getObject(SharedPrefKey.USER, User.class).getName(), false);
         // add profile image button
         addProfileImage();
         // add notification image button
@@ -133,6 +133,10 @@ public class HomeActivity extends MyToolbar implements ItemClickInterface {
             // contact us
             case 2:
                 startActivity(new Intent(HomeActivity.this, ContactUsActivity.class));
+                break;
+            // about
+            case 3:
+                startActivity(new Intent(HomeActivity.this, AboutUsActivity.class));
                 break;
             // log out
             case 4:
