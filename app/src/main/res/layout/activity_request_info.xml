@@ -6,13 +6,6 @@
     android:orientation="vertical"
     tools:context="bassiouny.ahmed.waslabank.activities.view.RequestInfoActivity">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/toolbar"
-        android:background="@drawable/bgprimary"
-        android:contentDescription="@null" />
-
     <include
         android:id="@+id/toolbar"
         layout="@layout/toolbar"

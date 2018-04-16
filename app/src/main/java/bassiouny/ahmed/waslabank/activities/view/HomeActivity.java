@@ -39,7 +39,7 @@ public class HomeActivity extends MyToolbar implements ItemClickInterface {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         // add toolbar title
-        initToolbar(SharedPrefManager.getObject(SharedPrefKey.USER, User.class).getName());
+        initToolbar(SharedPrefManager.getObject(SharedPrefKey.USER, User.class).getName(),false);
         // add profile image button
         addProfileImage();
         // add notification image button
@@ -71,7 +71,7 @@ public class HomeActivity extends MyToolbar implements ItemClickInterface {
 
     private void initObject() {
         // set menu image array
-        menuImages = new int[]{R.drawable.car_plus, R.drawable.car, R.drawable.ic_call, R.drawable.logo_w, R.drawable.ic_call_missed};
+        menuImages = new int[]{R.drawable.car_plus, R.drawable.car, R.drawable.contactus, R.drawable.about, R.drawable.logout};
         // set menu string array
         menuStrings = getResources().getStringArray(R.array.menu);
         // check image and string array

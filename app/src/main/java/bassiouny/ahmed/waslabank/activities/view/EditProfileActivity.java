@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewStub;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -42,7 +43,7 @@ public class EditProfileActivity extends MyToolbar {
     private TextInputEditText etName;
     private TextInputEditText etInteresting;
     private Button btnUpdate;
-    private Button btnChangePassword;
+    private TextView btnChangePassword;
     private ViewStub viewStubProgress;
 
     @Override
@@ -50,7 +51,7 @@ public class EditProfileActivity extends MyToolbar {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
         // set title toolbar
-        initToolbar(getString(R.string.profile));
+        initToolbar(getString(R.string.edit_profile),true);
         addBackImage();
         addSupportActionbar();
         findView();

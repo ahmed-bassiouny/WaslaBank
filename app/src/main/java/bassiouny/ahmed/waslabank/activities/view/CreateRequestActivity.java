@@ -52,9 +52,9 @@ public class CreateRequestActivity extends MyToolbar {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_request);
         // set tool bar
-        initToolbar("");
-        addBackImagePrimary();
-        addNotificationImagePrimary();
+        initToolbar(getString(R.string.create_request),true);
+        addBackImage();
+        addNotificationImage();
         addSupportActionbar();
         findView();
         onClick();

@@ -9,15 +9,6 @@
     android:orientation="vertical"
     tools:context="bassiouny.ahmed.waslabank.activities.view.RequestsActivity">
 
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/tabs"
-        android:contentDescription="@null"
-        android:scaleType="fitXY"
-        android:src="@drawable/bgprimary" />
-
     <include
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
@@ -27,6 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar"
+        android:background="@drawable/toolbar"
         app:tabIndicatorColor="@color/white"
         app:tabSelectedTextColor="@color/white"
         app:tabTextColor="@color/white">

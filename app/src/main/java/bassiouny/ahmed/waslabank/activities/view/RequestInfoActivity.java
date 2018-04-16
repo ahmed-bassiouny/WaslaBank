@@ -46,7 +46,7 @@ public class RequestInfoActivity extends MyToolbar implements MyObserverInterfac
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_request_info);
-        initToolbar(getString(R.string.request));
+        initToolbar(getString(R.string.request),true);
         addBackImage();
         addNotificationImage();
         addSupportActionbar();
@@ -93,6 +93,8 @@ public class RequestInfoActivity extends MyToolbar implements MyObserverInterfac
 
     @Override
     public void notifyObservers(TripDetails tripDetails) {
+        if (observerInterfaces.size() == 0)
+            return;
         // TripDetailsFragment ==> trip details object
         observerInterfaces.get(0).update(tripDetails);
         // AboutDriverFragment ==> user object

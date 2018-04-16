@@ -43,6 +43,7 @@ public class UserProfileActivity extends MyToolbar implements MyObserverInterfac
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
     private CircleImageView ivAvatar;
+    private ImageView imgCover;
     private TextView tvUserName;
     private RatingBar rating;
     private TextView tvRequests;
@@ -59,13 +60,13 @@ public class UserProfileActivity extends MyToolbar implements MyObserverInterfac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
         // set tool bar title
-        initToolbar("");
+        initToolbar("",false);
         // set back image button
         addBackImage();
         // set notification image button
         addNotificationImage();
         // set edit icon
-        addView(editImage(),layoutParamEditIcon());
+        addView(editImage(), layoutParamEditIcon());
         // set toolbar
         addSupportActionbar();
         // find view by id
@@ -102,6 +103,7 @@ public class UserProfileActivity extends MyToolbar implements MyObserverInterfac
         tvPoint = findViewById(R.id.tv_point);
         tvOrder = findViewById(R.id.tv_order);
         viewStubProgress = findViewById(R.id.view_stub_progress);
+        imgCover = findViewById(R.id.img_cover);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -130,6 +132,8 @@ public class UserProfileActivity extends MyToolbar implements MyObserverInterfac
 
     @Override
     public void notifyObservers(UserInfo userInfo) {
+        if (observerInterfaces.size() == 0)
+            return;
         // AboutFragment ==> user object
         observerInterfaces.get(0).update(user);
         if (userInfo != null)
@@ -180,9 +184,9 @@ public class UserProfileActivity extends MyToolbar implements MyObserverInterfac
     private void setUserInformation() {
         if (userInfo == null)
             return;
-        tvRequests.setText(String.valueOf(userInfo.getRequests()) + "\n" + getString(R.string.requests));
-        tvPoint.setText(String.valueOf(userInfo.getPoint()) + "\n" + getString(R.string.points));
-        tvOrder.setText(String.valueOf(userInfo.getOrders()) + "\n" + getString(R.string.orders));
+        tvRequests.setText(String.valueOf(userInfo.getRequests()));
+        tvPoint.setText(String.valueOf(userInfo.getPoint()));
+        tvOrder.setText(String.valueOf(userInfo.getOrders()));
         rating.setRating(userInfo.getRate());
     }
 
@@ -192,7 +196,8 @@ public class UserProfileActivity extends MyToolbar implements MyObserverInterfac
         if (user == null)
             return;
         tvUserName.setText(user.getName());
-        MyGlideApp.setImage(this, ivAvatar, user.getUserDetails().getImage());
+        MyGlideApp.setImageCenterInside(this, ivAvatar, user.getUserDetails().getImage());
+        MyGlideApp.setImageCenterCrop(this, imgCover, user.getUserDetails().getImage());
     }
 
     private void loadUserInfo() {
@@ -242,7 +247,7 @@ public class UserProfileActivity extends MyToolbar implements MyObserverInterfac
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(UserProfileActivity.this,EditProfileActivity.class));
+                startActivity(new Intent(UserProfileActivity.this, EditProfileActivity.class));
             }
         });
         return edit;
@@ -253,7 +258,7 @@ public class UserProfileActivity extends MyToolbar implements MyObserverInterfac
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
                 FrameLayout.LayoutParams.WRAP_CONTENT,
                 FrameLayout.LayoutParams.WRAP_CONTENT, Gravity.END);
-        params.setMargins(10, 10, 120, 10);
+        params.setMargins(10, 10, 150, 10);
         return params;
     }
 

@@ -21,4 +21,18 @@ public class MyGlideApp {
                 .apply(new RequestOptions().placeholder(R.drawable.person).error(R.drawable.person).dontAnimate())
                 .into(image);
     }
+    public static void setImageCenterCrop(Context context, ImageView image, String url) {
+        if (url.isEmpty())
+            return;
+        Glide.with(context).load(url)
+                .apply(new RequestOptions().placeholder(R.drawable.person).error(R.drawable.person).dontAnimate().centerCrop())
+                .into(image);
+    }
+    public static void setImageCenterInside(Context context, ImageView image, String url) {
+        if (url.isEmpty())
+            return;
+        Glide.with(context).load(url)
+                .apply(new RequestOptions().placeholder(R.drawable.person).error(R.drawable.person).dontAnimate().centerInside())
+                .into(image);
+    }
 }

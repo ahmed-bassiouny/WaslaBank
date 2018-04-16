@@ -43,22 +43,22 @@
         android:layout_height="15dp"
         android:src="@drawable/arrow"
         android:contentDescription="@null"
+        android:layout_marginTop="25dp"
         android:id="@+id/arrow"
         android:scaleType="fitXY"
-        android:layout_marginStart="10dp"
-        android:layout_toEndOf="@+id/container"
-        android:layout_centerVertical="true"/>
+        android:layout_marginStart="5dp"
+        android:layout_toEndOf="@+id/container" />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_toEndOf="@+id/arrow"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
+        android:layout_marginTop="10dp"
         android:paddingStart="10dp"
         android:paddingEnd="5dp"
         android:gravity="center_horizontal"
         android:background="@drawable/feedback_bg"
         android:id="@+id/tv_comment"
-        android:layout_centerVertical="true"
         android:textColor="@color/black"/>
 </RelativeLayout>

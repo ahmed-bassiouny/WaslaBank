@@ -16,25 +16,18 @@
             layout="@layout/toolbar" />
 
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="@string/get_touch"
-            android:textAllCaps="true"
-            android:textColor="@color/black"
-            android:textSize="@dimen/button_size" />
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp">
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="20dp">
 
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/et_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
                 android:hint="@string/name"
                 android:inputType="textPersonName"
                 android:lines="1"
@@ -45,13 +38,14 @@
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp">
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp">
 
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/et_phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
                 android:hint="@string/phone"
                 android:inputType="phone"
                 android:maxLength="11"
@@ -63,13 +57,14 @@
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp">
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp">
 
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/et_subject"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
                 android:hint="@string/subject"
                 android:inputType="text"
                 android:lines="1"
@@ -79,28 +74,34 @@
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp">
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp">
 
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/et_message"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
                 android:hint="@string/message"
                 android:inputType="text"
                 android:minHeight="100dp" />
         </android.support.design.widget.TextInputLayout>
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/iv_send"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+        <Button
+            android:id="@+id/btn_send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="20dp"
             android:contentDescription="@null"
             android:src="@drawable/ic_send"
-            app:civ_border_color="@color/black"
-            app:civ_border_width="1dp"
-            app:civ_fill_color="@color/colorPrimary" />
+            android:textColor="@color/white"
+            android:paddingEnd="50dp"
+            android:textSize="@dimen/input_size"
+            android:paddingStart="50dp"
+            android:background="@drawable/round_fill_primary"
+            android:text="@string/send"/>
 
         <ViewStub
             android:id="@+id/view_stub_progress"

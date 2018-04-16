@@ -59,9 +59,12 @@
         <activity android:name=".activities.view.AboutUsActivity" />
         <activity
             android:name=".activities.view.ContactUsActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustNothing" />
         <activity android:name=".activities.view.CreateRequestActivity" />
-        <activity android:name=".activities.view.EditProfileActivity"></activity>
+        <activity android:name=".activities.view.EditProfileActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustNothing"/>
     </application>
 
 </manifest>

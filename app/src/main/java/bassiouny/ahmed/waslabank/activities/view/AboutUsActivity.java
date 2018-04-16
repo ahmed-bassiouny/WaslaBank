@@ -12,7 +12,7 @@ public class AboutUsActivity extends MyToolbar {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about_us);
-        initToolbar(getString(R.string.about_us));
+        initToolbar(getString(R.string.about_us),true);
         addBackImage();
         addNotificationImage();
         addSupportActionbar();

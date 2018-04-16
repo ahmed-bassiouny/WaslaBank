@@ -4,6 +4,7 @@ import android.support.design.widget.TextInputEditText;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewStub;
+import android.widget.Button;
 import android.widget.Toast;
 
 import bassiouny.ahmed.genericmanager.SharedPrefManager;
@@ -14,7 +15,6 @@ import bassiouny.ahmed.waslabank.interfaces.BaseResponseInterface;
 import bassiouny.ahmed.waslabank.model.User;
 import bassiouny.ahmed.waslabank.utils.MyToolbar;
 import bassiouny.ahmed.waslabank.utils.SharedPrefKey;
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ContactUsActivity extends MyToolbar {
 
@@ -22,16 +22,16 @@ public class ContactUsActivity extends MyToolbar {
     private TextInputEditText etPhone;
     private TextInputEditText etSubject;
     private TextInputEditText etMessage;
-    private CircleImageView ivSend;
+    private Button btnSend;
     private ViewStub viewStubProgress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact_us);
-        initToolbar(getString(R.string.contact_us));
-        addBackImagePrimary();
-        addNotificationImagePrimary();
+        initToolbar(getString(R.string.contact_us),true);
+        addBackImage();
+        addNotificationImage();
         addSupportActionbar();
         findView();
         onClick();
@@ -45,7 +45,7 @@ public class ContactUsActivity extends MyToolbar {
     }
 
     private void onClick() {
-        ivSend.setOnClickListener(new View.OnClickListener() {
+        btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (etName.getText().toString().isEmpty()) {
@@ -87,10 +87,10 @@ public class ContactUsActivity extends MyToolbar {
     private void loading(boolean isLoading) {
         if (isLoading) {
             viewStubProgress.setVisibility(View.VISIBLE);
-            ivSend.setVisibility(View.GONE);
+            btnSend.setVisibility(View.GONE);
         } else {
             viewStubProgress.setVisibility(View.GONE);
-            ivSend.setVisibility(View.VISIBLE);
+            btnSend.setVisibility(View.VISIBLE);
         }
     }
 
@@ -99,7 +99,7 @@ public class ContactUsActivity extends MyToolbar {
         etPhone = findViewById(R.id.et_phone);
         etSubject = findViewById(R.id.et_subject);
         etMessage = findViewById(R.id.et_message);
-        ivSend = findViewById(R.id.iv_send);
+        btnSend = findViewById(R.id.btn_send);
         viewStubProgress = findViewById(R.id.view_stub_progress);
     }
 }
