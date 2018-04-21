@@ -59,4 +59,7 @@ public class ApiKey {
     public static final String DRIVER_ID = "driver_id";
     public static final String TYPE = "type";
     public static final String CREATED_BY = "created_by";
+    public static final String IS_FINISHED = "is_finished";
+    public static final String IS_RUNNING = "is_running";
+    public static final String IS_JOINED = "is_joined";
 }

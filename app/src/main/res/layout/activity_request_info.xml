@@ -1,4 +1,4 @@
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -6,68 +6,64 @@
     android:fillViewport="true"
     tools:context="bassiouny.ahmed.waslabank.activities.view.RequestInfoActivity">
 
-    <RelativeLayout
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
+    <ViewStub
+        android:id="@+id/view_stub_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true"
+        android:layout="@layout/progress" />
+
+    <ImageView
+        android:id="@+id/map"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="200dp"
+        android:layout_below="@+id/toolbar"
+        android:gravity="center"
+        android:scaleType="fitXY"
+        android:src="@drawable/map" />
 
-        <include
-            android:id="@+id/toolbar"
-            layout="@layout/toolbar" />
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/map"
+        android:background="@color/gray_light"
+        app:tabIndicatorColor="@color/colorPrimary"
+        app:tabSelectedTextColor="@color/colorPrimary"
+        app:tabTextColor="@color/colorPrimary">
 
-        <ViewStub
-            android:id="@+id/view_stub_progress"
+        <android.support.design.widget.TabItem
+            android:id="@+id/tabItem"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_centerHorizontal="true"
-            android:layout_centerInParent="true"
-            android:layout="@layout/progress" />
-
-        <ImageView
-            android:id="@+id/map"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_below="@+id/toolbar"
-            android:gravity="center"
-            android:scaleType="fitXY"
-            android:src="@drawable/map" />
-
-        <android.support.design.widget.TabLayout
-            android:id="@+id/tabs"
-            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/map"
-            android:background="@color/gray_light"
-            app:tabIndicatorColor="@color/colorPrimary"
-            app:tabSelectedTextColor="@color/colorPrimary"
-            app:tabTextColor="@color/colorPrimary">
+            android:text="@string/trip_details" />
 
-            <android.support.design.widget.TabItem
-                android:id="@+id/tabItem"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/trip_details" />
+        <android.support.design.widget.TabItem
+            android:id="@+id/tabItem2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/driver" />
 
-            <android.support.design.widget.TabItem
-                android:id="@+id/tabItem2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/driver" />
+        <android.support.design.widget.TabItem
+            android:id="@+id/tabItem3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/feedback" />
 
-            <android.support.design.widget.TabItem
-                android:id="@+id/tabItem3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/feedback" />
+    </android.support.design.widget.TabLayout>
 
-        </android.support.design.widget.TabLayout>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tabs"
+        android:background="@drawable/bgsmall"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/tabs"
-            android:background="@drawable/bgsmall"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
-    </RelativeLayout>
-</android.support.v4.widget.NestedScrollView>
+</RelativeLayout>

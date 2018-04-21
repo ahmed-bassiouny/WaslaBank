@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "317491495989",
+    "firebase_url": "https://wasllabank.firebaseio.com",
+    "project_id": "wasllabank",
+    "storage_bucket": "wasllabank.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:317491495989:android:f1df9daa71c5278b",
+        "android_client_info": {
+          "package_name": "bassiouny.ahmed.waslabank"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "317491495989-7enp5cp94qf2utohr95t1ufls6tj7a6r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "bassiouny.ahmed.waslabank",
+            "certificate_hash": "cd70e4b155cc34d401601319f88b8df59ab4058d"
+          }
+        },
+        {
+          "client_id": "317491495989-nv5h99ajbf1a58i5c97vvokcruudo835.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCM-TfyYnhw_jM0N952vZYMUIsJ-FX5lEw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "317491495989-nv5h99ajbf1a58i5c97vvokcruudo835.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

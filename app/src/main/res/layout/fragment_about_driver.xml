@@ -25,6 +25,7 @@
         android:textColor="@color/black"
         android:textSize="@dimen/input_size"
         android:textStyle="bold"
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="@+id/iv_avatar"
         app:layout_constraintEnd_toStartOf="@+id/rating"
         app:layout_constraintStart_toEndOf="@+id/iv_avatar"

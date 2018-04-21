@@ -3,6 +3,8 @@ package bassiouny.ahmed.waslabank.interfaces;
 import bassiouny.ahmed.waslabank.api.apiModel.ApiKey;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.ContactUsRequest;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.CreateTripRequest;
+import bassiouny.ahmed.waslabank.api.apiModel.requests.StartTripRequest;
+import bassiouny.ahmed.waslabank.api.apiModel.requests.TripStatusRequest;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.TripsByDate;
 import bassiouny.ahmed.waslabank.api.apiModel.response.GenericResponse;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.UserLoginRequest;
@@ -37,11 +39,11 @@ public interface HttpApiInterface {
 
     @POST("registration")
     @Multipart
-    Call<UserResponse> signUp(@Part MultipartBody.Part file , @Part(ApiKey.NAME) RequestBody name
-    , @Part(ApiKey.PHONE) RequestBody phone, @Part(ApiKey.EMAIL) RequestBody email, @Part(ApiKey.PASSWORD) RequestBody password
-    , @Part(ApiKey.CAR_NUMBER) RequestBody carNumber, @Part(ApiKey.LICENSE_NUMBER) RequestBody licenseNumber, @Part(ApiKey.CAR_SIZE) RequestBody carSize
-    , @Part(ApiKey.IDENTIFY_NUMBER) RequestBody identifyNumber, @Part(ApiKey.GENDER) RequestBody gender, @Part(ApiKey.CITY) RequestBody city
-    , @Part(ApiKey.NOTIFICATION_TOKEN) RequestBody notificationToken);
+    Call<UserResponse> signUp(@Part MultipartBody.Part file, @Part(ApiKey.NAME) RequestBody name
+            , @Part(ApiKey.PHONE) RequestBody phone, @Part(ApiKey.EMAIL) RequestBody email, @Part(ApiKey.PASSWORD) RequestBody password
+            , @Part(ApiKey.CAR_NUMBER) RequestBody carNumber, @Part(ApiKey.LICENSE_NUMBER) RequestBody licenseNumber, @Part(ApiKey.CAR_SIZE) RequestBody carSize
+            , @Part(ApiKey.IDENTIFY_NUMBER) RequestBody identifyNumber, @Part(ApiKey.GENDER) RequestBody gender, @Part(ApiKey.CITY) RequestBody city
+            , @Part(ApiKey.NOTIFICATION_TOKEN) RequestBody notificationToken);
 
     @POST()
     Call<GenericResponse> checkUserData(@Url String url, @Body UserSignUpRequest user);
@@ -64,19 +66,28 @@ public interface HttpApiInterface {
     @FormUrlEncoded
     @POST()
     @Headers(HEADER_KEY)
-    Call<UserInfoResponse> getUserInfo(@Url String url,@Header(AUTHORIZATION) String token,@Field(ApiKey.ID) int userId);
+    Call<UserInfoResponse> getUserInfo(@Url String url, @Header(AUTHORIZATION) String token, @Field(ApiKey.ID) int userId);
 
 
     @POST("auth/edit_profile")
     @Multipart
     @Headers(HEADER_KEY)
-    Call<UserResponse> editProfile(@Header(AUTHORIZATION) String token,@Part MultipartBody.Part file,@Part(ApiKey.ID) RequestBody id
-            ,@Part(ApiKey.NAME) RequestBody name
+    Call<UserResponse> editProfile(@Header(AUTHORIZATION) String token, @Part MultipartBody.Part file, @Part(ApiKey.ID) RequestBody id
+            , @Part(ApiKey.NAME) RequestBody name
             , @Part(ApiKey.INTERESTING) RequestBody interesting);
 
 
     @POST("requests/create")
     @Headers(HEADER_KEY)
     Call<GenericResponse> createTrip(@Header(AUTHORIZATION) String token, @Body CreateTripRequest createTripRequest);
+
+    @POST("requests/cancel")
+    @Headers(HEADER_KEY)
+    Call<GenericResponse> finishTrip(@Header(AUTHORIZATION) String token, @Body TripStatusRequest tripStatusRequest);
+
+
+    @POST("requests/start/trip")
+    @Headers(HEADER_KEY)
+    Call<GenericResponse> startTrip(@Header(AUTHORIZATION) String token, @Body StartTripRequest startTripRequest);
 
 }

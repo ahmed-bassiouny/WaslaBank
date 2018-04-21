@@ -74,7 +74,6 @@ public class RequestsFragment extends Fragment implements ItemClickInterface<Int
         findView(view);
         onCLick();
         initObject();
-        //calendarView.setDateSelected(new Date(),true);
         Calendar cal = Calendar.getInstance();
         loadData(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
         calendarView.setSelectedDate(cal);

@@ -7,6 +7,8 @@ import java.util.List;
 import bassiouny.ahmed.genericmanager.SharedPrefManager;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.ContactUsRequest;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.CreateTripRequest;
+import bassiouny.ahmed.waslabank.api.apiModel.requests.StartTripRequest;
+import bassiouny.ahmed.waslabank.api.apiModel.requests.TripStatusRequest;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.TripsByDate;
 import bassiouny.ahmed.waslabank.api.apiModel.response.GenericResponse;
 import bassiouny.ahmed.waslabank.api.apiModel.response.ParentResponse;
@@ -38,7 +40,7 @@ public class ApiRequests {
     @SuppressWarnings("unchecked")
     private static <T> void checkValidResult(T response, BaseResponseInterface anInterface) {
         // get response body
-        Response<ParentResponse> parentResponse = (Response<ParentResponse>)response;
+        Response<ParentResponse> parentResponse = (Response<ParentResponse>) response;
         ParentResponse body = parentResponse.body();
         if (body == null) {
             // if body == null this mean respond from server total bad
@@ -157,7 +159,7 @@ public class ApiRequests {
     // url => requests/drivers
     // parameter => date , page getTripsByDate ( 10 , 20 , .. etc )
     public static void getTripsByDate(TripsByDate tripsByDate, final BaseResponseInterface<List<TripDetails>> anInterface) {
-        Call<TripDetailsListResponse> response = ApiConfig.httpApiInterface.getTripsByDate(MyApplication.getUserToken(),tripsByDate);
+        Call<TripDetailsListResponse> response = ApiConfig.httpApiInterface.getTripsByDate(MyApplication.getUserToken(), tripsByDate);
         response.enqueue(new Callback<TripDetailsListResponse>() {
             @Override
             public void onResponse(@NonNull Call<TripDetailsListResponse> call, @NonNull Response<TripDetailsListResponse> response) {
@@ -177,7 +179,7 @@ public class ApiRequests {
     // url => requests/one/request
     // parameter => trip id
     public static void getTripRequestById(int tripId, final BaseResponseInterface<TripDetails> anInterface) {
-        Call<TripDetailsResponse> response = ApiConfig.httpApiInterface.getTripRequestById(MyApplication.getUserToken(),tripId);
+        Call<TripDetailsResponse> response = ApiConfig.httpApiInterface.getTripRequestById(MyApplication.getUserToken(), tripId);
         response.enqueue(new Callback<TripDetailsResponse>() {
             @Override
             public void onResponse(@NonNull Call<TripDetailsResponse> call, @NonNull Response<TripDetailsResponse> response) {
@@ -192,11 +194,12 @@ public class ApiRequests {
             }
         });
     }
+
     // contact us
     // url => contact
     // parameter => user id , name, phone,subject , message
     public static void contactUs(ContactUsRequest contactUsRequest, final BaseResponseInterface anInterface) {
-        Call<GenericResponse> response = ApiConfig.httpApiInterface.contactUs(MyApplication.getUserToken(),contactUsRequest);
+        Call<GenericResponse> response = ApiConfig.httpApiInterface.contactUs(MyApplication.getUserToken(), contactUsRequest);
         response.enqueue(new Callback<GenericResponse>() {
             @Override
             public void onResponse(@NonNull Call<GenericResponse> call, @NonNull Response<GenericResponse> response) {
@@ -216,7 +219,7 @@ public class ApiRequests {
     // url => home
     // parameter => token , user id
     public static void getUserInfo(final BaseResponseInterface<UserInfo> anInterface) {
-        Call<UserInfoResponse> response = ApiConfig.httpApiInterface.getUserInfo("home",MyApplication.getUserToken(),SharedPrefManager.getObject(SharedPrefKey.USER,User.class).getId());
+        Call<UserInfoResponse> response = ApiConfig.httpApiInterface.getUserInfo("home", MyApplication.getUserToken(), SharedPrefManager.getObject(SharedPrefKey.USER, User.class).getId());
         response.enqueue(new Callback<UserInfoResponse>() {
             @Override
             public void onResponse(@NonNull Call<UserInfoResponse> call, @NonNull Response<UserInfoResponse> response) {
@@ -231,11 +234,12 @@ public class ApiRequests {
             }
         });
     }
+
     // user information with feedback
     // url => /auth/me
     // parameter => token ,user id
     public static void getUserInfoWithFeedback(final BaseResponseInterface<UserInfo> anInterface) {
-        Call<UserInfoResponse> response = ApiConfig.httpApiInterface.getUserInfo("auth/me",MyApplication.getUserToken(),SharedPrefManager.getObject(SharedPrefKey.USER,User.class).getId());
+        Call<UserInfoResponse> response = ApiConfig.httpApiInterface.getUserInfo("auth/me", MyApplication.getUserToken(), SharedPrefManager.getObject(SharedPrefKey.USER, User.class).getId());
         response.enqueue(new Callback<UserInfoResponse>() {
             @Override
             public void onResponse(@NonNull Call<UserInfoResponse> call, @NonNull Response<UserInfoResponse> response) {
@@ -250,13 +254,14 @@ public class ApiRequests {
             }
         });
     }
+
     // edit user profile
     // url => auth/edit_profile
     // parameter => user information
-    public static void editProfile(UserSignUpRequest userSignUpRequest,String userId, MultipartBody.Part part, final BaseResponseInterface<User> anInterface) {
+    public static void editProfile(UserSignUpRequest userSignUpRequest, String userId, MultipartBody.Part part, final BaseResponseInterface<User> anInterface) {
         Call<UserResponse> response = ApiConfig.httpApiInterface.editProfile(MyApplication.getUserToken(),
                 part, MyUtils.createPartFromString(userId)
-                ,MyUtils.createPartFromString(userSignUpRequest.getName())
+                , MyUtils.createPartFromString(userSignUpRequest.getName())
                 , MyUtils.createPartFromString(userSignUpRequest.getInteresting()));
         response.enqueue(new Callback<UserResponse>() {
             @Override
@@ -272,11 +277,52 @@ public class ApiRequests {
             }
         });
     }
+
     // create trip
     // url => requests/create
     // parameter => location start, location end, time, driver id
     public static void createTrip(CreateTripRequest createTripRequest, final BaseResponseInterface anInterface) {
-        Call<GenericResponse> response = ApiConfig.httpApiInterface.createTrip(MyApplication.getUserToken(),createTripRequest);
+        Call<GenericResponse> response = ApiConfig.httpApiInterface.createTrip(MyApplication.getUserToken(), createTripRequest);
+        response.enqueue(new Callback<GenericResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<GenericResponse> call, @NonNull Response<GenericResponse> response) {
+                // check on response and get data
+                checkValidResult(response, anInterface);
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<GenericResponse> call, @NonNull Throwable t) {
+                // get error message
+                anInterface.onFailed(t.getLocalizedMessage());
+            }
+        });
+    }
+
+    // cancel - finish trip
+    // url => requests/cancel
+    // parameter => request id, is cancel, is finish
+    public static void finishTrip(TripStatusRequest tripStatusRequest, final BaseResponseInterface anInterface) {
+        Call<GenericResponse> response = ApiConfig.httpApiInterface.finishTrip(MyApplication.getUserToken(), tripStatusRequest);
+        response.enqueue(new Callback<GenericResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<GenericResponse> call, @NonNull Response<GenericResponse> response) {
+                // check on response and get data
+                checkValidResult(response, anInterface);
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<GenericResponse> call, @NonNull Throwable t) {
+                // get error message
+                anInterface.onFailed(t.getLocalizedMessage());
+            }
+        });
+    }
+
+    // start trip
+    // url => requests/start/trip
+    // parameter => request id, user id, is running
+    public static void startTrip(StartTripRequest startTripRequest, final BaseResponseInterface anInterface) {
+        Call<GenericResponse> response = ApiConfig.httpApiInterface.startTrip(MyApplication.getUserToken(), startTripRequest);
         response.enqueue(new Callback<GenericResponse>() {
             @Override
             public void onResponse(@NonNull Call<GenericResponse> call, @NonNull Response<GenericResponse> response) {

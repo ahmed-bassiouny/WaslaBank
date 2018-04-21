@@ -115,7 +115,9 @@ public class CreateTripRequest {
         }
 
         public Builder Time(String val) {
-            Time = val;
+            // get time hour and minute
+            // add second
+            Time = val+":00";
             return this;
         }
 

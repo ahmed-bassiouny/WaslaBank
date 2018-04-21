@@ -42,6 +42,12 @@ public class TripDetails {
     private User driver;
     @SerializedName(ApiKey.FEEDBACK)
     private List<Feedback> feedbacks;
+    @SerializedName(ApiKey.IS_JOINED)
+    private int isJoined;
+    @SerializedName(ApiKey.IS_RUNNING)
+    private int isRunning;
+    @SerializedName(ApiKey.IS_FINISHED)
+    private int isFinished;
 
     public int getId() {
         return id;
@@ -98,11 +104,48 @@ public class TripDetails {
     public String getDateTime() {
         return dateTime;
     }
+
     public String getDate() {
         return DateTimeManager.changeDateFormat(dateTime, DateTimeFormat.DATE_TIME_24_FORMAT, DateTimeFormat.DATE);
     }
 
     public String getAvailablePlaces() {
         return MyUtils.getString(availablePlaces);
+    }
+
+    public boolean getIsJoined() {
+        if (isJoined == 1)
+            return true;
+        return false;
+    }
+
+    public boolean getIsRunning() {
+        if (isRunning == 1)
+            return true;
+        return false;
+    }
+
+    public boolean getIsFinished() {
+        if (isFinished == 1)
+            return true;
+        return false;
+    }
+
+    public void setIsJoined(boolean isJoined) {
+        if (isJoined)
+            this.isJoined = 1;
+        else this.isJoined = 0;
+    }
+
+    public void setIsRunning(boolean isRunning) {
+        if (isRunning)
+            this.isRunning = 1;
+        else this.isRunning = 0;
+    }
+
+    public void setIsFinished(boolean isFinished) {
+        if (isFinished)
+            this.isFinished = 1;
+        else this.isFinished = 0;
     }
 }

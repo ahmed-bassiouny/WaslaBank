@@ -1,16 +1,22 @@
 package bassiouny.ahmed.waslabank.utils;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.location.*;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 
 import java.io.File;
 
+import bassiouny.ahmed.waslabank.R;
 import bassiouny.ahmed.waslabank.activities.view.HomeActivity;
 import bassiouny.ahmed.waslabank.activities.view.SignInActivity;
 import bassiouny.ahmed.waslabank.activities.view.WaitingAdminActivity;
@@ -59,8 +65,9 @@ public class MyUtils {
             return true;
         return false;
     }
+
     // convert normal image as file to part for upload to server
-    public static MultipartBody.Part convertFileToPart(File file){
+    public static MultipartBody.Part convertFileToPart(File file) {
         return MultipartBody.Part.createFormData(ApiKey.IMAGE, file.getName(), RequestBody.create(MediaType.parse("image/*"), file));
     }
 
@@ -68,14 +75,14 @@ public class MyUtils {
         return RequestBody.create(okhttp3.MultipartBody.FORM, str);
     }
 
-    public static void openHomeScreen(Activity activity, User user){
+    public static void openHomeScreen(Activity activity, User user) {
         // create intent
         Intent intent;
 
-        if(user.getApproved()){
-            intent = new Intent(activity,HomeActivity.class);
-        }else {
-            intent = new Intent(activity,WaitingAdminActivity.class);
+        if (user.getApproved()) {
+            intent = new Intent(activity, HomeActivity.class);
+        } else {
+            intent = new Intent(activity, WaitingAdminActivity.class);
         }
         // set token in my application
         MyApplication.setUserToken(user.getToken());
@@ -85,12 +92,52 @@ public class MyUtils {
         activity.startActivity(intent);
         activity.finish();
     }
+
     // open Chooser With Gallery fragment
-    public static void openChooserWithGallery(Fragment fragment){
-        EasyImage.openChooserWithGallery(fragment,"Select Picture", EasyImage.REQ_SOURCE_CHOOSER);
+    public static void openChooserWithGallery(Fragment fragment) {
+        EasyImage.openChooserWithGallery(fragment, "Select Picture", EasyImage.REQ_SOURCE_CHOOSER);
     }
+
     // open Chooser With Gallery activity
-    public static void openChooserWithGallery(Activity activity){
-        EasyImage.openChooserWithGallery(activity,"Select Picture", EasyImage.REQ_SOURCE_CHOOSER);
+    public static void openChooserWithGallery(Activity activity) {
+        EasyImage.openChooserWithGallery(activity, "Select Picture", EasyImage.REQ_SOURCE_CHOOSER);
+    }
+
+    // check ig gps enabled
+    public static boolean isGpsEnable(Context context) {
+        android.location.LocationManager lm = (android.location.LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+        if (lm == null)
+            return false;
+        return lm.isProviderEnabled(android.location.LocationManager.GPS_PROVIDER);
+    }
+    // ask open gps activity
+    public static void showSettingsAlert(final Context context) {
+        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
+        alertDialog.setTitle(context.getString(R.string.open_gps));
+        alertDialog.setCancelable(false);
+
+        alertDialog.setPositiveButton(context.getString(R.string.setting), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                context.startActivity(intent);
+                dialog.dismiss();
+            }
+        });
+        alertDialog.show();
+    }
+    // ask open gps fragment
+    public static void showSettingsAlert(final Fragment context) {
+        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(context.getContext());
+        alertDialog.setTitle(context.getString(R.string.open_gps));
+        alertDialog.setCancelable(false);
+
+        alertDialog.setPositiveButton(context.getString(R.string.setting), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                context.startActivity(intent);
+                dialog.dismiss();
+            }
+        });
+        alertDialog.show();
     }
 }

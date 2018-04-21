@@ -41,17 +41,25 @@ public class RequestInfoActivity extends MyToolbar implements MyObserverInterfac
     private int tripId;
     private RequestInfoController controller;
     private List<ObserverInterface> observerInterfaces;
+    private TripDetails tripDetails;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_request_info);
-        initToolbar(getString(R.string.request),true);
+        initToolbar(getString(R.string.request), true);
         addBackImage();
         addNotificationImage();
         addSupportActionbar();
         findView();
         initObjects();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (tripDetails != null)
+            notifyObservers(tripDetails);
     }
 
     private void initObjects() {
@@ -147,9 +155,10 @@ public class RequestInfoActivity extends MyToolbar implements MyObserverInterfac
         getController().getTripRequestById(tripId, new BaseResponseInterface<TripDetails>() {
             @Override
             public void onSuccess(TripDetails tripDetails) {
-                //parsingInterface.parseObject(truez);
+                //parsingInterface.parseObject(true);
                 loading(false);
                 notifyObservers(tripDetails);
+                RequestInfoActivity.this.tripDetails = tripDetails;
             }
 
             @Override
@@ -178,6 +187,5 @@ public class RequestInfoActivity extends MyToolbar implements MyObserverInterfac
         unregister(TripDetailsFragment.getInstance());
         unregister(AboutDriverFragment.getInstance());
         unregister(FeedbackFragment.getInstance());
-
     }
 }

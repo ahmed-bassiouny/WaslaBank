@@ -65,6 +65,10 @@ public class CreateRequestActivity extends MyToolbar {
     private void initObjects() {
         builder = new PlacePicker.IntentBuilder();
         builderCreateTripRequest = new CreateTripRequest.Builder();
+        Calendar cal = Calendar.getInstance();
+        calendarView.setSelectedDate(cal);
+        builderCreateTripRequest.date(getValidStringDateFromInt(cal.get(Calendar.YEAR),cal.get(Calendar.MONTH),cal.get(Calendar.DAY_OF_MONTH)));
+
     }
 
     private void onClick() {
@@ -94,8 +98,8 @@ public class CreateRequestActivity extends MyToolbar {
                 TimePickerDialog timePickerDialog = new TimePickerDialog(CreateRequestActivity.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int i, int i1) {
-                        builderCreateTripRequest.Time(i + ":" + i1);
-                        etTime.setText(i + ":" + i1);
+                        etTime.setText(getValidStringTimeFromInt(i,i1));
+                        builderCreateTripRequest.Time(etTime.getText().toString());
 
                     }
                 }, Calendar.getInstance().get(Calendar.HOUR_OF_DAY), Calendar.getInstance().get(Calendar.MINUTE), true);
@@ -188,7 +192,7 @@ public class CreateRequestActivity extends MyToolbar {
     private void loading(boolean isLoading) {
         if (isLoading) {
             viewStubProgress.setVisibility(View.VISIBLE);
-            btnCreate.setVisibility(View.INVISIBLE);
+            btnCreate.setVisibility(View.GONE);
         } else {
             viewStubProgress.setVisibility(View.GONE);
             btnCreate.setVisibility(View.VISIBLE);
@@ -200,5 +204,10 @@ public class CreateRequestActivity extends MyToolbar {
         String dayStr = day>10?String.valueOf(day):"0"+String.valueOf(day);
         String monthStr = month>10?String.valueOf(month):"0"+String.valueOf(month);
         return year+"-"+monthStr+"-"+dayStr;
+    }
+    private String getValidStringTimeFromInt(int hour,int minute){
+        String hourStr = hour>10?String.valueOf(hour):"0"+String.valueOf(hour);
+        String minuteStr = minute>10?String.valueOf(minute):"0"+String.valueOf(minute);
+        return hourStr+":"+minuteStr;
     }
 }

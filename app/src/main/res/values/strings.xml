@@ -105,4 +105,9 @@
     <string name="new_password">New Password</string>
     <string name="save">Save</string>
     <string name="notifications">Notifications</string>
+    <string name="cancel">Cancel</string>
+    <string name="view_map">View Map</string>
+    <string name="start">Start</string>
+    <string name="setting">Setting</string>
+    <string name="open_gps">Open Gps</string>
 </resources>

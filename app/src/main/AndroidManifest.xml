@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:name=".utils.MyApplication"
@@ -17,7 +18,7 @@
         android:theme="@style/NoAction">
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAkflD2JJriOyjw3DOErI1gICTsZxwQIBs" />
+            android:value="AIzaSyAs_LflcH_fHdn5r4hD4qAEUxDP39a0VOI" />
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
@@ -71,7 +72,9 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeDialog"
             android:windowSoftInputMode="adjustNothing" />
-        <activity android:name=".activities.view.NotificationActivity"></activity>
+        <activity android:name=".activities.view.NotificationActivity" />
+        <activity android:name=".activities.view.DriverViewMapActivity" />
+        <activity android:name=".activities.view.UserViewMapActivity"></activity>
     </application>
 
 </manifest>
