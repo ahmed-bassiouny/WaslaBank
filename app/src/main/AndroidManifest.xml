@@ -73,7 +73,7 @@
             android:theme="@style/AppThemeDialog"
             android:windowSoftInputMode="adjustNothing" />
         <activity android:name=".activities.view.NotificationActivity" />
-        <activity android:name=".activities.view.DriverViewMapActivity" />
+        <activity android:name=".activities.view.ViewMapActivity" />
         <activity android:name=".activities.view.UserViewMapActivity"></activity>
     </application>
 

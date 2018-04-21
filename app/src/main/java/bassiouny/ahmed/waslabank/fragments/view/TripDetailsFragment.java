@@ -25,7 +25,7 @@ import java.util.Calendar;
 import bassiouny.ahmed.genericmanager.DateTimeManager;
 import bassiouny.ahmed.genericmanager.SharedPrefManager;
 import bassiouny.ahmed.waslabank.R;
-import bassiouny.ahmed.waslabank.activities.view.DriverViewMapActivity;
+import bassiouny.ahmed.waslabank.activities.view.ViewMapActivity;
 import bassiouny.ahmed.waslabank.activities.view.UserViewMapActivity;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.CurrentTripRequest;
 import bassiouny.ahmed.waslabank.fragments.controller.TripDetailsController;
@@ -121,8 +121,9 @@ public class TripDetailsFragment extends Fragment implements ObserverInterface<T
                     case tripRunningDriver:
                         // trip now running
                         // driver can show map
-                        Intent i = new Intent(getContext(), DriverViewMapActivity.class);
+                        Intent i = new Intent(getContext(), ViewMapActivity.class);
                         i.putExtra("TRIP_ID",tripDetails.getId());
+                        i.putExtra("DRIVER_VIEW",true);
                         startActivity(i);
                         break;
                     case tripNotRunningDriver:
@@ -154,8 +155,9 @@ public class TripDetailsFragment extends Fragment implements ObserverInterface<T
                     case tripRunningJoinedUser:
                         // trip now running
                         // user can view map
-                        Intent intent = new Intent(getContext(), UserViewMapActivity.class);
+                        Intent intent = new Intent(getContext(), ViewMapActivity.class);
                         intent.putExtra("TRIP_ID",tripDetails.getId());
+                        intent.putExtra("DRIVER_VIEW",false);
                         startActivity(intent);
                         break;
                     case tripNotJoinedUser:

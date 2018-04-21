@@ -27,4 +27,15 @@ public class FirebaseRoot {
                 .child(String.valueOf(driverId))
                 .setValue(locationMap);
     }
+    public static void updateUserLocation(int tripId,int userId, double currentLat, double currentLng) {
+        Map<String, Double> locationMap = new HashMap<>();
+        locationMap.put(currentLatStr, currentLat);
+        locationMap.put(currentLngStr, currentLng);
+        FirebaseDatabase.getInstance().getReference()
+                .child(trip)
+                .child(String.valueOf(tripId))
+                .child(user)
+                .child(String.valueOf(userId))
+                .setValue(locationMap);
+    }
 }
