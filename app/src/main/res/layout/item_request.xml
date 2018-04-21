@@ -9,6 +9,8 @@
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
     android:elevation="8dp"
+    android:textDirection="ltr"
+    android:layoutDirection="ltr"
     app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="4dp"
     tools:targetApi="lollipop">
@@ -78,6 +80,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="120dp"
+            android:id="@+id/iv_map"
             android:layout_below="@+id/tv_location_to"
             android:layout_marginTop="10dp"
             android:contentDescription="@null"

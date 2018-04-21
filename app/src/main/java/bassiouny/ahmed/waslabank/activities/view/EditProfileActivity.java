@@ -64,8 +64,8 @@ public class EditProfileActivity extends MyToolbar {
         if (user == null)
             finish();
         etName.setText(user.getName());
-        etInteresting.setText(user.getUserDetails().getInteresting());
-        MyGlideApp.setImage(this, ivAvatar, user.getUserDetails().getImage());
+        etInteresting.setText(user.getInteresting());
+        MyGlideApp.setImage(this, ivAvatar, user.getImage());
     }
 
     private void onClick() {

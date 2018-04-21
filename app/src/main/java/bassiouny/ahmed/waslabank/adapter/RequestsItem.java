@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -15,6 +16,8 @@ import java.util.List;
 import bassiouny.ahmed.waslabank.R;
 import bassiouny.ahmed.waslabank.interfaces.ItemClickInterface;
 import bassiouny.ahmed.waslabank.model.TripDetails;
+import bassiouny.ahmed.waslabank.utils.MyGlideApp;
+import bassiouny.ahmed.waslabank.utils.MyUtils;
 
 /**
  * Created by bassiouny on 03/04/18.
@@ -24,8 +27,10 @@ public class RequestsItem extends RecyclerView.Adapter<RequestsItem.MyViewHolder
 
     private List<TripDetails> list;
     private ItemClickInterface anInterface;
+    private Fragment fragment;
 
     public RequestsItem(Fragment fragment) {
+        this.fragment = fragment;
         anInterface = (ItemClickInterface) fragment;
         list = new ArrayList<>();
     }
@@ -36,7 +41,7 @@ public class RequestsItem extends RecyclerView.Adapter<RequestsItem.MyViewHolder
         private RatingBar rating;
         private TextView tvLocationFrom;
         private TextView tvLocationTo;
-
+        private ImageView ivMap;
         public MyViewHolder(View view) {
             super(view);
             tvTime = view.findViewById(R.id.tv_time);
@@ -44,6 +49,7 @@ public class RequestsItem extends RecyclerView.Adapter<RequestsItem.MyViewHolder
             rating = view.findViewById(R.id.rating);
             tvLocationFrom = view.findViewById(R.id.tv_location_from);
             tvLocationTo = view.findViewById(R.id.tv_location_to);
+            ivMap = view.findViewById(R.id.iv_map);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -64,11 +70,12 @@ public class RequestsItem extends RecyclerView.Adapter<RequestsItem.MyViewHolder
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         TripDetails item = list.get(position);
-        holder.tvLocationFrom.setText(item.getStartPointText());
-        holder.tvLocationTo.setText(item.getEndPointText());
-        holder.tvUserName.setText(item.getDriver().getName());
+        holder.tvLocationFrom.setText("From : "+item.getStartPointText());
+        holder.tvLocationTo.setText("To : "+item.getEndPointText());
+        holder.tvUserName.setText("Captain : "+item.getDriver().getName());
         holder.tvTime.setText(item.getTime());
-        holder.rating.setRating(item.getDriver().getUserDetails().getTotalRate());
+        holder.rating.setRating(item.getDriver().getRate());
+        MyGlideApp.setImage(fragment.getContext(),holder.ivMap,item.getImage());
 
     }
 

@@ -64,7 +64,7 @@ public class AboutFragment extends Fragment implements ObserverInterface<User> {
     public void update(User user) {
         tvEmail.setText(user.getEmail());
         tvPhone.setText(user.getPhone());
-        tvAbout.setText(user.getUserDetails().getInteresting());
-        tvCarNumber.setText(user.getUserDetails().getCar().getCarNumber());
+        tvAbout.setText(user.getInteresting());
+        tvCarNumber.setText(user.getCarNumber());
     }
 }

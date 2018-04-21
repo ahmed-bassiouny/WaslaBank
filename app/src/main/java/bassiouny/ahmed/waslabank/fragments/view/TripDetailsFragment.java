@@ -27,6 +27,7 @@ import bassiouny.ahmed.genericmanager.SharedPrefManager;
 import bassiouny.ahmed.waslabank.R;
 import bassiouny.ahmed.waslabank.activities.view.ViewMapActivity;
 import bassiouny.ahmed.waslabank.activities.view.UserViewMapActivity;
+import bassiouny.ahmed.waslabank.api.ApiRequests;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.CurrentTripRequest;
 import bassiouny.ahmed.waslabank.fragments.controller.TripDetailsController;
 import bassiouny.ahmed.waslabank.interfaces.BaseResponseInterface;
@@ -122,8 +123,8 @@ public class TripDetailsFragment extends Fragment implements ObserverInterface<T
                         // trip now running
                         // driver can show map
                         Intent i = new Intent(getContext(), ViewMapActivity.class);
-                        i.putExtra("TRIP_ID",tripDetails.getId());
-                        i.putExtra("DRIVER_VIEW",true);
+                        i.putExtra("TRIP_ID", tripDetails.getId());
+                        i.putExtra("DRIVER_VIEW", true);
                         startActivity(i);
                         break;
                     case tripNotRunningDriver:
@@ -136,7 +137,6 @@ public class TripDetailsFragment extends Fragment implements ObserverInterface<T
                         getController().startTrip(tripDetails.getId(), userId, true, new BaseResponseInterface() {
                             @Override
                             public void onSuccess(Object o) {
-
                                 if (getActivity() == null)
                                     return;
                                 tripDetails.setIsRunning(true);
@@ -156,15 +156,31 @@ public class TripDetailsFragment extends Fragment implements ObserverInterface<T
                         // trip now running
                         // user can view map
                         Intent intent = new Intent(getContext(), ViewMapActivity.class);
-                        intent.putExtra("TRIP_ID",tripDetails.getId());
-                        intent.putExtra("DRIVER_VIEW",false);
+                        intent.putExtra("TRIP_ID", tripDetails.getId());
+                        intent.putExtra("DRIVER_VIEW", false);
                         startActivity(intent);
                         break;
                     case tripNotJoinedUser:
                         // trip now not running
                         // user can join trip
-                        // todo join to trip
-                        // todo update is joined to true
+                        loading(true);
+                        getController().joinTrip(tripDetails.getId(), userId, true, new BaseResponseInterface() {
+                            @Override
+                            public void onSuccess(Object o) {
+                                if (getActivity() == null)
+                                    return;
+                                tripDetails.setIsJoined(true);
+                                loading(false);
+                            }
+
+                            @Override
+                            public void onFailed(String errorMessage) {
+                                if (getActivity() == null)
+                                    return;
+                                Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
+                                loading(false);
+                            }
+                        });
                         break;
                 }
             }
@@ -196,11 +212,27 @@ public class TripDetailsFragment extends Fragment implements ObserverInterface<T
                                 loading(false);
                             }
                         });
-
                         break;
                     case tripJoinedUser:
                         // user can cancel joined
-                        // todo update is joined to false
+                        loading(true);
+                        getController().joinTrip(tripDetails.getId(), userId, false, new BaseResponseInterface() {
+                            @Override
+                            public void onSuccess(Object o) {
+                                if (getActivity() == null)
+                                    return;
+                                tripDetails.setIsJoined(false);
+                                loading(false);
+                            }
+
+                            @Override
+                            public void onFailed(String errorMessage) {
+                                if (getActivity() == null)
+                                    return;
+                                Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
+                                loading(false);
+                            }
+                        });
                         break;
                 }
             }
@@ -320,7 +352,6 @@ public class TripDetailsFragment extends Fragment implements ObserverInterface<T
     public void onLocationChanged(Location location) {
         // get location and save it in shared pref
         String now = DateTimeManager.convertUnixTimeStampToString(Calendar.getInstance().getTimeInMillis(), DateTimeFormat.DATE_TIME_24_FORMAT);
-        Toast.makeText(getContext(), now, Toast.LENGTH_SHORT).show();
         CurrentTripRequest currentTripRequest = new CurrentTripRequest(location.getLatitude(), location.getLongitude(), now);
         SharedPrefManager.setObject(SharedPrefKey.CURRENT_TRIP, currentTripRequest);
         locationManager.removeListener(this);

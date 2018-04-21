@@ -55,7 +55,7 @@ public interface HttpApiInterface {
     @FormUrlEncoded
     @POST("requests/one/request")
     @Headers(HEADER_KEY)
-    Call<TripDetailsResponse> getTripRequestById(@Header(AUTHORIZATION) String token, @Field(ApiKey.REQUEST_ID) int requestId);
+    Call<TripDetailsResponse> getTripRequestById(@Header(AUTHORIZATION) String token, @Field(ApiKey.REQUEST_ID) int requestId,@Field(ApiKey.USER_ID) int userId);
 
 
     @POST("contact")
@@ -89,5 +89,10 @@ public interface HttpApiInterface {
     @POST("requests/start/trip")
     @Headers(HEADER_KEY)
     Call<GenericResponse> startTrip(@Header(AUTHORIZATION) String token, @Body StartTripRequest startTripRequest);
+
+
+    @POST("requests/user/join/trip")
+    @Headers(HEADER_KEY)
+    Call<GenericResponse> joinTrip(@Header(AUTHORIZATION) String token, @Body StartTripRequest startTripRequest);
 
 }

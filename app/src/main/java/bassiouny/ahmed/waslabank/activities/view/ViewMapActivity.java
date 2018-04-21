@@ -8,6 +8,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -18,9 +19,13 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 
 import bassiouny.ahmed.genericmanager.SharedPrefManager;
 import bassiouny.ahmed.waslabank.R;
+import bassiouny.ahmed.waslabank.model.CurrentTripLocation;
 import bassiouny.ahmed.waslabank.model.FirebaseRoot;
 import bassiouny.ahmed.waslabank.model.User;
 import bassiouny.ahmed.waslabank.utils.LocationManager;
@@ -35,6 +40,7 @@ public class ViewMapActivity extends AppCompatActivity implements OnMapReadyCall
     private GoogleMap googleMap;
     private MarkerOptions markerOptions;
     private Marker userMarker;
+    private Marker driverMarker;
     // zoom on map to make zoom first time
     private boolean zoomOnMap = true;
     private int userId;
@@ -42,6 +48,8 @@ public class ViewMapActivity extends AppCompatActivity implements OnMapReadyCall
     // driver view if true make this activity for driver
     // else make this activity for user
     private boolean driverView = false;
+    private ValueEventListener driverListener;
+    private ValueEventListener userListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +76,17 @@ public class ViewMapActivity extends AppCompatActivity implements OnMapReadyCall
         // check if this activity for driver
         driverView = getIntent().getBooleanExtra("DRIVER_VIEW", false);
         if (driverView) {
+            // driver view
+            // set driver icon
             markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.car_marker));
+            // add listener for users
+            getUsersListener();
+            FirebaseRoot.addListenerForDriver(tripId, userListener);
+        } else {
+            // user view
+            // add listener for driver
+            getDriverListener();
+            FirebaseRoot.addListenerForDriver(tripId, driverListener);
         }
     }
 
@@ -136,5 +154,52 @@ public class ViewMapActivity extends AppCompatActivity implements OnMapReadyCall
         } else {
             FirebaseRoot.updateUserLocation(tripId, userId, location.getLatitude(), location.getLongitude());
         }
+    }
+
+    private void getDriverListener() {
+        driverListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot item : dataSnapshot.getChildren()) {
+                    if (item == null)
+                        return;
+                    CurrentTripLocation location = item.getValue(CurrentTripLocation.class);
+                    if(location == null || googleMap == null)
+                        return;
+                    googleMap.clear();
+                    // add current user user app
+                    userMarker =  googleMap.addMarker(markerOptions);
+                    googleMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.car_marker)).position(new LatLng(location.getCurrentLat(), location.getCurrentLng())));
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+    }
+    private void getUsersListener() {
+        userListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot item : dataSnapshot.getChildren()) {
+                    if (item == null)
+                        return;
+                    CurrentTripLocation location = item.getValue(CurrentTripLocation.class);
+                    if(location == null || googleMap == null)
+                        return;
+                    googleMap.clear();
+                    // add current driver user app
+                    userMarker =  googleMap.addMarker(markerOptions);
+                    googleMap.addMarker(new MarkerOptions().position(new LatLng(location.getCurrentLat(), location.getCurrentLng())));
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
     }
 }

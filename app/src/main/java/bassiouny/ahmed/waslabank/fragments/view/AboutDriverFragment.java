@@ -75,10 +75,10 @@ public class AboutDriverFragment extends Fragment implements ObserverInterface<U
         tvUserName.setText(driver.getName());
         tvEmail.setText(driver.getEmail());
         tvPhone.setText(driver.getPhone());
-        tvAbout.setText(driver.getUserDetails().getInteresting());
-        tvCarNumber.setText(driver.getUserDetails().getCar().getCarNumber());
-        rating.setRating(driver.getUserDetails().getTotalRate());
-        MyGlideApp.setImage(getContext(),ivAvatar,driver.getUserDetails().getImage());
+        tvAbout.setText(driver.getInteresting());
+        tvCarNumber.setText(driver.getCarNumber());
+        rating.setRating(driver.getRate());
+        MyGlideApp.setImage(getContext(),ivAvatar,driver.getImage());
 
     }
 }

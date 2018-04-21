@@ -16,11 +16,14 @@ public class StartTripRequest {
     private int requestId;
     @SerializedName(ApiKey.IS_RUNNING)
     private int isRunning;
+    @SerializedName(ApiKey.IS_JOINED)
+    private int isJoined;
 
     private StartTripRequest(Builder builder) {
         userId = builder.userId;
         requestId = builder.requestId;
         isRunning = builder.isRunning;
+        isJoined = builder.isJoined;
     }
 
 
@@ -28,6 +31,7 @@ public class StartTripRequest {
         private int userId;
         private int requestId;
         private int isRunning;
+        private int isJoined;
 
         public Builder() {
         }
@@ -43,8 +47,16 @@ public class StartTripRequest {
         }
 
         public Builder isRunning(boolean val) {
-            if(val) isRunning = 1;
+            if (val)
+                isRunning = 1;
             else isRunning = 0;
+            return this;
+        }
+
+        public Builder isJoined(boolean val) {
+            if (val)
+                isJoined = 1;
+            else isJoined = 0;
             return this;
         }
 

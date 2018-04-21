@@ -179,7 +179,7 @@ public class ApiRequests {
     // url => requests/one/request
     // parameter => trip id
     public static void getTripRequestById(int tripId, final BaseResponseInterface<TripDetails> anInterface) {
-        Call<TripDetailsResponse> response = ApiConfig.httpApiInterface.getTripRequestById(MyApplication.getUserToken(), tripId);
+        Call<TripDetailsResponse> response = ApiConfig.httpApiInterface.getTripRequestById(MyApplication.getUserToken(), tripId,SharedPrefManager.getObject(SharedPrefKey.USER, User.class).getId());
         response.enqueue(new Callback<TripDetailsResponse>() {
             @Override
             public void onResponse(@NonNull Call<TripDetailsResponse> call, @NonNull Response<TripDetailsResponse> response) {
@@ -323,6 +323,26 @@ public class ApiRequests {
     // parameter => request id, user id, is running
     public static void startTrip(StartTripRequest startTripRequest, final BaseResponseInterface anInterface) {
         Call<GenericResponse> response = ApiConfig.httpApiInterface.startTrip(MyApplication.getUserToken(), startTripRequest);
+        response.enqueue(new Callback<GenericResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<GenericResponse> call, @NonNull Response<GenericResponse> response) {
+                // check on response and get data
+                checkValidResult(response, anInterface);
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<GenericResponse> call, @NonNull Throwable t) {
+                // get error message
+                anInterface.onFailed(t.getLocalizedMessage());
+            }
+        });
+    }
+
+    // join trip
+    // url => requests/user/join/trip
+    // parameter => request id, user id, is joined
+    public static void joinTrip(StartTripRequest startTripRequest, final BaseResponseInterface anInterface) {
+        Call<GenericResponse> response = ApiConfig.httpApiInterface.joinTrip(MyApplication.getUserToken(), startTripRequest);
         response.enqueue(new Callback<GenericResponse>() {
             @Override
             public void onResponse(@NonNull Call<GenericResponse> call, @NonNull Response<GenericResponse> response) {

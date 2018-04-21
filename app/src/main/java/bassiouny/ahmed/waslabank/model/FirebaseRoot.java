@@ -1,6 +1,7 @@
 package bassiouny.ahmed.waslabank.model;
 
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,22 +13,25 @@ import java.util.Map;
 public class FirebaseRoot {
     private final static String trip = "trip";
     private final static String user = "user";
+    private final static String driver = "driver";
     private final static String startLatStr = "startLat";
     private final static String startLngStr = "startLng";
     private final static String currentLatStr = "currentLat";
     private final static String currentLngStr = "currentLng";
 
-    public static void updateDriverLocation(int tripId,int driverId, double currentLat, double currentLng) {
+    public static void updateDriverLocation(int tripId, int driverId, double currentLat, double currentLng) {
         Map<String, Double> locationMap = new HashMap<>();
         locationMap.put(currentLatStr, currentLat);
         locationMap.put(currentLngStr, currentLng);
         FirebaseDatabase.getInstance().getReference()
                 .child(trip)
                 .child(String.valueOf(tripId))
+                .child(driver)
                 .child(String.valueOf(driverId))
                 .setValue(locationMap);
     }
-    public static void updateUserLocation(int tripId,int userId, double currentLat, double currentLng) {
+
+    public static void updateUserLocation(int tripId, int userId, double currentLat, double currentLng) {
         Map<String, Double> locationMap = new HashMap<>();
         locationMap.put(currentLatStr, currentLat);
         locationMap.put(currentLngStr, currentLng);
@@ -37,5 +41,20 @@ public class FirebaseRoot {
                 .child(user)
                 .child(String.valueOf(userId))
                 .setValue(locationMap);
+    }
+
+    public static void addListenerForDriver(int tripId, ValueEventListener valueEventListener) {
+        FirebaseDatabase.getInstance().getReference()
+                .child(trip)
+                .child(String.valueOf(tripId))
+                .child(driver)
+                .addValueEventListener(valueEventListener);
+    }
+    public static void addListenerForUsers(int tripId, ValueEventListener valueEventListener) {
+        FirebaseDatabase.getInstance().getReference()
+                .child(trip)
+                .child(String.valueOf(tripId))
+                .child(user)
+                .addValueEventListener(valueEventListener);
     }
 }

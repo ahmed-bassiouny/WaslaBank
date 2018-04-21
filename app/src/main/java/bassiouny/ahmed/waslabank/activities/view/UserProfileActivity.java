@@ -196,8 +196,8 @@ public class UserProfileActivity extends MyToolbar implements MyObserverInterfac
         if (user == null)
             return;
         tvUserName.setText(user.getName());
-        MyGlideApp.setImageCenterInside(this, ivAvatar, user.getUserDetails().getImage());
-        MyGlideApp.setImageCenterCrop(this, imgCover, user.getUserDetails().getImage());
+        MyGlideApp.setImageCenterInside(this, ivAvatar, user.getImage());
+        MyGlideApp.setImageCenterCrop(this, imgCover, user.getImage());
     }
 
     private void loadUserInfo() {

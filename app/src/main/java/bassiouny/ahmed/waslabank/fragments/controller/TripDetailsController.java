@@ -18,20 +18,27 @@ public class TripDetailsController {
     private Fragment fragment;
 
 
-    public void finishTrip(int requestId, boolean isFinish, boolean isCancel,BaseResponseInterface anInterface) {
+    public void finishTrip(int requestId, boolean isFinish, boolean isCancel, BaseResponseInterface anInterface) {
         TripStatusRequest.Builder builder = new TripStatusRequest.Builder();
-        // crate trip status
         builder.requestId(requestId);
         builder.isCanceled(isCancel);
         builder.isFinished(isFinish);
-        ApiRequests.finishTrip(builder.build(),anInterface);
+        ApiRequests.finishTrip(builder.build(), anInterface);
     }
-    public void startTrip(int requestId, int userId, boolean isRunning,BaseResponseInterface anInterface) {
+
+    public void startTrip(int requestId, int userId, boolean isRunning, BaseResponseInterface anInterface) {
         StartTripRequest.Builder builder = new StartTripRequest.Builder();
-        // crate trip status
         builder.requestId(requestId);
         builder.userId(userId);
         builder.isRunning(isRunning);
-        ApiRequests.startTrip(builder.build(),anInterface);
+        ApiRequests.startTrip(builder.build(), anInterface);
+    }
+
+    public void joinTrip(int requestId, int userId, boolean isJoined, BaseResponseInterface anInterface) {
+        StartTripRequest.Builder builder = new StartTripRequest.Builder();
+        builder.requestId(requestId);
+        builder.userId(userId);
+        builder.isJoined(isJoined);
+        ApiRequests.joinTrip(builder.build(), anInterface);
     }
 }
