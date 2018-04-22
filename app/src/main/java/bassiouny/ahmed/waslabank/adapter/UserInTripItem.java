@@ -29,10 +29,12 @@ public class UserInTripItem extends RecyclerView.Adapter<UserInTripItem.MyViewHo
     private Context context;
     private List<UserInTripFirebase> users;
     private ItemClickInterface itemClickInterface;
+    private List<Integer> usersId;
 
     public UserInTripItem(Context context) {
         this.context = context;
         users = new ArrayList<>();
+        usersId = new ArrayList<>();
         itemClickInterface = (ItemClickInterface) context;
     }
 
@@ -52,7 +54,7 @@ public class UserInTripItem extends RecyclerView.Adapter<UserInTripItem.MyViewHo
             joinLeave.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    itemClickInterface.getItem(users.get(getAdapterPosition()),getAdapterPosition());
+                    itemClickInterface.getItem(users.get(getAdapterPosition()), getAdapterPosition());
                 }
             });
         }
@@ -79,8 +81,10 @@ public class UserInTripItem extends RecyclerView.Adapter<UserInTripItem.MyViewHo
             holder.joinLeave.setVisibility(View.VISIBLE);
             if (item.isJoined()) {
                 holder.joinLeave.setText(context.getResources().getString(R.string.leave));
+                holder.joinLeave.setTextColor(context.getResources().getColor(R.color.red));
             } else {
                 holder.joinLeave.setText(context.getResources().getString(R.string.join));
+                holder.joinLeave.setTextColor(context.getResources().getColor(R.color.black));
             }
         }
     }
@@ -102,13 +106,13 @@ public class UserInTripItem extends RecyclerView.Adapter<UserInTripItem.MyViewHo
         }
         notifyItemChanged(position);
     }
-
-    public void addUser(UserInTripFirebase user) {
-        if (users.contains(user))
-            this.users.set(users.indexOf(user), user);
-        else
-            this.users.add(user);
-        notifyDataSetChanged();
+    public void clearList(){
+        this.users.clear();
     }
 
+    public void addUser(UserInTripFirebase user) {
+        this.users.add(user);
+
+        notifyDataSetChanged();
+    }
 }

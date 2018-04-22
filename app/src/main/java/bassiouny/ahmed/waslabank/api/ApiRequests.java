@@ -8,6 +8,7 @@ import bassiouny.ahmed.genericmanager.SharedPrefManager;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.ContactUsRequest;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.CreateTripRequest;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.StartTripRequest;
+import bassiouny.ahmed.waslabank.api.apiModel.requests.TripDetailsRequest;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.TripStatusRequest;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.TripsByDate;
 import bassiouny.ahmed.waslabank.api.apiModel.response.GenericResponse;
@@ -343,6 +344,25 @@ public class ApiRequests {
     // parameter => request id, user id, is joined
     public static void joinTrip(StartTripRequest startTripRequest, final BaseResponseInterface anInterface) {
         Call<GenericResponse> response = ApiConfig.httpApiInterface.joinTrip(MyApplication.getUserToken(), startTripRequest);
+        response.enqueue(new Callback<GenericResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<GenericResponse> call, @NonNull Response<GenericResponse> response) {
+                // check on response and get data
+                checkValidResult(response, anInterface);
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<GenericResponse> call, @NonNull Throwable t) {
+                // get error message
+                anInterface.onFailed(t.getLocalizedMessage());
+            }
+        });
+    }
+
+    // driver make user leave trip
+    // url => requests/admin/end/user/trip
+    public static void setTripDetails(TripDetailsRequest tripDetailsRequest, final BaseResponseInterface anInterface) {
+        Call<GenericResponse> response = ApiConfig.httpApiInterface.setTripDetails(MyApplication.getUserToken(), tripDetailsRequest);
         response.enqueue(new Callback<GenericResponse>() {
             @Override
             public void onResponse(@NonNull Call<GenericResponse> call, @NonNull Response<GenericResponse> response) {

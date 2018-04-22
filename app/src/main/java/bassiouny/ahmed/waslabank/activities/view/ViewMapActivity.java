@@ -10,10 +10,12 @@ import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SimpleItemAnimator;
 import android.view.View;
 import android.view.ViewStub;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -30,20 +32,27 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Calendar;
+
+import bassiouny.ahmed.genericmanager.DateTimeManager;
 import bassiouny.ahmed.genericmanager.SharedPrefManager;
 import bassiouny.ahmed.waslabank.R;
 import bassiouny.ahmed.waslabank.adapter.UserInTripItem;
+import bassiouny.ahmed.waslabank.api.ApiRequests;
+import bassiouny.ahmed.waslabank.api.apiModel.requests.TripDetailsRequest;
+import bassiouny.ahmed.waslabank.interfaces.BaseResponseInterface;
 import bassiouny.ahmed.waslabank.interfaces.ItemClickInterface;
 import bassiouny.ahmed.waslabank.model.UserInTripFirebase;
 import bassiouny.ahmed.waslabank.model.FirebaseRoot;
 import bassiouny.ahmed.waslabank.model.User;
+import bassiouny.ahmed.waslabank.utils.DateTimeFormat;
 import bassiouny.ahmed.waslabank.utils.LocationManager;
 import bassiouny.ahmed.waslabank.utils.MyToolbar;
 import bassiouny.ahmed.waslabank.utils.MyUtils;
 import bassiouny.ahmed.waslabank.utils.SharedPrefKey;
 import bassiouny.ahmed.waslabank.utils.SimpleDividerItemDecoration;
 
-public class ViewMapActivity extends MyToolbar implements OnMapReadyCallback, LocationListener ,ItemClickInterface<UserInTripFirebase> {
+public class ViewMapActivity extends MyToolbar implements OnMapReadyCallback, LocationListener, ItemClickInterface<UserInTripFirebase> {
 
     // view
     private FrameLayout frameLayoutUsers;
@@ -103,18 +112,11 @@ public class ViewMapActivity extends MyToolbar implements OnMapReadyCallback, Lo
             // driver view
             // set driver icon
             markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.car_marker));
-            // add listener for users
-            getUsersListener();
-            FirebaseRoot.addListenerForUsers(tripId, userListener);
-            startLoadUserJoinedInTrip();
         } else {
             // user view
             // add user information in firebase
             // user information = name , image
-            FirebaseRoot.setUserInfo(tripId,user.getId(),user.getImage(),user.getName());
-            // add listener for driver
-            getDriverListener();
-            FirebaseRoot.addListenerForDriver(tripId, driverListener);
+            FirebaseRoot.setUserInfo(tripId, user.getId(), user.getImage(), user.getName());
             // make frame layout contain users invisible because this is user view
             frameLayoutUsers.setVisibility(View.GONE);
         }
@@ -125,6 +127,7 @@ public class ViewMapActivity extends MyToolbar implements OnMapReadyCallback, Lo
         viewStubProgress.setVisibility(View.VISIBLE);
         recycler.setVisibility(View.INVISIBLE);
         adapter = new UserInTripItem(this);
+        recycler.getItemAnimator().setChangeDuration(0);
         recycler.setAdapter(adapter);
     }
 
@@ -197,6 +200,18 @@ public class ViewMapActivity extends MyToolbar implements OnMapReadyCallback, Lo
             googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(markerOptions.getPosition(), 15), 1000, null);
             zoomOnMap = false;
         }
+        if (driverView) {
+            // driver view
+            // add listener for users
+            getUsersListener();
+            FirebaseRoot.addListenerForUsers(tripId, userListener);
+            startLoadUserJoinedInTrip();
+        } else {
+            // user view
+            // add listener for driver
+            getDriverListener();
+            FirebaseRoot.addListenerForDriver(tripId, driverListener);
+        }
     }
 
     private void updateLocation(Location location) {
@@ -216,7 +231,7 @@ public class ViewMapActivity extends MyToolbar implements OnMapReadyCallback, Lo
                     if (item == null)
                         return;
                     UserInTripFirebase location = item.getValue(UserInTripFirebase.class);
-                    if (location != null && googleMap != null) {
+                    if (location != null && googleMap != null && markerOptions.getPosition() != null) {
                         googleMap.clear();
                         // add current user user app
                         userMarker = googleMap.addMarker(markerOptions);
@@ -236,16 +251,19 @@ public class ViewMapActivity extends MyToolbar implements OnMapReadyCallback, Lo
         userListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                adapter.clearList();
                 for (DataSnapshot item : dataSnapshot.getChildren()) {
                     if (item == null)
                         return;
                     UserInTripFirebase user = item.getValue(UserInTripFirebase.class);
-                    if (user != null && googleMap != null) {
+                    if (user != null && googleMap != null && markerOptions.getPosition() != null) {
                         googleMap.clear();
                         // add current driver user app
                         userMarker = googleMap.addMarker(markerOptions);
-                        googleMap.addMarker(new MarkerOptions().position(new LatLng(user.getCurrentLat(), user.getCurrentLng())));
-                        adapter.addUser(user);
+                        if (!user.getName().isEmpty()) {
+                            googleMap.addMarker(new MarkerOptions().position(new LatLng(user.getCurrentLat(), user.getCurrentLng())));
+                            adapter.addUser(user);
+                        }
                     }
                 }
                 // loaded users and make recycler visible
@@ -261,19 +279,49 @@ public class ViewMapActivity extends MyToolbar implements OnMapReadyCallback, Lo
     }
 
     @Override
-    public void getItem(@Nullable UserInTripFirebase userInTripFirebase, final int position) {
+    public void getItem(@Nullable final UserInTripFirebase userInTripFirebase, final int position) {
+        if (userInTripFirebase == null)
+            return;
         // user in trip and still waiting to joined
-        if(userInTripFirebase != null && !userInTripFirebase.isLoading){
+        if (!userInTripFirebase.isJoined()) {
             // join user to this trip
-            adapter.loading(position,true);
-            FirebaseRoot.setUserTripLocation(tripId, user.getId(), markerOptions.getPosition().latitude, markerOptions.getPosition().longitude, new OnCompleteListener() {
+            adapter.loading(position, true);
+            FirebaseRoot.setUserTripLocation(tripId, userInTripFirebase.getUserId(), markerOptions.getPosition().latitude, markerOptions.getPosition().longitude,
+                    DateTimeManager.convertUnixTimeStampToString(Calendar.getInstance().getTimeInMillis(), DateTimeFormat.DATE_TIME_24_FORMAT), new OnCompleteListener() {
+                        @Override
+                        public void onComplete(@NonNull Task task) {
+                            adapter.loading(position, false);
+                        }
+                    });
+        } else {
+            adapter.loading(position, true);
+            // leave user from this trip
+            // todo make request to leave user from trip
+            TripDetailsRequest.Builder builder = new TripDetailsRequest.Builder();
+            builder.userId(userInTripFirebase.getUserId());
+            builder.requestId(tripId);
+            builder.startAt(userInTripFirebase.getStartDateTime());
+            builder.startPointLat(userInTripFirebase.getStartLat());
+            builder.startPointLng(userInTripFirebase.getStartLng());
+            builder.endAt(DateTimeManager.convertUnixTimeStampToString(Calendar.getInstance().getTimeInMillis(), DateTimeFormat.DATE_TIME_24_FORMAT));
+            builder.endPointLat(markerOptions.getPosition().latitude);
+            builder.endPointLng(markerOptions.getPosition().longitude);
+            builder.isFinished();
+            ApiRequests.setTripDetails(builder.build(), new BaseResponseInterface() {
                 @Override
-                public void onComplete(@NonNull Task task) {
-                    adapter.loading(position,false);
+                public void onSuccess(Object o) {
+                    // remove current user
+                    FirebaseRoot.deleteUserTripLocation(tripId, userInTripFirebase.getUserId());
+                    // get all users still in trip
+                    FirebaseRoot.addListenerForUsers(tripId, userListener);
+                }
+
+                @Override
+                public void onFailed(String errorMessage) {
+                    Toast.makeText(ViewMapActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+                    adapter.loading(position, false);
                 }
             });
-        }else {
-            // leave user from this trip
         }
     }
 }

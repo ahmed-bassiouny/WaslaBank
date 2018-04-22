@@ -14,9 +14,11 @@ import java.util.Map;
 public class FirebaseRoot {
     private final static String trip = "trip";
     private final static String user = "user";
+    private final static String userIdStr = "userId";
     private final static String driver = "driver";
     private final static String startLatStr = "startLat";
     private final static String startLngStr = "startLng";
+    private final static String startDateTimeStr = "startDateTime";
     private final static String currentLatStr = "currentLat";
     private final static String currentLngStr = "currentLng";
     private final static String imageStr = "image";
@@ -24,7 +26,7 @@ public class FirebaseRoot {
     private final static String joinedStr = "joined";
 
     public static void updateDriverLocation(int tripId, int driverId, double currentLat, double currentLng) {
-        Map<String, Double> locationMap = new HashMap<>();
+        Map<String, Object> locationMap = new HashMap<>();
         locationMap.put(currentLatStr, currentLat);
         locationMap.put(currentLngStr, currentLng);
         FirebaseDatabase.getInstance().getReference()
@@ -32,11 +34,11 @@ public class FirebaseRoot {
                 .child(String.valueOf(tripId))
                 .child(driver)
                 .child(String.valueOf(driverId))
-                .setValue(locationMap);
+                .updateChildren(locationMap);
     }
 
     public static void updateUserLocation(int tripId, int userId, double currentLat, double currentLng) {
-        Map<String, Double> locationMap = new HashMap<>();
+        Map<String, Object> locationMap = new HashMap<>();
         locationMap.put(currentLatStr, currentLat);
         locationMap.put(currentLngStr, currentLng);
         FirebaseDatabase.getInstance().getReference()
@@ -44,31 +46,42 @@ public class FirebaseRoot {
                 .child(String.valueOf(tripId))
                 .child(user)
                 .child(String.valueOf(userId))
-                .setValue(locationMap);
+                .updateChildren(locationMap);
     }
 
     public static void setUserInfo(int tripId, int userId, String image, String name) {
-        Map<String, String> locationMap = new HashMap<>();
+        Map<String, Object> locationMap = new HashMap<>();
         locationMap.put(imageStr,image);
         locationMap.put(nameStr,name);
+        locationMap.put(userIdStr,userId);
         FirebaseDatabase.getInstance().getReference()
                 .child(trip)
                 .child(String.valueOf(tripId))
                 .child(user)
                 .child(String.valueOf(userId))
-                .setValue(locationMap);
+                .updateChildren(locationMap);
     }
-    public static void setUserTripLocation(int tripId, int userId, double startLat, double startLng, OnCompleteListener onCompleteListener) {
+    public static void setUserTripLocation(int tripId, int userId, double startLat, double startLng,String startDateTime, OnCompleteListener onCompleteListener) {
         Map<String,Object> locationMap = new HashMap<>();
         locationMap.put(startLatStr, startLat);
         locationMap.put(startLngStr, startLng);
+        locationMap.put(startDateTimeStr, startDateTime);
         locationMap.put(joinedStr,true);
         FirebaseDatabase.getInstance().getReference()
                 .child(trip)
                 .child(String.valueOf(tripId))
                 .child(user)
                 .child(String.valueOf(userId))
-                .setValue(locationMap).addOnCompleteListener(onCompleteListener);
+                .updateChildren(locationMap).addOnCompleteListener(onCompleteListener);
+    }
+    public static void deleteUserTripLocation(int tripId, int userId) {
+
+        FirebaseDatabase.getInstance().getReference()
+                .child(trip)
+                .child(String.valueOf(tripId))
+                .child(user)
+                .child(String.valueOf(userId))
+                .removeValue();
     }
 
     public static void addListenerForDriver(int tripId, ValueEventListener valueEventListener) {

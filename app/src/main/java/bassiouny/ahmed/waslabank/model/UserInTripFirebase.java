@@ -9,6 +9,7 @@ import bassiouny.ahmed.waslabank.utils.MyUtils;
 public class UserInTripFirebase {
     private double startLat;
     private double startLng;
+    private String startDateTime;
     private double currentLat;
     private double currentLng;
     private int userId;
@@ -63,6 +64,10 @@ public class UserInTripFirebase {
 
     public int getUserId() {
         return userId;
+    }
+
+    public String getStartDateTime() {
+        return startDateTime;
     }
 
     public void setJoined(boolean joined) {

@@ -10,5 +10,6 @@
     <color name="second">#904184</color>
     <color name="third">#DEAAAD</color>
     <color name="black">#000</color>
+    <color name="red">#e70202</color>
     <color name="black_alpha">#5000</color>
 </resources>

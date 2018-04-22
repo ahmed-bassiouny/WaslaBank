@@ -62,4 +62,6 @@ public class ApiKey {
     public static final String IS_FINISHED = "is_finished";
     public static final String IS_RUNNING = "is_running";
     public static final String IS_JOINED = "is_joined";
+    public static final String END_AT = "end_at";
+    public static final String START_AT = "start_at";
 }
