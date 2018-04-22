@@ -4,11 +4,16 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.Toast;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.view.ViewStub;
+import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -19,42 +24,61 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
 import bassiouny.ahmed.genericmanager.SharedPrefManager;
 import bassiouny.ahmed.waslabank.R;
-import bassiouny.ahmed.waslabank.model.CurrentTripLocation;
+import bassiouny.ahmed.waslabank.adapter.UserInTripItem;
+import bassiouny.ahmed.waslabank.interfaces.ItemClickInterface;
+import bassiouny.ahmed.waslabank.model.UserInTripFirebase;
 import bassiouny.ahmed.waslabank.model.FirebaseRoot;
 import bassiouny.ahmed.waslabank.model.User;
 import bassiouny.ahmed.waslabank.utils.LocationManager;
+import bassiouny.ahmed.waslabank.utils.MyToolbar;
 import bassiouny.ahmed.waslabank.utils.MyUtils;
 import bassiouny.ahmed.waslabank.utils.SharedPrefKey;
+import bassiouny.ahmed.waslabank.utils.SimpleDividerItemDecoration;
 
-public class ViewMapActivity extends AppCompatActivity implements OnMapReadyCallback, LocationListener {
+public class ViewMapActivity extends MyToolbar implements OnMapReadyCallback, LocationListener ,ItemClickInterface<UserInTripFirebase> {
 
+    // view
+    private FrameLayout frameLayoutUsers;
+    private ViewStub viewStubProgress;
+    private RecyclerView recycler;
+    private TextView tvTryAgain;
     // local variable
     private LocationManager locationManager;
     private final int requestLocationPermission = 1;
     private GoogleMap googleMap;
     private MarkerOptions markerOptions;
     private Marker userMarker;
-    private Marker driverMarker;
     // zoom on map to make zoom first time
     private boolean zoomOnMap = true;
-    private int userId;
+    // current user view map
+    private User user;
     private int tripId;
     // driver view if true make this activity for driver
     // else make this activity for user
     private boolean driverView = false;
     private ValueEventListener driverListener;
     private ValueEventListener userListener;
+    // adapter
+    private UserInTripItem adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_driver_view_map);
+        // init tool bar
+        initToolbar("", false);
+        addBackImagePrimary();
+        addSupportActionbar();
+        // add view
+        findView();
         // Get the SupportMapFragment and request notification
         // when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -66,8 +90,8 @@ public class ViewMapActivity extends AppCompatActivity implements OnMapReadyCall
         requestLocationPermission();
         // init marker
         markerOptions = new MarkerOptions();
-        // set driver id
-        userId = SharedPrefManager.getObject(SharedPrefKey.USER, User.class).getId();
+        // set (driver or user )
+        user = SharedPrefManager.getObject(SharedPrefKey.USER, User.class);
         // get trip id
         tripId = getIntent().getIntExtra("TRIP_ID", 0);
         // check if trip id == 0 this mean something happned wrong
@@ -81,13 +105,36 @@ public class ViewMapActivity extends AppCompatActivity implements OnMapReadyCall
             markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.car_marker));
             // add listener for users
             getUsersListener();
-            FirebaseRoot.addListenerForDriver(tripId, userListener);
+            FirebaseRoot.addListenerForUsers(tripId, userListener);
+            startLoadUserJoinedInTrip();
         } else {
             // user view
+            // add user information in firebase
+            // user information = name , image
+            FirebaseRoot.setUserInfo(tripId,user.getId(),user.getImage(),user.getName());
             // add listener for driver
             getDriverListener();
             FirebaseRoot.addListenerForDriver(tripId, driverListener);
+            // make frame layout contain users invisible because this is user view
+            frameLayoutUsers.setVisibility(View.GONE);
         }
+    }
+
+    private void startLoadUserJoinedInTrip() {
+        frameLayoutUsers.setVisibility(View.VISIBLE);
+        viewStubProgress.setVisibility(View.VISIBLE);
+        recycler.setVisibility(View.INVISIBLE);
+        adapter = new UserInTripItem(this);
+        recycler.setAdapter(adapter);
+    }
+
+    private void findView() {
+        frameLayoutUsers = findViewById(R.id.frameLayout_users);
+        viewStubProgress = findViewById(R.id.view_stub_progress);
+        recycler = findViewById(R.id.recycler);
+        tvTryAgain = findViewById(R.id.tv_try_again);
+        recycler.setLayoutManager(new LinearLayoutManager(this));
+        recycler.addItemDecoration(new SimpleDividerItemDecoration(this));
     }
 
     @Override
@@ -103,6 +150,12 @@ public class ViewMapActivity extends AppCompatActivity implements OnMapReadyCall
     protected void onDestroy() {
         super.onDestroy();
         locationManager.removeListener(this);
+        // remove listener about users
+        if (userListener != null)
+            FirebaseRoot.removeListenerForUsers(tripId, userListener);
+        // remove listener about drivers
+        if (driverListener != null)
+            FirebaseRoot.removeListenerForDriver(tripId, driverListener);
     }
 
     @Override
@@ -149,10 +202,9 @@ public class ViewMapActivity extends AppCompatActivity implements OnMapReadyCall
     private void updateLocation(Location location) {
         if (driverView) {
             // update driver location on firebase
-            if (userId != 0)
-                FirebaseRoot.updateDriverLocation(tripId, userId, location.getLatitude(), location.getLongitude());
+            FirebaseRoot.updateDriverLocation(tripId, user.getId(), location.getLatitude(), location.getLongitude());
         } else {
-            FirebaseRoot.updateUserLocation(tripId, userId, location.getLatitude(), location.getLongitude());
+            FirebaseRoot.updateUserLocation(tripId, user.getId(), location.getLatitude(), location.getLongitude());
         }
     }
 
@@ -163,13 +215,13 @@ public class ViewMapActivity extends AppCompatActivity implements OnMapReadyCall
                 for (DataSnapshot item : dataSnapshot.getChildren()) {
                     if (item == null)
                         return;
-                    CurrentTripLocation location = item.getValue(CurrentTripLocation.class);
-                    if(location == null || googleMap == null)
-                        return;
-                    googleMap.clear();
-                    // add current user user app
-                    userMarker =  googleMap.addMarker(markerOptions);
-                    googleMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.car_marker)).position(new LatLng(location.getCurrentLat(), location.getCurrentLng())));
+                    UserInTripFirebase location = item.getValue(UserInTripFirebase.class);
+                    if (location != null && googleMap != null) {
+                        googleMap.clear();
+                        // add current user user app
+                        userMarker = googleMap.addMarker(markerOptions);
+                        googleMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.car_marker)).position(new LatLng(location.getCurrentLat(), location.getCurrentLng())));
+                    }
                 }
             }
 
@@ -179,6 +231,7 @@ public class ViewMapActivity extends AppCompatActivity implements OnMapReadyCall
             }
         };
     }
+
     private void getUsersListener() {
         userListener = new ValueEventListener() {
             @Override
@@ -186,14 +239,18 @@ public class ViewMapActivity extends AppCompatActivity implements OnMapReadyCall
                 for (DataSnapshot item : dataSnapshot.getChildren()) {
                     if (item == null)
                         return;
-                    CurrentTripLocation location = item.getValue(CurrentTripLocation.class);
-                    if(location == null || googleMap == null)
-                        return;
-                    googleMap.clear();
-                    // add current driver user app
-                    userMarker =  googleMap.addMarker(markerOptions);
-                    googleMap.addMarker(new MarkerOptions().position(new LatLng(location.getCurrentLat(), location.getCurrentLng())));
+                    UserInTripFirebase user = item.getValue(UserInTripFirebase.class);
+                    if (user != null && googleMap != null) {
+                        googleMap.clear();
+                        // add current driver user app
+                        userMarker = googleMap.addMarker(markerOptions);
+                        googleMap.addMarker(new MarkerOptions().position(new LatLng(user.getCurrentLat(), user.getCurrentLng())));
+                        adapter.addUser(user);
+                    }
                 }
+                // loaded users and make recycler visible
+                recycler.setVisibility(View.VISIBLE);
+                viewStubProgress.setVisibility(View.GONE);
             }
 
             @Override
@@ -201,5 +258,22 @@ public class ViewMapActivity extends AppCompatActivity implements OnMapReadyCall
 
             }
         };
+    }
+
+    @Override
+    public void getItem(@Nullable UserInTripFirebase userInTripFirebase, final int position) {
+        // user in trip and still waiting to joined
+        if(userInTripFirebase != null && !userInTripFirebase.isLoading){
+            // join user to this trip
+            adapter.loading(position,true);
+            FirebaseRoot.setUserTripLocation(tripId, user.getId(), markerOptions.getPosition().latitude, markerOptions.getPosition().longitude, new OnCompleteListener() {
+                @Override
+                public void onComplete(@NonNull Task task) {
+                    adapter.loading(position,false);
+                }
+            });
+        }else {
+            // leave user from this trip
+        }
     }
 }

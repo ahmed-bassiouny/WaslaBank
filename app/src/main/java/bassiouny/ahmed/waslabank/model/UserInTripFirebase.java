@@ -1,14 +1,21 @@
 package bassiouny.ahmed.waslabank.model;
 
+import bassiouny.ahmed.waslabank.utils.MyUtils;
+
 /**
  * Created by bassiouny on 21/04/18.
  */
 
-public class CurrentTripLocation {
+public class UserInTripFirebase {
     private double startLat;
     private double startLng;
     private double currentLat;
     private double currentLng;
+    private int userId;
+    private String image;
+    private String name;
+    private boolean joined;
+    public boolean isLoading;
 
     public double getStartLat() {
         return startLat;
@@ -40,5 +47,25 @@ public class CurrentTripLocation {
 
     public void setCurrentLng(double currentLng) {
         this.currentLng = currentLng;
+    }
+
+    public String getImage() {
+        return MyUtils.getString(image);
+    }
+
+    public String getName() {
+        return MyUtils.getString(name);
+    }
+
+    public boolean isJoined() {
+        return joined;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setJoined(boolean joined) {
+        this.joined = joined;
     }
 }

@@ -78,7 +78,7 @@ public class TripDetails {
     }
 
     public String getImage() {
-        return image;
+        return MyUtils.getString(image);
     }
 
     public String getCanceled() {

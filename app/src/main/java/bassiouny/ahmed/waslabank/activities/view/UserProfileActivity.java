@@ -205,6 +205,7 @@ public class UserProfileActivity extends MyToolbar implements MyObserverInterfac
         ApiRequests.getUserInfoWithFeedback(new BaseResponseInterface<UserInfo>() {
             @Override
             public void onSuccess(UserInfo userInfo) {
+                UserProfileActivity.this.userInfo = userInfo;
                 // refresh user information
                 setUserInformation();
                 // set user data in about fragment

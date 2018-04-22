@@ -15,7 +15,7 @@ import bassiouny.ahmed.waslabank.utils.MyUtils;
 @SuppressWarnings({"UnusedDeclaration"})
 public class User extends UserInfo {
 
-    @SerializedName(ApiKey.USER_ID)
+    @SerializedName(value = ApiKey.USER_ID, alternate = ApiKey.ID)
     private int id;
     @SerializedName(ApiKey.NAME)
     private String name;

@@ -110,4 +110,7 @@
     <string name="start">Start</string>
     <string name="setting">Setting</string>
     <string name="open_gps">Open Gps</string>
+    <string name="try_again">Try Again</string>
+    <string name="leave">Leave</string>
+    <string name="join">Join</string>
 </resources>
