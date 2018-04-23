@@ -51,9 +51,9 @@ public class FirebaseRoot {
 
     public static void setUserInfo(int tripId, int userId, String image, String name) {
         Map<String, Object> locationMap = new HashMap<>();
-        locationMap.put(imageStr,image);
-        locationMap.put(nameStr,name);
-        locationMap.put(userIdStr,userId);
+        locationMap.put(imageStr, image);
+        locationMap.put(nameStr, name);
+        locationMap.put(userIdStr, userId);
         FirebaseDatabase.getInstance().getReference()
                 .child(trip)
                 .child(String.valueOf(tripId))
@@ -61,12 +61,13 @@ public class FirebaseRoot {
                 .child(String.valueOf(userId))
                 .updateChildren(locationMap);
     }
-    public static void setUserTripLocation(int tripId, int userId, double startLat, double startLng,String startDateTime, OnCompleteListener onCompleteListener) {
-        Map<String,Object> locationMap = new HashMap<>();
+
+    public static void setUserTripLocation(int tripId, int userId, double startLat, double startLng, String startDateTime, OnCompleteListener onCompleteListener) {
+        Map<String, Object> locationMap = new HashMap<>();
         locationMap.put(startLatStr, startLat);
         locationMap.put(startLngStr, startLng);
         locationMap.put(startDateTimeStr, startDateTime);
-        locationMap.put(joinedStr,true);
+        locationMap.put(joinedStr, true);
         FirebaseDatabase.getInstance().getReference()
                 .child(trip)
                 .child(String.valueOf(tripId))
@@ -74,6 +75,7 @@ public class FirebaseRoot {
                 .child(String.valueOf(userId))
                 .updateChildren(locationMap).addOnCompleteListener(onCompleteListener);
     }
+
     public static void deleteUserTripLocation(int tripId, int userId) {
 
         FirebaseDatabase.getInstance().getReference()
@@ -99,6 +101,7 @@ public class FirebaseRoot {
                 .child(driver)
                 .removeEventListener(valueEventListener);
     }
+
     public static void addListenerForUsers(int tripId, ValueEventListener valueEventListener) {
         FirebaseDatabase.getInstance().getReference()
                 .child(trip)
@@ -106,11 +109,18 @@ public class FirebaseRoot {
                 .child(user)
                 .addValueEventListener(valueEventListener);
     }
+
     public static void removeListenerForUsers(int tripId, ValueEventListener valueEventListener) {
         FirebaseDatabase.getInstance().getReference()
                 .child(trip)
                 .child(String.valueOf(tripId))
                 .child(user)
+                .removeEventListener(valueEventListener);
+    }
+    public static void removeTrip(int tripId, ValueEventListener valueEventListener) {
+        FirebaseDatabase.getInstance().getReference()
+                .child(trip)
+                .child(String.valueOf(tripId))
                 .removeEventListener(valueEventListener);
     }
 }

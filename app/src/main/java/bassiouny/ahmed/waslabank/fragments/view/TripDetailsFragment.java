@@ -19,6 +19,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 
 import java.util.Calendar;
 
@@ -32,6 +34,7 @@ import bassiouny.ahmed.waslabank.api.apiModel.requests.CurrentTripRequest;
 import bassiouny.ahmed.waslabank.fragments.controller.TripDetailsController;
 import bassiouny.ahmed.waslabank.interfaces.BaseResponseInterface;
 import bassiouny.ahmed.waslabank.interfaces.ObserverInterface;
+import bassiouny.ahmed.waslabank.model.FirebaseRoot;
 import bassiouny.ahmed.waslabank.model.TripDetails;
 import bassiouny.ahmed.waslabank.model.User;
 import bassiouny.ahmed.waslabank.utils.DateTimeFormat;
@@ -52,6 +55,7 @@ public class TripDetailsFragment extends Fragment implements ObserverInterface<T
     private TripDetailsController controller;
     private LocationManager locationManager;
     private final int requestLocationPermission = 1;
+    private Location location; // current location
 
     // Driver
     public final int tripRunningDriver = 1;
@@ -95,6 +99,7 @@ public class TripDetailsFragment extends Fragment implements ObserverInterface<T
         super.onViewCreated(view, savedInstanceState);
         findView(view);
         onClick();
+        requestLocationPermissionAndGetLocation();
     }
 
     @Override
@@ -128,12 +133,10 @@ public class TripDetailsFragment extends Fragment implements ObserverInterface<T
                         startActivity(i);
                         break;
                     case tripNotRunningDriver:
-                        // listener to get location to start trip
-                        requestLocationPermissionAndGetLocation();
-
                         // trip now not running
                         // driver can start trip
                         loading(true);
+                        String now = DateTimeManager.convertUnixTimeStampToString(Calendar.getInstance().getTimeInMillis(), DateTimeFormat.DATE_TIME_24_FORMAT);
                         getController().startTrip(tripDetails.getId(), userId, true, new BaseResponseInterface() {
                             @Override
                             public void onSuccess(Object o) {
@@ -351,9 +354,10 @@ public class TripDetailsFragment extends Fragment implements ObserverInterface<T
     @Override
     public void onLocationChanged(Location location) {
         // get location and save it in shared pref
-        String now = DateTimeManager.convertUnixTimeStampToString(Calendar.getInstance().getTimeInMillis(), DateTimeFormat.DATE_TIME_24_FORMAT);
+        /*String now = DateTimeManager.convertUnixTimeStampToString(Calendar.getInstance().getTimeInMillis(), DateTimeFormat.DATE_TIME_24_FORMAT);
         CurrentTripRequest currentTripRequest = new CurrentTripRequest(location.getLatitude(), location.getLongitude(), now);
         SharedPrefManager.setObject(SharedPrefKey.CURRENT_TRIP, currentTripRequest);
-        locationManager.removeListener(this);
+        locationManager.removeListener(this);*/
+        TripDetailsFragment.this.location = location;
     }
 }

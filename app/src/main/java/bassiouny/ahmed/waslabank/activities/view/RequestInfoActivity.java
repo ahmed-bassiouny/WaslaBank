@@ -41,7 +41,6 @@ public class RequestInfoActivity extends MyToolbar implements MyObserverInterfac
     private int tripId;
     private RequestInfoController controller;
     private List<ObserverInterface> observerInterfaces;
-    private TripDetails tripDetails;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,8 +57,7 @@ public class RequestInfoActivity extends MyToolbar implements MyObserverInterfac
     @Override
     protected void onResume() {
         super.onResume();
-        if (tripDetails != null)
-            notifyObservers(tripDetails);
+        getTripDetails();
     }
 
     private void initObjects() {
@@ -78,8 +76,8 @@ public class RequestInfoActivity extends MyToolbar implements MyObserverInterfac
         observerInterfaces = new ArrayList<>();
         // get trip id from intent
         tripId = getIntent().getIntExtra("TRIP_ID", 0);
-        if (tripId > 0)
-            getTripDetails();
+        if (tripId <= 0)
+            findView();
     }
 
     private void findView() {
@@ -158,7 +156,6 @@ public class RequestInfoActivity extends MyToolbar implements MyObserverInterfac
                 //parsingInterface.parseObject(true);
                 loading(false);
                 notifyObservers(tripDetails);
-                RequestInfoActivity.this.tripDetails = tripDetails;
             }
 
             @Override

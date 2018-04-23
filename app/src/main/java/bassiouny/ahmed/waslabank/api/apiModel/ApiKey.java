@@ -64,4 +64,5 @@ public class ApiKey {
     public static final String IS_JOINED = "is_joined";
     public static final String END_AT = "end_at";
     public static final String START_AT = "start_at";
+    public static final String DRIVER_FINISH_TRIP = "driver_finish_trip";
 }

@@ -177,7 +177,6 @@ public class SignUpUserDetailsFragment extends Fragment {
     }
 
     // start loading
-    // todo i will remove this method
     private void loading(boolean start) {
         if (start) {
             progress.setVisibility(View.VISIBLE);

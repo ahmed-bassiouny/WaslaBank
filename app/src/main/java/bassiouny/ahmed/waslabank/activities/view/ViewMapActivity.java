@@ -1,19 +1,26 @@
 package bassiouny.ahmed.waslabank.activities.view;
 
 import android.Manifest;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SimpleItemAnimator;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewStub;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -112,6 +119,9 @@ public class ViewMapActivity extends MyToolbar implements OnMapReadyCallback, Lo
             // driver view
             // set driver icon
             markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.car_marker));
+            // add finish trip button
+            addView(addFinishTripButton(), layoutParamFinishTripIcon());
+
         } else {
             // user view
             // add user information in firebase
@@ -294,33 +304,100 @@ public class ViewMapActivity extends MyToolbar implements OnMapReadyCallback, Lo
                         }
                     });
         } else {
-            adapter.loading(position, true);
-            // leave user from this trip
-            TripDetailsRequest.Builder builder = new TripDetailsRequest.Builder();
-            builder.userId(userInTripFirebase.getUserId());
-            builder.requestId(tripId);
-            builder.startAt(userInTripFirebase.getStartDateTime());
-            builder.startPointLat(userInTripFirebase.getStartLat());
-            builder.startPointLng(userInTripFirebase.getStartLng());
-            builder.endAt(DateTimeManager.convertUnixTimeStampToString(Calendar.getInstance().getTimeInMillis(), DateTimeFormat.DATE_TIME_24_FORMAT));
-            builder.endPointLat(markerOptions.getPosition().latitude);
-            builder.endPointLng(markerOptions.getPosition().longitude);
-            builder.isFinished();
-            ApiRequests.setTripDetails(builder.build(), new BaseResponseInterface() {
-                @Override
-                public void onSuccess(Object o) {
-                    // remove current user
-                    FirebaseRoot.deleteUserTripLocation(tripId, userInTripFirebase.getUserId());
-                    // get all users still in trip
-                    FirebaseRoot.addListenerForUsers(tripId, userListener);
-                }
-
-                @Override
-                public void onFailed(String errorMessage) {
-                    Toast.makeText(ViewMapActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
-                    adapter.loading(position, false);
-                }
-            });
+            AlertDialog.Builder builder;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                builder = new AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog_Alert);
+            } else {
+                builder = new AlertDialog.Builder(this);
+            }
+            builder.setMessage("Are you sure you want to leave " + userInTripFirebase.getName() + " ?")
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            makeUserLeaveTrip(userInTripFirebase, position);
+                        }
+                    })
+                    .setNegativeButton(android.R.string.no, null)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
         }
+    }
+
+    private void makeUserLeaveTrip(final UserInTripFirebase userInTripFirebase, final int position) {
+        adapter.loading(position, true);
+        // leave user from this trip
+        TripDetailsRequest.Builder builder = new TripDetailsRequest.Builder();
+        builder.userId(userInTripFirebase.getUserId());
+        builder.requestId(tripId);
+        builder.startAt(userInTripFirebase.getStartDateTime());
+        builder.startPointLat(userInTripFirebase.getStartLat());
+        builder.startPointLng(userInTripFirebase.getStartLng());
+        builder.endAt(DateTimeManager.convertUnixTimeStampToString(Calendar.getInstance().getTimeInMillis(), DateTimeFormat.DATE_TIME_24_FORMAT));
+        builder.endPointLat(markerOptions.getPosition().latitude);
+        builder.endPointLng(markerOptions.getPosition().longitude);
+        builder.isFinished();
+        ApiRequests.setTripDetails(builder.build(), new BaseResponseInterface() {
+            @Override
+            public void onSuccess(Object o) {
+                // remove current user
+                FirebaseRoot.deleteUserTripLocation(tripId, userInTripFirebase.getUserId());
+                // get all users still in trip
+                FirebaseRoot.addListenerForUsers(tripId, userListener);
+            }
+
+            @Override
+            public void onFailed(String errorMessage) {
+                Toast.makeText(ViewMapActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+                adapter.loading(position, false);
+            }
+        });
+    }
+
+    public ImageView addFinishTripButton() {
+        // create finishTrip image view
+        ImageView finishTrip = new ImageView(this);
+        // finishTrip image view src
+        finishTrip.setImageDrawable(getResources().getDrawable(R.drawable.ic_cancel));
+        // handle click item
+        finishTrip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (adapter.getItemCount() == 0) {
+                    // driver can finish trip
+                    AlertDialog.Builder builder;
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        builder = new AlertDialog.Builder(ViewMapActivity.this, R.style.AlertDialogStyle);
+                    } else {
+                        builder = new AlertDialog.Builder(ViewMapActivity.this);
+                    }
+                    builder.setTitle("Are you sure you want to finish trip")
+                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // todo finish trip request
+                                    // todo remove trip root
+                                    // restart app
+                                    Intent i = new Intent(ViewMapActivity.this, HomeActivity.class);
+                                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    startActivity(i);
+                                    finish();
+                                }
+                            })
+                            .setNegativeButton(android.R.string.no, null)
+                            .show();
+                } else {
+                    // driver must leave user
+                    Toast.makeText(ViewMapActivity.this, "you still have users in your trip", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+        return finishTrip;
+    }
+
+    private FrameLayout.LayoutParams layoutParamFinishTripIcon() {
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.WRAP_CONTENT,
+                FrameLayout.LayoutParams.WRAP_CONTENT, Gravity.END);
+        params.setMargins(10, 10, 50, 10);
+        return params;
     }
 }

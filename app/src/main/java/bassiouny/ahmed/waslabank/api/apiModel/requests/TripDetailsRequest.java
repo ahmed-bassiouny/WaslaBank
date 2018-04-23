@@ -28,6 +28,8 @@ public class TripDetailsRequest {
     private String endAt;
     @SerializedName(ApiKey.IS_FINISHED)
     private int isFinished;
+    @SerializedName(ApiKey.DRIVER_FINISH_TRIP)
+    private int driverFinishTrip;
 
     private TripDetailsRequest(Builder builder) {
         userId = builder.userId;
@@ -39,8 +41,8 @@ public class TripDetailsRequest {
         endPointLng = builder.endPointLng;
         endAt = builder.endAt;
         isFinished = builder.isFinished;
+        driverFinishTrip = builder.driverFinishTrip;
     }
-
 
     public static final class Builder {
         private int userId;
@@ -52,6 +54,7 @@ public class TripDetailsRequest {
         private double endPointLng;
         private String endAt;
         private int isFinished;
+        private int driverFinishTrip;
 
         public Builder() {
         }
@@ -81,7 +84,6 @@ public class TripDetailsRequest {
             return this;
         }
 
-
         public Builder endPointLat(double val) {
             endPointLat = val;
             return this;
@@ -99,6 +101,11 @@ public class TripDetailsRequest {
 
         public Builder isFinished() {
             isFinished = 1;
+            return this;
+        }
+
+        public Builder driverFinishTrip() {
+            driverFinishTrip = 1;
             return this;
         }
 
