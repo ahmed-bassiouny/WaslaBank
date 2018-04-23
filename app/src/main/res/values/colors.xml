@@ -11,5 +11,6 @@
     <color name="third">#DEAAAD</color>
     <color name="black">#000</color>
     <color name="red">#e70202</color>
+    <color name="green">#039901</color>
     <color name="black_alpha">#5000</color>
 </resources>

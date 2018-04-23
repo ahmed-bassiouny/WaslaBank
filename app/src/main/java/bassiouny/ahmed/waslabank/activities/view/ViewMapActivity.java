@@ -296,7 +296,6 @@ public class ViewMapActivity extends MyToolbar implements OnMapReadyCallback, Lo
         } else {
             adapter.loading(position, true);
             // leave user from this trip
-            // todo make request to leave user from trip
             TripDetailsRequest.Builder builder = new TripDetailsRequest.Builder();
             builder.userId(userInTripFirebase.getUserId());
             builder.requestId(tripId);

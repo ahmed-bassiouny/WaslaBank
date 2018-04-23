@@ -84,7 +84,7 @@ public class UserInTripItem extends RecyclerView.Adapter<UserInTripItem.MyViewHo
                 holder.joinLeave.setTextColor(context.getResources().getColor(R.color.red));
             } else {
                 holder.joinLeave.setText(context.getResources().getString(R.string.join));
-                holder.joinLeave.setTextColor(context.getResources().getColor(R.color.black));
+                holder.joinLeave.setTextColor(context.getResources().getColor(R.color.green));
             }
         }
     }
