@@ -12,6 +12,7 @@ import bassiouny.ahmed.waslabank.api.apiModel.requests.StartTripRequest;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.TripDetailsRequest;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.TripStatusRequest;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.TripsByDate;
+import bassiouny.ahmed.waslabank.api.apiModel.response.AboutResponse;
 import bassiouny.ahmed.waslabank.api.apiModel.response.GenericResponse;
 import bassiouny.ahmed.waslabank.api.apiModel.response.ParentResponse;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.UserLoginRequest;
@@ -21,6 +22,7 @@ import bassiouny.ahmed.waslabank.api.apiModel.response.TripDetailsResponse;
 import bassiouny.ahmed.waslabank.api.apiModel.response.UserInfoResponse;
 import bassiouny.ahmed.waslabank.api.apiModel.response.UserResponse;
 import bassiouny.ahmed.waslabank.interfaces.BaseResponseInterface;
+import bassiouny.ahmed.waslabank.model.About;
 import bassiouny.ahmed.waslabank.model.TripDetails;
 import bassiouny.ahmed.waslabank.model.User;
 import bassiouny.ahmed.waslabank.model.UserInfo;
@@ -392,6 +394,26 @@ public class ApiRequests {
 
             @Override
             public void onFailure(@NonNull Call<GenericResponse> call, @NonNull Throwable t) {
+                // get error message
+                anInterface.onFailed(t.getLocalizedMessage());
+            }
+        });
+    }
+
+    // get about
+    // url => about
+    // parameter => page name
+    public static void getAbout(final BaseResponseInterface<About> anInterface) {
+        Call<AboutResponse> response = ApiConfig.httpApiInterface.getAbout(MyApplication.getUserToken(), "about");
+        response.enqueue(new Callback<AboutResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<AboutResponse> call, @NonNull Response<AboutResponse> response) {
+                // check on response and get data
+                checkValidResult(response, anInterface);
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<AboutResponse> call, @NonNull Throwable t) {
                 // get error message
                 anInterface.onFailed(t.getLocalizedMessage());
             }

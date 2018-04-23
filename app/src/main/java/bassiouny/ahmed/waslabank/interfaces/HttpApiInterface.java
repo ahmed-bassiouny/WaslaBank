@@ -8,6 +8,7 @@ import bassiouny.ahmed.waslabank.api.apiModel.requests.StartTripRequest;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.TripDetailsRequest;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.TripStatusRequest;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.TripsByDate;
+import bassiouny.ahmed.waslabank.api.apiModel.response.AboutResponse;
 import bassiouny.ahmed.waslabank.api.apiModel.response.GenericResponse;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.UserLoginRequest;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.UserSignUpRequest;
@@ -106,5 +107,11 @@ public interface HttpApiInterface {
     @POST("requests/driver/end/user/trip")
     @Headers(HEADER_KEY)
     Call<GenericResponse> setTripDetails(@Header(AUTHORIZATION) String token, @Body TripDetailsRequest tripDetailsRequest);
+
+
+    @FormUrlEncoded
+    @POST("about")
+    @Headers(HEADER_KEY)
+    Call<AboutResponse> getAbout(@Header(AUTHORIZATION) String token, @Field(ApiKey.PAGE_NAME) String pageName);
 
 }

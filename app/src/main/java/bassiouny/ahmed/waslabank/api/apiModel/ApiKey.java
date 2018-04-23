@@ -65,4 +65,5 @@ public class ApiKey {
     public static final String END_AT = "end_at";
     public static final String START_AT = "start_at";
     public static final String BODY = "body";
+    public static final String PAGE_NAME = "page_name";
 }
