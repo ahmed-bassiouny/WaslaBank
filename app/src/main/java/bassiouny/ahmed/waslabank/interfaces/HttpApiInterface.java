@@ -3,6 +3,7 @@ package bassiouny.ahmed.waslabank.interfaces;
 import bassiouny.ahmed.waslabank.api.apiModel.ApiKey;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.ContactUsRequest;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.CreateTripRequest;
+import bassiouny.ahmed.waslabank.api.apiModel.requests.FinishTripRequest;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.StartTripRequest;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.TripDetailsRequest;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.TripStatusRequest;
@@ -92,12 +93,17 @@ public interface HttpApiInterface {
     Call<GenericResponse> startTrip(@Header(AUTHORIZATION) String token, @Body StartTripRequest startTripRequest);
 
 
+    @POST("requests/driver/end/trip")
+    @Headers(HEADER_KEY)
+    Call<GenericResponse> driverFinishTrip(@Header(AUTHORIZATION) String token, @Body FinishTripRequest finishTripRequest);
+
+
     @POST("requests/user/join/trip")
     @Headers(HEADER_KEY)
     Call<GenericResponse> joinTrip(@Header(AUTHORIZATION) String token, @Body StartTripRequest startTripRequest);
 
 
-    @POST("requests/admin/end/user/trip")
+    @POST("requests/driver/end/user/trip")
     @Headers(HEADER_KEY)
     Call<GenericResponse> setTripDetails(@Header(AUTHORIZATION) String token, @Body TripDetailsRequest tripDetailsRequest);
 

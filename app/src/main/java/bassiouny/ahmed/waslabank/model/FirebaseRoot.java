@@ -117,10 +117,10 @@ public class FirebaseRoot {
                 .child(user)
                 .removeEventListener(valueEventListener);
     }
-    public static void removeTrip(int tripId, ValueEventListener valueEventListener) {
+    public static void removeTrip(int tripId) {
         FirebaseDatabase.getInstance().getReference()
                 .child(trip)
                 .child(String.valueOf(tripId))
-                .removeEventListener(valueEventListener);
+                .removeValue();
     }
 }

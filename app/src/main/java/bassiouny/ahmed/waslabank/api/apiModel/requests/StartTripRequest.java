@@ -18,12 +18,18 @@ public class StartTripRequest {
     private int isRunning;
     @SerializedName(ApiKey.IS_JOINED)
     private int isJoined;
+    @SerializedName(ApiKey.START_POINT_LAT)
+    private double startPointLat;
+    @SerializedName(ApiKey.START_POINT_LNG)
+    private double startPointLng;
 
     private StartTripRequest(Builder builder) {
         userId = builder.userId;
         requestId = builder.requestId;
         isRunning = builder.isRunning;
         isJoined = builder.isJoined;
+        startPointLat = builder.startPointLat;
+        startPointLng = builder.startPointLng;
     }
 
 
@@ -32,6 +38,8 @@ public class StartTripRequest {
         private int requestId;
         private int isRunning;
         private int isJoined;
+        private double startPointLat;
+        private double startPointLng;
 
         public Builder() {
         }
@@ -59,6 +67,16 @@ public class StartTripRequest {
             else isJoined = 0;
             return this;
         }
+        public Builder startPointLat(double val) {
+            startPointLat = val;
+            return this;
+        }
+
+        public Builder startPointLng(double val) {
+            startPointLng = val;
+            return this;
+        }
+
 
         public StartTripRequest build() {
             return new StartTripRequest(this);

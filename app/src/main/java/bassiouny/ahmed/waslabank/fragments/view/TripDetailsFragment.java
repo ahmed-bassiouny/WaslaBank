@@ -134,26 +134,33 @@ public class TripDetailsFragment extends Fragment implements ObserverInterface<T
                         break;
                     case tripNotRunningDriver:
                         // trip now not running
+                        // check location object to get lat and lng to save it in backend
+                        // to know start trip location
+                        if (location == null) {
+                            Toast.makeText(getActivity(), "please try again", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
                         // driver can start trip
                         loading(true);
-                        String now = DateTimeManager.convertUnixTimeStampToString(Calendar.getInstance().getTimeInMillis(), DateTimeFormat.DATE_TIME_24_FORMAT);
-                        getController().startTrip(tripDetails.getId(), userId, true, new BaseResponseInterface() {
-                            @Override
-                            public void onSuccess(Object o) {
-                                if (getActivity() == null)
-                                    return;
-                                tripDetails.setIsRunning(true);
-                                loading(false);
-                            }
+                        getController().startTrip(tripDetails.getId(), userId, true,
+                                location.getLatitude(), location.getLongitude(), new BaseResponseInterface() {
+                                    @Override
+                                    public void onSuccess(Object o) {
+                                        if (getActivity() == null)
+                                            return;
+                                        tripDetails.setIsRunning(true);
+                                        loading(false);
+                                    }
 
-                            @Override
-                            public void onFailed(String errorMessage) {
-                                if (getActivity() == null)
-                                    return;
-                                Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
-                                loading(false);
-                            }
-                        });
+                                    @Override
+                                    public void onFailed(String errorMessage) {
+                                        if (getActivity() == null)
+                                            return;
+                                        Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
+                                        loading(false);
+                                    }
+                                });
                         break;
                     case tripRunningJoinedUser:
                         // trip now running

@@ -29,6 +29,7 @@ public class MyToolbar extends AppCompatActivity {
 
     private Toolbar toolbar;
     private FrameLayout frameLayout;
+    private TextView title;
     public void initToolbar(String toolbarTitle,boolean supportBackground) {
         toolbar = findViewById(R.id.toolbar);
         // create frame layout
@@ -41,7 +42,7 @@ public class MyToolbar extends AppCompatActivity {
             toolbar.setBackground(getResources().getDrawable(R.drawable.toolbar));
 
         // create title in center
-        TextView title = new TextView(this);
+        title = new TextView(this);
         // set text for title
         title.setText(toolbarTitle);
         // change text color
@@ -50,6 +51,9 @@ public class MyToolbar extends AppCompatActivity {
         title.setTextSize(18);
         // set icons and title to frame layout
         frameLayout.addView(title,getMarginForView(Gravity.CENTER));
+    }
+    public void updateTitle(String toolbarTitle){
+        title.setText(toolbarTitle);
     }
 
     public void addBackImage(){

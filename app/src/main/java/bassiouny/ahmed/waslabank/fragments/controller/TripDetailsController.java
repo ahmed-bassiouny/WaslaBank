@@ -26,11 +26,13 @@ public class TripDetailsController {
         ApiRequests.finishTrip(builder.build(), anInterface);
     }
 
-    public void startTrip(int requestId, int userId, boolean isRunning, BaseResponseInterface anInterface) {
+    public void startTrip(int requestId, int userId, boolean isRunning,double startLat,double startLng, BaseResponseInterface anInterface) {
         StartTripRequest.Builder builder = new StartTripRequest.Builder();
         builder.requestId(requestId);
         builder.userId(userId);
         builder.isRunning(isRunning);
+        builder.startPointLat(startLat);
+        builder.startPointLng(startLng);
         ApiRequests.startTrip(builder.build(), anInterface);
     }
 

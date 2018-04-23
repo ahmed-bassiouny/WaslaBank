@@ -39,7 +39,7 @@ public class HomeActivity extends MyToolbar implements ItemClickInterface {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         // add toolbar title
-        initToolbar(SharedPrefManager.getObject(SharedPrefKey.USER, User.class).getName(), false);
+        initToolbar("", false);
         // add profile image button
         addProfileImage();
         // add notification image button
@@ -57,6 +57,8 @@ public class HomeActivity extends MyToolbar implements ItemClickInterface {
         setUserData(SharedPrefManager.getObject(SharedPrefKey.USER_INFO, UserInfo.class));
         // refresh user information
         loadUserInformation();
+        // set user name in toolbar in center
+        updateTitle(SharedPrefManager.getObject(SharedPrefKey.USER, User.class).getName());
     }
 
     // set user information in layout

@@ -46,6 +46,7 @@ import bassiouny.ahmed.genericmanager.SharedPrefManager;
 import bassiouny.ahmed.waslabank.R;
 import bassiouny.ahmed.waslabank.adapter.UserInTripItem;
 import bassiouny.ahmed.waslabank.api.ApiRequests;
+import bassiouny.ahmed.waslabank.api.apiModel.requests.FinishTripRequest;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.TripDetailsRequest;
 import bassiouny.ahmed.waslabank.interfaces.BaseResponseInterface;
 import bassiouny.ahmed.waslabank.interfaces.ItemClickInterface;
@@ -65,7 +66,7 @@ public class ViewMapActivity extends MyToolbar implements OnMapReadyCallback, Lo
     private FrameLayout frameLayoutUsers;
     private ViewStub viewStubProgress;
     private RecyclerView recycler;
-    private TextView tvTryAgain;
+    private TextView tvNoUser;
     // local variable
     private LocationManager locationManager;
     private final int requestLocationPermission = 1;
@@ -145,7 +146,7 @@ public class ViewMapActivity extends MyToolbar implements OnMapReadyCallback, Lo
         frameLayoutUsers = findViewById(R.id.frameLayout_users);
         viewStubProgress = findViewById(R.id.view_stub_progress);
         recycler = findViewById(R.id.recycler);
-        tvTryAgain = findViewById(R.id.tv_try_again);
+        tvNoUser = findViewById(R.id.tv_no_user);
         recycler.setLayoutManager(new LinearLayoutManager(this));
         recycler.addItemDecoration(new SimpleDividerItemDecoration(this));
     }
@@ -262,14 +263,20 @@ public class ViewMapActivity extends MyToolbar implements OnMapReadyCallback, Lo
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 adapter.clearList();
+                googleMap.clear();
+                // add current driver user app
+                userMarker = googleMap.addMarker(markerOptions);
+                if (dataSnapshot.getChildrenCount() == 0) {
+                    tvNoUser.setVisibility(View.VISIBLE);
+                    viewStubProgress.setVisibility(View.GONE);
+                    adapter.notifyDataSetChanged();
+                    return;
+                }
                 for (DataSnapshot item : dataSnapshot.getChildren()) {
                     if (item == null)
                         return;
                     UserInTripFirebase user = item.getValue(UserInTripFirebase.class);
-                    if (user != null && googleMap != null && markerOptions.getPosition() != null) {
-                        googleMap.clear();
-                        // add current driver user app
-                        userMarker = googleMap.addMarker(markerOptions);
+                    if (user != null) {
                         if (!user.getName().isEmpty()) {
                             googleMap.addMarker(new MarkerOptions().position(new LatLng(user.getCurrentLat(), user.getCurrentLng())));
                             adapter.addUser(user);
@@ -306,7 +313,7 @@ public class ViewMapActivity extends MyToolbar implements OnMapReadyCallback, Lo
         } else {
             AlertDialog.Builder builder;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                builder = new AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog_Alert);
+                builder = new AlertDialog.Builder(this, R.style.AlertDialogStyle);
             } else {
                 builder = new AlertDialog.Builder(this);
             }
@@ -372,14 +379,7 @@ public class ViewMapActivity extends MyToolbar implements OnMapReadyCallback, Lo
                     builder.setTitle("Are you sure you want to finish trip")
                             .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
-                                    // todo finish trip request
-                                    // todo remove trip root
-                                    // restart app
-                                    Intent i = new Intent(ViewMapActivity.this, HomeActivity.class);
-                                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                    startActivity(i);
-                                    finish();
+                                    driverFinishTrip();
                                 }
                             })
                             .setNegativeButton(android.R.string.no, null)
@@ -399,5 +399,37 @@ public class ViewMapActivity extends MyToolbar implements OnMapReadyCallback, Lo
                 FrameLayout.LayoutParams.WRAP_CONTENT, Gravity.END);
         params.setMargins(10, 10, 50, 10);
         return params;
+    }
+
+    private void driverFinishTrip() {
+        // create finish request object
+        Toast.makeText(this, "please wait", Toast.LENGTH_LONG).show();
+        FinishTripRequest.Builder builder = new FinishTripRequest.Builder();
+        builder.requestId(tripId);
+        builder.userId(user.getId());
+        builder.endPointLat(markerOptions.getPosition().latitude);
+        builder.endPointLng(markerOptions.getPosition().longitude);
+        String now = DateTimeManager.convertUnixTimeStampToString(Calendar.getInstance().getTimeInMillis(), DateTimeFormat.DATE_TIME_24_FORMAT);
+        builder.endAt(now);
+        ApiRequests.driverFinishTrip(builder.build(), new BaseResponseInterface() {
+            @Override
+            public void onSuccess(Object o) {
+                Toast.makeText(ViewMapActivity.this, "Your Trip Finished", Toast.LENGTH_SHORT).show();
+                // remove trip root from firebase
+                FirebaseRoot.removeTrip(tripId);
+                // close activity
+                // start main activity
+                Intent i = new Intent(ViewMapActivity.this, HomeActivity.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(i);
+                finish();
+            }
+
+            @Override
+            public void onFailed(String errorMessage) {
+                Toast.makeText(ViewMapActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

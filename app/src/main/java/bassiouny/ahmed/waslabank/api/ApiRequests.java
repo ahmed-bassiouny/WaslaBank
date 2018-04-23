@@ -7,6 +7,7 @@ import java.util.List;
 import bassiouny.ahmed.genericmanager.SharedPrefManager;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.ContactUsRequest;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.CreateTripRequest;
+import bassiouny.ahmed.waslabank.api.apiModel.requests.FinishTripRequest;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.StartTripRequest;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.TripDetailsRequest;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.TripStatusRequest;
@@ -324,6 +325,25 @@ public class ApiRequests {
     // parameter => request id, user id, is running
     public static void startTrip(StartTripRequest startTripRequest, final BaseResponseInterface anInterface) {
         Call<GenericResponse> response = ApiConfig.httpApiInterface.startTrip(MyApplication.getUserToken(), startTripRequest);
+        response.enqueue(new Callback<GenericResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<GenericResponse> call, @NonNull Response<GenericResponse> response) {
+                // check on response and get data
+                checkValidResult(response, anInterface);
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<GenericResponse> call, @NonNull Throwable t) {
+                // get error message
+                anInterface.onFailed(t.getLocalizedMessage());
+            }
+        });
+    }
+
+    // finish trip
+    // url =>
+    public static void driverFinishTrip(FinishTripRequest finishTripRequest, final BaseResponseInterface anInterface) {
+        Call<GenericResponse> response = ApiConfig.httpApiInterface.driverFinishTrip(MyApplication.getUserToken(), finishTripRequest);
         response.enqueue(new Callback<GenericResponse>() {
             @Override
             public void onResponse(@NonNull Call<GenericResponse> call, @NonNull Response<GenericResponse> response) {

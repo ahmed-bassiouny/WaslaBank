@@ -5,52 +5,37 @@ import com.google.gson.annotations.SerializedName;
 import bassiouny.ahmed.waslabank.api.apiModel.ApiKey;
 
 /**
- * Created by bassiouny on 22/04/18.
+ * Created by bassiouny on 23/04/18.
  */
 
-public class TripDetailsRequest {
+public class FinishTripRequest {
 
     @SerializedName(ApiKey.USER_ID)
     private int userId;
     @SerializedName(ApiKey.REQUEST_ID)
     private int requestId;
-    @SerializedName(ApiKey.START_POINT_LAT)
-    private double startPointLat;
-    @SerializedName(ApiKey.START_POINT_LNG)
-    private double startPointLng;
-    @SerializedName(ApiKey.START_AT)
-    private String startAt;
     @SerializedName(ApiKey.END_POINT_LAT)
     private double endPointLat;
     @SerializedName(ApiKey.END_POINT_LNG)
     private double endPointLng;
     @SerializedName(ApiKey.END_AT)
     private String endAt;
-    @SerializedName(ApiKey.IS_FINISHED)
-    private int isFinished;
 
-    private TripDetailsRequest(Builder builder) {
+    private FinishTripRequest(Builder builder) {
         userId = builder.userId;
         requestId = builder.requestId;
-        startPointLat = builder.startPointLat;
-        startPointLng = builder.startPointLng;
-        startAt = builder.startAt;
         endPointLat = builder.endPointLat;
         endPointLng = builder.endPointLng;
         endAt = builder.endAt;
-        isFinished = builder.isFinished;
     }
+
 
     public static final class Builder {
         private int userId;
         private int requestId;
-        private double startPointLat;
-        private double startPointLng;
-        private String startAt;
         private double endPointLat;
         private double endPointLng;
         private String endAt;
-        private int isFinished;
 
         public Builder() {
         }
@@ -62,21 +47,6 @@ public class TripDetailsRequest {
 
         public Builder requestId(int val) {
             requestId = val;
-            return this;
-        }
-
-        public Builder startPointLat(double val) {
-            startPointLat = val;
-            return this;
-        }
-
-        public Builder startPointLng(double val) {
-            startPointLng = val;
-            return this;
-        }
-
-        public Builder startAt(String val) {
-            startAt = val;
             return this;
         }
 
@@ -95,13 +65,8 @@ public class TripDetailsRequest {
             return this;
         }
 
-        public Builder isFinished() {
-            isFinished = 1;
-            return this;
-        }
-
-        public TripDetailsRequest build() {
-            return new TripDetailsRequest(this);
+        public FinishTripRequest build() {
+            return new FinishTripRequest(this);
         }
     }
 }
