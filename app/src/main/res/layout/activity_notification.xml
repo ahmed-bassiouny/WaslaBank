@@ -1,20 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg"
+    android:orientation="vertical"
     tools:context="bassiouny.ahmed.waslabank.activities.view.NotificationActivity">
 
     <include
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
+
+    <ViewStub
+        android:id="@+id/view_stub_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout="@layout/progress" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:textSize="@dimen/input_size"
+        android:id="@+id/no_notification"
+        android:text="@string/no_notification"
         android:textColor="@color/colorPrimary"
-        android:text="No Notification Found"/>
-</FrameLayout>
+        android:textSize="@dimen/input_size" />
+</LinearLayout>

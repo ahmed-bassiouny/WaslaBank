@@ -12,6 +12,7 @@ import bassiouny.ahmed.waslabank.api.apiModel.response.AboutResponse;
 import bassiouny.ahmed.waslabank.api.apiModel.response.GenericResponse;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.UserLoginRequest;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.UserSignUpRequest;
+import bassiouny.ahmed.waslabank.api.apiModel.response.NotificationResponse;
 import bassiouny.ahmed.waslabank.api.apiModel.response.TripDetailsListResponse;
 import bassiouny.ahmed.waslabank.api.apiModel.response.TripDetailsResponse;
 import bassiouny.ahmed.waslabank.api.apiModel.response.UserInfoResponse;
@@ -113,5 +114,11 @@ public interface HttpApiInterface {
     @POST("about")
     @Headers(HEADER_KEY)
     Call<AboutResponse> getAbout(@Header(AUTHORIZATION) String token, @Field(ApiKey.PAGE_NAME) String pageName);
+
+
+    @FormUrlEncoded
+    @POST("notifications")
+    @Headers(HEADER_KEY)
+    Call<NotificationResponse> getNotification(@Header(AUTHORIZATION) String token, @Field(ApiKey.USER_ID) int userId);
 
 }

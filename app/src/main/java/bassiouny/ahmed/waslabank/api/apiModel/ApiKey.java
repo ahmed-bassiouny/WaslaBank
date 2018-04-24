@@ -66,4 +66,8 @@ public class ApiKey {
     public static final String START_AT = "start_at";
     public static final String BODY = "body";
     public static final String PAGE_NAME = "page_name";
+    public static final String TIME = "time";
+    public static final String TITLE = "title";
+    public static final String FROM_USER_IAMGE = "from_user_image";
+    public static final String FROM_USER_NAME = "from_user_name";
 }

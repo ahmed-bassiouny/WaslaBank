@@ -14,6 +14,7 @@ import bassiouny.ahmed.waslabank.api.apiModel.requests.TripStatusRequest;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.TripsByDate;
 import bassiouny.ahmed.waslabank.api.apiModel.response.AboutResponse;
 import bassiouny.ahmed.waslabank.api.apiModel.response.GenericResponse;
+import bassiouny.ahmed.waslabank.api.apiModel.response.NotificationResponse;
 import bassiouny.ahmed.waslabank.api.apiModel.response.ParentResponse;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.UserLoginRequest;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.UserSignUpRequest;
@@ -23,6 +24,7 @@ import bassiouny.ahmed.waslabank.api.apiModel.response.UserInfoResponse;
 import bassiouny.ahmed.waslabank.api.apiModel.response.UserResponse;
 import bassiouny.ahmed.waslabank.interfaces.BaseResponseInterface;
 import bassiouny.ahmed.waslabank.model.About;
+import bassiouny.ahmed.waslabank.model.Notification;
 import bassiouny.ahmed.waslabank.model.TripDetails;
 import bassiouny.ahmed.waslabank.model.User;
 import bassiouny.ahmed.waslabank.model.UserInfo;
@@ -414,6 +416,26 @@ public class ApiRequests {
 
             @Override
             public void onFailure(@NonNull Call<AboutResponse> call, @NonNull Throwable t) {
+                // get error message
+                anInterface.onFailed(t.getLocalizedMessage());
+            }
+        });
+    }
+
+    // get notification
+    // url => notifications
+    // parameter => user id
+    public static void getNotification(final BaseResponseInterface<List<Notification>> anInterface) {
+        Call<NotificationResponse> response = ApiConfig.httpApiInterface.getNotification(MyApplication.getUserToken(), SharedPrefManager.getObject(SharedPrefKey.USER, User.class).getId());
+        response.enqueue(new Callback<NotificationResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<NotificationResponse> call, @NonNull Response<NotificationResponse> response) {
+                // check on response and get data
+                checkValidResult(response, anInterface);
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<NotificationResponse> call, @NonNull Throwable t) {
                 // get error message
                 anInterface.onFailed(t.getLocalizedMessage());
             }
