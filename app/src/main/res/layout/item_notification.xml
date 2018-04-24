@@ -18,7 +18,7 @@
         android:id="@+id/tv_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
+        android:layout_marginStart="10dp"
         android:layout_toEndOf="@+id/iv_avatar"
         android:layout_toStartOf="@+id/tv_time"
         android:textColor="@color/black"
@@ -37,7 +37,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_name"
-        android:layout_marginStart="5dp"
+        android:layout_marginStart="10dp"
         android:layout_toEndOf="@+id/iv_avatar"
         android:textSize="@dimen/small_text" />
 </RelativeLayout>

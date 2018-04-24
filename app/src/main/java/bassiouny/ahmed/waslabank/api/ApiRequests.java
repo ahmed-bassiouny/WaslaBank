@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import java.util.List;
 
 import bassiouny.ahmed.genericmanager.SharedPrefManager;
+import bassiouny.ahmed.waslabank.api.apiModel.requests.ChangePasswordRequest;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.ContactUsRequest;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.CreateTripRequest;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.FinishTripRequest;
@@ -436,6 +437,25 @@ public class ApiRequests {
 
             @Override
             public void onFailure(@NonNull Call<NotificationResponse> call, @NonNull Throwable t) {
+                // get error message
+                anInterface.onFailed(t.getLocalizedMessage());
+            }
+        });
+    }
+
+    // change password
+    // url => requests/admin/end/user/trip
+    public static void changePassword(ChangePasswordRequest request, final BaseResponseInterface anInterface) {
+        Call<GenericResponse> response = ApiConfig.httpApiInterface.changePassword(MyApplication.getUserToken(), request);
+        response.enqueue(new Callback<GenericResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<GenericResponse> call, @NonNull Response<GenericResponse> response) {
+                // check on response and get data
+                checkValidResult(response, anInterface);
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<GenericResponse> call, @NonNull Throwable t) {
                 // get error message
                 anInterface.onFailed(t.getLocalizedMessage());
             }

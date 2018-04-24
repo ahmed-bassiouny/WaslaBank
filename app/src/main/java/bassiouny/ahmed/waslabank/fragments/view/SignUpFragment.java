@@ -87,7 +87,7 @@ public class SignUpFragment extends Fragment {
                 } else if (etPassword.getText().toString().length() < 6) {
                     etPassword.setError(getString(R.string.invalid_password_length));
                 } else if (!etPassword.getText().toString().equals(etConfirmPassword.getText().toString())) {
-                    etPassword.setError(getString(R.string.invalid_confirm));
+                    etConfirmPassword.setError(getString(R.string.invalid_confirm));
                 } else {
                     loading(true);
                     // check email and phone are unique or not

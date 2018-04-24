@@ -1,6 +1,7 @@
 package bassiouny.ahmed.waslabank.interfaces;
 
 import bassiouny.ahmed.waslabank.api.apiModel.ApiKey;
+import bassiouny.ahmed.waslabank.api.apiModel.requests.ChangePasswordRequest;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.ContactUsRequest;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.CreateTripRequest;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.FinishTripRequest;
@@ -120,5 +121,11 @@ public interface HttpApiInterface {
     @POST("notifications")
     @Headers(HEADER_KEY)
     Call<NotificationResponse> getNotification(@Header(AUTHORIZATION) String token, @Field(ApiKey.USER_ID) int userId);
+
+
+
+    @POST("auth/change_password")
+    @Headers(HEADER_KEY)
+    Call<GenericResponse> changePassword(@Header(AUTHORIZATION) String token, @Body ChangePasswordRequest request);
 
 }
