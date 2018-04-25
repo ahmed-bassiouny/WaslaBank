@@ -60,7 +60,7 @@ public class FeedbackItem extends RecyclerView.Adapter<FeedbackItem.MyViewHolder
         holder.tvComment.setText(item.getComment());
         holder.ratingBar.setRating(item.getRate());
         holder.tvUserName.setText(item.getUserName());
-        MyGlideApp.setImage(context,holder.ivAvatar,item.getUserImage());
+        MyGlideApp.setImageCenterInside(context,holder.ivAvatar,item.getUserImage());
     }
 
     @Override

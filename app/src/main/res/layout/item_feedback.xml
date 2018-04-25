@@ -6,29 +6,28 @@
     android:layout_height="wrap_content">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_centerVertical="true"
         android:id="@+id/container">
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/iv_avatar"
-        android:layout_width="60dp"
+        android:layout_width="100dp"
         android:layout_height="60dp"
         android:contentDescription="@null"
         android:src="@drawable/person"
-        android:layout_gravity="center_horizontal"
+        android:layout_gravity="center"
         app:civ_border_color="@color/colorAccent"
         app:civ_border_width="1dp" />
 
     <TextView
         android:id="@+id/tv_user_name"
-        android:layout_width="wrap_content"
-        android:maxWidth="100dp"
-        android:ellipsize="marquee"
+        android:layout_width="match_parent"
         android:singleLine="true"
         android:layout_height="wrap_content"
-        android:gravity="start"
+        android:layout_gravity="center"
+        android:gravity="center"
         android:layout_marginStart="5dp"
         android:textColor="@color/black" />
 
@@ -36,6 +35,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
+        android:layout_gravity="center"
         layout="@layout/my_rating_bar" />
     </LinearLayout>
     <ImageView
