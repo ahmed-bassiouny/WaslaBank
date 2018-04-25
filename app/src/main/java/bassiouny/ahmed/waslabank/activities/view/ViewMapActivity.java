@@ -44,6 +44,7 @@ import java.util.Calendar;
 import bassiouny.ahmed.genericmanager.DateTimeManager;
 import bassiouny.ahmed.genericmanager.SharedPrefManager;
 import bassiouny.ahmed.waslabank.R;
+import bassiouny.ahmed.waslabank.activities.controller.ViewMapController;
 import bassiouny.ahmed.waslabank.adapter.UserInTripItem;
 import bassiouny.ahmed.waslabank.api.ApiRequests;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.FinishTripRequest;
@@ -85,6 +86,7 @@ public class ViewMapActivity extends MyToolbar implements OnMapReadyCallback, Lo
     private ValueEventListener userListener;
     // adapter
     private UserInTripItem adapter;
+    private ViewMapController controller;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,7 +106,7 @@ public class ViewMapActivity extends MyToolbar implements OnMapReadyCallback, Lo
         // check if request permission to access location
         // if true get location manager
         // else ask for permission
-        requestLocationPermission();
+        getController().requestLocationPermission();
         // init marker
         markerOptions = new MarkerOptions();
         // set (driver or user )
@@ -154,16 +156,13 @@ public class ViewMapActivity extends MyToolbar implements OnMapReadyCallback, Lo
     @Override
     protected void onResume() {
         super.onResume();
-        // check if gps enable
-        if (!MyUtils.isGpsEnable(this)) {
-            MyUtils.showSettingsAlert(this);
-        }
+        getController().openGps();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        locationManager.removeListener(this);
+        getController().removeLocationListener();
         // remove listener about users
         if (userListener != null)
             FirebaseRoot.removeListenerForUsers(tripId, userListener);
@@ -177,21 +176,11 @@ public class ViewMapActivity extends MyToolbar implements OnMapReadyCallback, Lo
         this.googleMap = googleMap;
     }
 
-    // request to access location (run time permission )
-    private void requestLocationPermission() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED)
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, requestLocationPermission);
-        else
-            locationManager = new LocationManager(this, this);
-    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == requestLocationPermission && grantResults[0] == PackageManager.PERMISSION_DENIED)
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, requestLocationPermission);
-        else if (requestCode == requestLocationPermission && grantResults[0] == PackageManager.PERMISSION_GRANTED)
-            locationManager = new LocationManager(this, this);
+        getController().onRequestPermissionsResult(requestCode,grantResults);
     }
 
 
@@ -431,5 +420,11 @@ public class ViewMapActivity extends MyToolbar implements OnMapReadyCallback, Lo
                 Toast.makeText(ViewMapActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private ViewMapController getController() {
+        if (controller == null)
+            controller = new ViewMapController(this);
+        return controller;
     }
 }
