@@ -47,6 +47,7 @@ import bassiouny.ahmed.waslabank.R;
 import bassiouny.ahmed.waslabank.activities.controller.ViewMapController;
 import bassiouny.ahmed.waslabank.adapter.UserInTripItem;
 import bassiouny.ahmed.waslabank.api.ApiRequests;
+import bassiouny.ahmed.waslabank.api.apiModel.requests.FeedbackRequest;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.FinishTripRequest;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.TripDetailsRequest;
 import bassiouny.ahmed.waslabank.interfaces.BaseResponseInterface;
@@ -180,7 +181,7 @@ public class ViewMapActivity extends MyToolbar implements OnMapReadyCallback, Lo
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        getController().onRequestPermissionsResult(requestCode,grantResults);
+        getController().onRequestPermissionsResult(requestCode, grantResults);
     }
 
 
@@ -337,7 +338,23 @@ public class ViewMapActivity extends MyToolbar implements OnMapReadyCallback, Lo
                 // remove current user
                 FirebaseRoot.deleteUserTripLocation(tripId, userInTripFirebase.getUserId());
                 // get all users still in trip
+                // todo why i write this line of code
+                // todo why!!!!!!!!!!!!!!!!!!!!
                 FirebaseRoot.addListenerForUsers(tripId, userListener);
+                // make driver rate user
+                // create feedback builder
+                FeedbackRequest.Builder builder = new FeedbackRequest.Builder();
+                // driver id
+                builder.userIdFrom(user.getId());
+                // user id leaved this trip
+                builder.userIdTo(userInTripFirebase.getUserId());
+                // trip id
+                builder.requestId(tripId);
+                // create intent to open feedback activity
+                Intent intent = new Intent(ViewMapActivity.this, FeedbackActivity.class);
+                intent.putExtra("FEEDBACK", builder);
+                startActivity(intent);
+
             }
 
             @Override

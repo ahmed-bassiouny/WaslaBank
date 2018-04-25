@@ -21,6 +21,12 @@ public class MyGlideApp {
                 .apply(new RequestOptions().placeholder(R.drawable.person).error(R.drawable.person).dontAnimate())
                 .into(image);
     }
+    public static void setImageWithoutPlaceholder(Context context, ImageView image, String url) {
+        if (url.isEmpty())
+            return;
+        Glide.with(context).load(url)
+                .into(image);
+    }
     public static void setImageCenterCrop(Context context, ImageView image, String url) {
         if (url.isEmpty())
             return;

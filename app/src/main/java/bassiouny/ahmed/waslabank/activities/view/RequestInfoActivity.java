@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import android.view.ViewStub;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +27,7 @@ import bassiouny.ahmed.waslabank.interfaces.BaseResponseInterface;
 import bassiouny.ahmed.waslabank.interfaces.MyObserverInterface;
 import bassiouny.ahmed.waslabank.interfaces.ObserverInterface;
 import bassiouny.ahmed.waslabank.model.TripDetails;
+import bassiouny.ahmed.waslabank.utils.MyGlideApp;
 import bassiouny.ahmed.waslabank.utils.MyToolbar;
 
 public class RequestInfoActivity extends MyToolbar implements MyObserverInterface<TripDetails> {
@@ -35,6 +37,7 @@ public class RequestInfoActivity extends MyToolbar implements MyObserverInterfac
     private ViewPager mViewPager;
     private ViewStub viewStubProgress;
     private TabLayout tabLayout;
+    private ImageView map;
 
 
     // local variable
@@ -84,6 +87,7 @@ public class RequestInfoActivity extends MyToolbar implements MyObserverInterfac
         mViewPager = findViewById(R.id.container);
         viewStubProgress = findViewById(R.id.view_stub_progress);
         tabLayout = findViewById(R.id.tabs);
+        map = findViewById(R.id.map);
 
     }
 
@@ -153,8 +157,10 @@ public class RequestInfoActivity extends MyToolbar implements MyObserverInterfac
         getController().getTripRequestById(tripId, new BaseResponseInterface<TripDetails>() {
             @Override
             public void onSuccess(TripDetails tripDetails) {
-                //parsingInterface.parseObject(true);
                 loading(false);
+                // set trip image
+                MyGlideApp.setImageWithoutPlaceholder(RequestInfoActivity.this,map,tripDetails.getImage());
+                // set trip information
                 notifyObservers(tripDetails);
             }
 

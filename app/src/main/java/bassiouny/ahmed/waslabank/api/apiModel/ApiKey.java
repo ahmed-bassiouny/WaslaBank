@@ -71,4 +71,6 @@ public class ApiKey {
     public static final String FROM_USER_IAMGE = "from_user_image";
     public static final String FROM_USER_NAME = "from_user_name";
     public static final String OLD_PASSWORD = "old_password";
+    public static final String USER_ID_FROM = "user_id_from";
+    public static final String USER_ID_TO = "user_id_to";
 }

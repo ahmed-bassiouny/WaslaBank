@@ -4,6 +4,7 @@ import bassiouny.ahmed.waslabank.api.apiModel.ApiKey;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.ChangePasswordRequest;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.ContactUsRequest;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.CreateTripRequest;
+import bassiouny.ahmed.waslabank.api.apiModel.requests.FeedbackRequest;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.FinishTripRequest;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.StartTripRequest;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.TripDetailsRequest;
@@ -127,5 +128,10 @@ public interface HttpApiInterface {
     @POST("auth/change_password")
     @Headers(HEADER_KEY)
     Call<GenericResponse> changePassword(@Header(AUTHORIZATION) String token, @Body ChangePasswordRequest request);
+
+
+    @POST("requests/rating")
+    @Headers(HEADER_KEY)
+    Call<GenericResponse> sendFeedback(@Header(AUTHORIZATION) String token, @Body FeedbackRequest feedbackRequest);
 
 }

@@ -75,7 +75,7 @@ public class RequestsItem extends RecyclerView.Adapter<RequestsItem.MyViewHolder
         holder.tvUserName.setText("Captain : "+item.getDriver().getName());
         holder.tvTime.setText(item.getTime());
         holder.rating.setRating(item.getDriver().getRate());
-        MyGlideApp.setImage(fragment.getContext(),holder.ivMap,item.getImage());
+        MyGlideApp.setImageWithoutPlaceholder(fragment.getContext(),holder.ivMap,item.getImage());
 
     }
 

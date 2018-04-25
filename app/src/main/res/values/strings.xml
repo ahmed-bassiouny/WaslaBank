@@ -115,4 +115,6 @@
     <string name="join">Join</string>
     <string name="no_user_in_trip">No User In Trip</string>
     <string name="no_notification">No Notification Found</string>
+    <string name="comment">Comment</string>
+    <string name="enter_rate">Enter your rate</string>
 </resources>
