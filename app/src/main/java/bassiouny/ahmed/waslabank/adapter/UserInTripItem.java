@@ -80,7 +80,7 @@ public class UserInTripItem extends RecyclerView.Adapter<UserInTripItem.MyViewHo
             holder.viewStub.setVisibility(View.GONE);
             holder.joinLeave.setVisibility(View.VISIBLE);
             if (item.isJoined()) {
-                holder.joinLeave.setText(context.getResources().getString(R.string.leave));
+                holder.joinLeave.setText(context.getResources().getString(R.string.arrive));
                 holder.joinLeave.setTextColor(context.getResources().getColor(R.color.red));
             } else {
                 holder.joinLeave.setText(context.getResources().getString(R.string.join));

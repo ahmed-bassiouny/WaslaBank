@@ -71,7 +71,7 @@ public interface HttpApiInterface {
     @FormUrlEncoded
     @POST()
     @Headers(HEADER_KEY)
-    Call<UserInfoResponse> getUserInfo(@Url String url, @Header(AUTHORIZATION) String token, @Field(ApiKey.ID) int userId);
+    Call<UserInfoResponse> getUserInfo(@Url String url, @Header(AUTHORIZATION) String token, @Field(ApiKey.ID) int userId,@Field(ApiKey.NOTIFICATION_TOKEN) String notificationToken);
 
 
     @POST("auth/edit_profile")

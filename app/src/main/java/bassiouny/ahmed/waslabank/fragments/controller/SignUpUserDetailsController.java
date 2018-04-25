@@ -43,7 +43,7 @@ public class SignUpUserDetailsController {
         builder.identifyNumber(identifyNumber);
         builder.gender(gender);
         builder.city(city);
-        builder.notificationToken(Constant.NOTIFICATION_TOKEN);
+        builder.notificationToken(SharedPrefManager.getString(SharedPrefKey.TOKEN));
         // save user data in shared pref
         if(image == null)
             ApiRequests.signUp(builder.build(),null, anInterface);

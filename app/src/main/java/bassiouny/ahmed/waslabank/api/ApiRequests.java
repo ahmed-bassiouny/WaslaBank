@@ -226,7 +226,7 @@ public class ApiRequests {
     // url => home
     // parameter => token , user id
     public static void getUserInfo(final BaseResponseInterface<UserInfo> anInterface) {
-        Call<UserInfoResponse> response = ApiConfig.httpApiInterface.getUserInfo("home", MyApplication.getUserToken(), SharedPrefManager.getObject(SharedPrefKey.USER, User.class).getId());
+        Call<UserInfoResponse> response = ApiConfig.httpApiInterface.getUserInfo("home", MyApplication.getUserToken(), SharedPrefManager.getObject(SharedPrefKey.USER, User.class).getId(),SharedPrefManager.getString(SharedPrefKey.TOKEN));
         response.enqueue(new Callback<UserInfoResponse>() {
             @Override
             public void onResponse(@NonNull Call<UserInfoResponse> call, @NonNull Response<UserInfoResponse> response) {
@@ -246,7 +246,7 @@ public class ApiRequests {
     // url => /auth/me
     // parameter => token ,user id
     public static void getUserInfoWithFeedback(final BaseResponseInterface<UserInfo> anInterface) {
-        Call<UserInfoResponse> response = ApiConfig.httpApiInterface.getUserInfo("auth/me", MyApplication.getUserToken(), SharedPrefManager.getObject(SharedPrefKey.USER, User.class).getId());
+        Call<UserInfoResponse> response = ApiConfig.httpApiInterface.getUserInfo("auth/me", MyApplication.getUserToken(), SharedPrefManager.getObject(SharedPrefKey.USER, User.class).getId(),"");
         response.enqueue(new Callback<UserInfoResponse>() {
             @Override
             public void onResponse(@NonNull Call<UserInfoResponse> call, @NonNull Response<UserInfoResponse> response) {
