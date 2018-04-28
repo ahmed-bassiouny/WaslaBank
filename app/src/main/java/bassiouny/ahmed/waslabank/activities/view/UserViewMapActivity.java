@@ -37,8 +37,10 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.Calendar;
@@ -49,6 +51,7 @@ import bassiouny.ahmed.waslabank.R;
 import bassiouny.ahmed.waslabank.activities.controller.ViewMapController;
 import bassiouny.ahmed.waslabank.adapter.UserInTripItem;
 import bassiouny.ahmed.waslabank.api.ApiRequests;
+import bassiouny.ahmed.waslabank.api.apiModel.requests.FeedbackRequest;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.FinishTripRequest;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.TripDetailsRequest;
 import bassiouny.ahmed.waslabank.interfaces.BaseResponseInterface;
@@ -75,6 +78,7 @@ public class UserViewMapActivity extends MyToolbar implements OnMapReadyCallback
     // current user view map
     private User user;
     private int tripId;
+    private int driverId;
     // driver view if true make this activity for driver
     // else make this activity for user
     private ValueEventListener driverListener;
@@ -103,13 +107,18 @@ public class UserViewMapActivity extends MyToolbar implements OnMapReadyCallback
         user = SharedPrefManager.getObject(SharedPrefKey.USER, User.class);
         // get trip id
         tripId = getIntent().getIntExtra("TRIP_ID", 0);
-        // check if trip id == 0 this mean something happned wrong
-        if (tripId == 0)
+        driverId = getIntent().getIntExtra("DRIVER_ID", 0);
+        // check if trip id == 0 this mean something happened wrong
+        if (tripId == 0 || driverId == 0)
             finish();
 
         // add user information in firebase
         // user information => name , image
         FirebaseRoot.setUserInfo(tripId, user.getId(), user.getImage(), user.getName());
+        // mae listener on user
+        // when driver delete user root
+        // show feedback activity and close it
+        listenerForDeletedUser();
     }
 
     @Override
@@ -160,7 +169,6 @@ public class UserViewMapActivity extends MyToolbar implements OnMapReadyCallback
         // add listener for driver
         getDriverListener();
         FirebaseRoot.addListenerForDriver(tripId, driverListener);
-
     }
 
 
@@ -192,6 +200,48 @@ public class UserViewMapActivity extends MyToolbar implements OnMapReadyCallback
         if (controller == null)
             controller = new ViewMapController(this);
         return controller;
+    }
+
+    private void listenerForDeletedUser() {
+        FirebaseRoot.deleteUserByDriver(tripId, user.getId(), new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // this case mean driver removed user
+                if (dataSnapshot.getValue() == null) {
+                    // no need to get location
+                    getController().removeLocationListener();
+                    // make user rate driver
+                    rateDriverByUserAndOpenHomeScreen();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void rateDriverByUserAndOpenHomeScreen() {
+        // make user rate driver
+        // create feedback builder
+        FeedbackRequest.Builder builder = new FeedbackRequest.Builder();
+        // driver id
+        builder.userIdFrom(user.getId());
+        // user id leaved this trip
+        builder.userIdTo(driverId);
+        // trip id
+        builder.requestId(tripId);
+        // create intent to open feedback activity
+        Intent intentFeedback = new Intent(UserViewMapActivity.this, FeedbackActivity.class);
+        intentFeedback.putExtra("FEEDBACK", builder);
+        // open home screen
+        Intent intentHome = new Intent(UserViewMapActivity.this, HomeActivity.class);
+        intentHome.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intentHome.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intentHome);
+        startActivity(intentFeedback);
+        finish();
     }
 }
 

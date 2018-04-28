@@ -123,4 +123,15 @@ public class FirebaseRoot {
                 .child(String.valueOf(tripId))
                 .removeValue();
     }
+    // make listener on user name
+    // if user name not found this case mean driver deleted user
+    public static void deleteUserByDriver(int tripId,int userId, ValueEventListener valueEventListener) {
+        FirebaseDatabase.getInstance().getReference()
+                .child(trip)
+                .child(String.valueOf(tripId))
+                .child(user)
+                .child(String.valueOf(userId))
+                .child("name")
+                .addValueEventListener(valueEventListener);
+    }
 }

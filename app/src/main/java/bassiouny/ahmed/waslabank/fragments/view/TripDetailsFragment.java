@@ -165,9 +165,9 @@ public class TripDetailsFragment extends Fragment implements ObserverInterface<T
                     case tripRunningJoinedUser:
                         // trip now running
                         // user can view map
-                        Intent intent = new Intent(getContext(), ViewMapActivity.class);
+                        Intent intent = new Intent(getContext(), UserViewMapActivity.class);
                         intent.putExtra("TRIP_ID", tripDetails.getId());
-                        intent.putExtra("DRIVER_VIEW", false);
+                        intent.putExtra("DRIVER_ID", tripDetails.getDriver().getId());
                         startActivity(intent);
                         break;
                     case tripNotJoinedUser:
