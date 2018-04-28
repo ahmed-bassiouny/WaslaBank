@@ -23,6 +23,7 @@ import bassiouny.ahmed.waslabank.activities.controller.RequestInfoController;
 import bassiouny.ahmed.waslabank.fragments.view.AboutDriverFragment;
 import bassiouny.ahmed.waslabank.fragments.view.FeedbackFragment;
 import bassiouny.ahmed.waslabank.fragments.view.TripDetailsFragment;
+import bassiouny.ahmed.waslabank.fragments.view.UserTripDetailsFragment;
 import bassiouny.ahmed.waslabank.interfaces.BaseResponseInterface;
 import bassiouny.ahmed.waslabank.interfaces.MyObserverInterface;
 import bassiouny.ahmed.waslabank.interfaces.ObserverInterface;
@@ -111,6 +112,8 @@ public class RequestInfoActivity extends MyToolbar implements MyObserverInterfac
         observerInterfaces.get(1).update(tripDetails.getDriver());
         // FeedbackFragment ==> feedback list object
         observerInterfaces.get(2).update(tripDetails.getFeedbacks());
+        // user in trip requests
+        observerInterfaces.get(3).update(null);
     }
 
 
@@ -134,6 +137,9 @@ public class RequestInfoActivity extends MyToolbar implements MyObserverInterfac
                 case 2:
                     register(FeedbackFragment.getInstance());
                     return FeedbackFragment.getInstance();
+                case 3:
+                    register(UserTripDetailsFragment.getInstance());
+                    return UserTripDetailsFragment.getInstance();
 
             }
             return null;
@@ -141,8 +147,8 @@ public class RequestInfoActivity extends MyToolbar implements MyObserverInterfac
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
-            return 3;
+            // Show 4 total pages.
+            return 4;
         }
     }
 
@@ -159,7 +165,7 @@ public class RequestInfoActivity extends MyToolbar implements MyObserverInterfac
             public void onSuccess(TripDetails tripDetails) {
                 loading(false);
                 // set trip image
-                MyGlideApp.setImageWithoutPlaceholder(RequestInfoActivity.this,map,tripDetails.getImage());
+                MyGlideApp.setImageWithoutPlaceholder(RequestInfoActivity.this, map, tripDetails.getImage());
                 // set trip information
                 notifyObservers(tripDetails);
             }
@@ -190,5 +196,6 @@ public class RequestInfoActivity extends MyToolbar implements MyObserverInterfac
         unregister(TripDetailsFragment.getInstance());
         unregister(AboutDriverFragment.getInstance());
         unregister(FeedbackFragment.getInstance());
+        unregister(UserTripDetailsFragment.getInstance());
     }
 }

@@ -117,4 +117,7 @@
     <string name="no_notification">No Notification Found</string>
     <string name="comment">Comment</string>
     <string name="enter_rate">Enter your rate</string>
+    <string name="reject">Reject</string>
+    <string name="accept">Accept</string>
+    <string name="accepted">Accepted</string>
 </resources>
