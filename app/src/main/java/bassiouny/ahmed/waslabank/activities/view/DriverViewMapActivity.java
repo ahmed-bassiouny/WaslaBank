@@ -1,21 +1,15 @@
 package bassiouny.ahmed.waslabank.activities.view;
 
-import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.location.Location;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SimpleItemAnimator;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewStub;
@@ -58,32 +52,24 @@ import bassiouny.ahmed.waslabank.model.User;
 import bassiouny.ahmed.waslabank.utils.DateTimeFormat;
 import bassiouny.ahmed.waslabank.utils.LocationManager;
 import bassiouny.ahmed.waslabank.utils.MyToolbar;
-import bassiouny.ahmed.waslabank.utils.MyUtils;
 import bassiouny.ahmed.waslabank.utils.SharedPrefKey;
 import bassiouny.ahmed.waslabank.utils.SimpleDividerItemDecoration;
 
-public class ViewMapActivity extends MyToolbar implements OnMapReadyCallback, LocationListener, ItemClickInterface<UserInTripFirebase> {
+public class DriverViewMapActivity extends MyToolbar implements OnMapReadyCallback, LocationListener, ItemClickInterface<UserInTripFirebase> {
 
     // view
-    private FrameLayout frameLayoutUsers;
     private ViewStub viewStubProgress;
     private RecyclerView recycler;
     private TextView tvNoUser;
     // local variable
-    private LocationManager locationManager;
-    private final int requestLocationPermission = 1;
     private GoogleMap googleMap;
     private MarkerOptions markerOptions;
     private Marker userMarker;
     // zoom on map to make zoom first time
     private boolean zoomOnMap = true;
     // current user view map
-    private User user;
+    private User driver;
     private int tripId;
-    // driver view if true make this activity for driver
-    // else make this activity for user
-    private boolean driverView = false;
-    private ValueEventListener driverListener;
     private ValueEventListener userListener;
     // adapter
     private UserInTripItem adapter;
@@ -111,33 +97,22 @@ public class ViewMapActivity extends MyToolbar implements OnMapReadyCallback, Lo
         // init marker
         markerOptions = new MarkerOptions();
         // set (driver or user )
-        user = SharedPrefManager.getObject(SharedPrefKey.USER, User.class);
+        driver = SharedPrefManager.getObject(SharedPrefKey.USER, User.class);
         // get trip id
         tripId = getIntent().getIntExtra("TRIP_ID", 0);
         // check if trip id == 0 this mean something happned wrong
         if (tripId == 0)
             finish();
-        // check if this activity for driver
-        driverView = getIntent().getBooleanExtra("DRIVER_VIEW", false);
-        if (driverView) {
-            // driver view
-            // set driver icon
-            markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.car_marker));
-            // add finish trip button
-            addView(addFinishTripButton(), layoutParamFinishTripIcon());
+        // driver view
+        // set driver icon
+        markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.car_marker));
+        // add finish trip button
+        addView(addFinishTripButton(), layoutParamFinishTripIcon());
 
-        } else {
-            // user view
-            // add user information in firebase
-            // user information = name , image
-            FirebaseRoot.setUserInfo(tripId, user.getId(), user.getImage(), user.getName());
-            // make frame layout contain users invisible because this is user view
-            frameLayoutUsers.setVisibility(View.GONE);
-        }
+
     }
 
     private void startLoadUserJoinedInTrip() {
-        frameLayoutUsers.setVisibility(View.VISIBLE);
         viewStubProgress.setVisibility(View.VISIBLE);
         recycler.setVisibility(View.INVISIBLE);
         adapter = new UserInTripItem(this);
@@ -146,7 +121,6 @@ public class ViewMapActivity extends MyToolbar implements OnMapReadyCallback, Lo
     }
 
     private void findView() {
-        frameLayoutUsers = findViewById(R.id.frameLayout_users);
         viewStubProgress = findViewById(R.id.view_stub_progress);
         recycler = findViewById(R.id.recycler);
         tvNoUser = findViewById(R.id.tv_no_user);
@@ -167,9 +141,6 @@ public class ViewMapActivity extends MyToolbar implements OnMapReadyCallback, Lo
         // remove listener about users
         if (userListener != null)
             FirebaseRoot.removeListenerForUsers(tripId, userListener);
-        // remove listener about drivers
-        if (driverListener != null)
-            FirebaseRoot.removeListenerForDriver(tripId, driverListener);
     }
 
     @Override
@@ -193,59 +164,19 @@ public class ViewMapActivity extends MyToolbar implements OnMapReadyCallback, Lo
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
         markerOptions.position(latLng);
         userMarker = googleMap.addMarker(markerOptions);
-        // update location on firebase
-        updateLocation(location);
+        // update driver location on firebase
+        FirebaseRoot.updateDriverLocation(tripId, driver.getId(), location.getLatitude(), location.getLongitude());
         // make zoom first time
         if (zoomOnMap) {
             googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
             googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(markerOptions.getPosition(), 15), 1000, null);
             zoomOnMap = false;
         }
-        if (driverView) {
-            // driver view
-            // add listener for users
-            getUsersListener();
-            FirebaseRoot.addListenerForUsers(tripId, userListener);
-            startLoadUserJoinedInTrip();
-        } else {
-            // user view
-            // add listener for driver
-            getDriverListener();
-            FirebaseRoot.addListenerForDriver(tripId, driverListener);
-        }
-    }
+        // add listener for users
+        getUsersListener();
+        FirebaseRoot.addListenerForUsers(tripId, userListener);
+        startLoadUserJoinedInTrip();
 
-    private void updateLocation(Location location) {
-        if (driverView) {
-            // update driver location on firebase
-            FirebaseRoot.updateDriverLocation(tripId, user.getId(), location.getLatitude(), location.getLongitude());
-        } else {
-            FirebaseRoot.updateUserLocation(tripId, user.getId(), location.getLatitude(), location.getLongitude());
-        }
-    }
-
-    private void getDriverListener() {
-        driverListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot item : dataSnapshot.getChildren()) {
-                    if (item == null)
-                        return;
-                    UserInTripFirebase location = item.getValue(UserInTripFirebase.class);
-                    if (location != null && googleMap != null && markerOptions.getPosition() != null) {
-                        googleMap.clear();
-                        // add current user user app
-                        userMarker = googleMap.addMarker(markerOptions);
-                        googleMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.car_marker)).position(new LatLng(location.getCurrentLat(), location.getCurrentLng())));
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        };
     }
 
     private void getUsersListener() {
@@ -337,21 +268,22 @@ public class ViewMapActivity extends MyToolbar implements OnMapReadyCallback, Lo
             public void onSuccess(Object o) {
                 // remove current user
                 FirebaseRoot.deleteUserTripLocation(tripId, userInTripFirebase.getUserId());
-                // get all users still in trip
+                /*// get all users still in trip
                 // todo why i write this line of code
+                // todo i comment this code
                 // todo why!!!!!!!!!!!!!!!!!!!!
-                FirebaseRoot.addListenerForUsers(tripId, userListener);
+                todo FirebaseRoot.addListenerForUsers(tripId, userListener);*/
                 // make driver rate user
                 // create feedback builder
                 FeedbackRequest.Builder builder = new FeedbackRequest.Builder();
                 // driver id
-                builder.userIdFrom(user.getId());
+                builder.userIdFrom(driver.getId());
                 // user id leaved this trip
                 builder.userIdTo(userInTripFirebase.getUserId());
                 // trip id
                 builder.requestId(tripId);
                 // create intent to open feedback activity
-                Intent intent = new Intent(ViewMapActivity.this, FeedbackActivity.class);
+                Intent intent = new Intent(DriverViewMapActivity.this, FeedbackActivity.class);
                 intent.putExtra("FEEDBACK", builder);
                 startActivity(intent);
 
@@ -359,7 +291,7 @@ public class ViewMapActivity extends MyToolbar implements OnMapReadyCallback, Lo
 
             @Override
             public void onFailed(String errorMessage) {
-                Toast.makeText(ViewMapActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+                Toast.makeText(DriverViewMapActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
                 adapter.loading(position, false);
             }
         });
@@ -378,9 +310,9 @@ public class ViewMapActivity extends MyToolbar implements OnMapReadyCallback, Lo
                     // driver can finish trip
                     AlertDialog.Builder builder;
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        builder = new AlertDialog.Builder(ViewMapActivity.this, R.style.AlertDialogStyle);
+                        builder = new AlertDialog.Builder(DriverViewMapActivity.this, R.style.AlertDialogStyle);
                     } else {
-                        builder = new AlertDialog.Builder(ViewMapActivity.this);
+                        builder = new AlertDialog.Builder(DriverViewMapActivity.this);
                     }
                     builder.setTitle("Are you sure you want to finish trip")
                             .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
@@ -392,7 +324,7 @@ public class ViewMapActivity extends MyToolbar implements OnMapReadyCallback, Lo
                             .show();
                 } else {
                     // driver must leave user
-                    Toast.makeText(ViewMapActivity.this, "you still have users in your trip", Toast.LENGTH_LONG).show();
+                    Toast.makeText(DriverViewMapActivity.this, "you still have users in your trip", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -412,7 +344,7 @@ public class ViewMapActivity extends MyToolbar implements OnMapReadyCallback, Lo
         Toast.makeText(this, "please wait", Toast.LENGTH_LONG).show();
         FinishTripRequest.Builder builder = new FinishTripRequest.Builder();
         builder.requestId(tripId);
-        builder.userId(user.getId());
+        builder.userId(driver.getId());
         builder.endPointLat(markerOptions.getPosition().latitude);
         builder.endPointLng(markerOptions.getPosition().longitude);
         String now = DateTimeManager.convertUnixTimeStampToString(Calendar.getInstance().getTimeInMillis(), DateTimeFormat.DATE_TIME_24_FORMAT);
@@ -420,12 +352,12 @@ public class ViewMapActivity extends MyToolbar implements OnMapReadyCallback, Lo
         ApiRequests.driverFinishTrip(builder.build(), new BaseResponseInterface() {
             @Override
             public void onSuccess(Object o) {
-                Toast.makeText(ViewMapActivity.this, "Your Trip Finished", Toast.LENGTH_SHORT).show();
+                Toast.makeText(DriverViewMapActivity.this, "Your Trip Finished", Toast.LENGTH_SHORT).show();
                 // remove trip root from firebase
                 FirebaseRoot.removeTrip(tripId);
                 // close activity
                 // start main activity
-                Intent i = new Intent(ViewMapActivity.this, HomeActivity.class);
+                Intent i = new Intent(DriverViewMapActivity.this, HomeActivity.class);
                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(i);
@@ -434,7 +366,7 @@ public class ViewMapActivity extends MyToolbar implements OnMapReadyCallback, Lo
 
             @Override
             public void onFailed(String errorMessage) {
-                Toast.makeText(ViewMapActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+                Toast.makeText(DriverViewMapActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
             }
         });
     }

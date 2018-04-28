@@ -32,7 +32,11 @@
         <activity
             android:name=".activities.view.SplashActivity"
             android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".activities.view.WaitingAdminActivity"
@@ -72,17 +76,11 @@
             android:name=".activities.view.NotificationActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.view.ViewMapActivity"
+            android:name=".activities.view.DriverViewMapActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.view.UserViewMapActivity"
-            android:screenOrientation="portrait" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:screenOrientation="portrait" />
 
         <service android:name=".firebase.MyFirebaseInstanceIDService">
             <intent-filter>

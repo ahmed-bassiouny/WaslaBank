@@ -19,25 +19,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.location.LocationListener;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 
-import java.util.Calendar;
-
-import bassiouny.ahmed.genericmanager.DateTimeManager;
 import bassiouny.ahmed.genericmanager.SharedPrefManager;
 import bassiouny.ahmed.waslabank.R;
-import bassiouny.ahmed.waslabank.activities.view.ViewMapActivity;
+import bassiouny.ahmed.waslabank.activities.view.DriverViewMapActivity;
 import bassiouny.ahmed.waslabank.activities.view.UserViewMapActivity;
-import bassiouny.ahmed.waslabank.api.ApiRequests;
-import bassiouny.ahmed.waslabank.api.apiModel.requests.CurrentTripRequest;
 import bassiouny.ahmed.waslabank.fragments.controller.TripDetailsController;
 import bassiouny.ahmed.waslabank.interfaces.BaseResponseInterface;
 import bassiouny.ahmed.waslabank.interfaces.ObserverInterface;
-import bassiouny.ahmed.waslabank.model.FirebaseRoot;
 import bassiouny.ahmed.waslabank.model.TripDetails;
 import bassiouny.ahmed.waslabank.model.User;
-import bassiouny.ahmed.waslabank.utils.DateTimeFormat;
 import bassiouny.ahmed.waslabank.utils.LocationManager;
 import bassiouny.ahmed.waslabank.utils.MyUtils;
 import bassiouny.ahmed.waslabank.utils.SharedPrefKey;
@@ -127,7 +118,7 @@ public class TripDetailsFragment extends Fragment implements ObserverInterface<T
                     case tripRunningDriver:
                         // trip now running
                         // driver can show map
-                        Intent i = new Intent(getContext(), ViewMapActivity.class);
+                        Intent i = new Intent(getContext(), DriverViewMapActivity.class);
                         i.putExtra("TRIP_ID", tripDetails.getId());
                         i.putExtra("DRIVER_VIEW", true);
                         startActivity(i);

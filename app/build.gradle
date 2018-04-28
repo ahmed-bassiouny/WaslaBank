@@ -14,7 +14,10 @@ repositories {
     maven { url 'https://maven.fabric.io/public' }
 }
 
-
+/*
+* version 1.0 debug version disabled fabric
+* version 2.0 client version enabled fabric
+* */
 android {
     compileSdkVersion 27
     defaultConfig {
@@ -22,7 +25,7 @@ android {
         minSdkVersion 19
         targetSdkVersion 27
         versionCode 1
-        versionName "1.0"
+        versionName "2.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

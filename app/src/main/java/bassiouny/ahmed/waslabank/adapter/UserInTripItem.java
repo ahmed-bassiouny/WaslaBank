@@ -54,6 +54,8 @@ public class UserInTripItem extends RecyclerView.Adapter<UserInTripItem.MyViewHo
             joinLeave.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    if (users.size() == 0)
+                        return;
                     itemClickInterface.getItem(users.get(getAdapterPosition()), getAdapterPosition());
                 }
             });
@@ -106,7 +108,8 @@ public class UserInTripItem extends RecyclerView.Adapter<UserInTripItem.MyViewHo
         }
         notifyItemChanged(position);
     }
-    public void clearList(){
+
+    public void clearList() {
         this.users.clear();
     }
 
