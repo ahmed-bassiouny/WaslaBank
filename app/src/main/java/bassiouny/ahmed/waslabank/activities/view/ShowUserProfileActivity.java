@@ -71,6 +71,7 @@ public class ShowUserProfileActivity extends AppCompatActivity {
         rating.setRating(user.getRate());
         MyGlideApp.setImageCenterInside(this, ivAvatar, user.getImage());
         recycler.setAdapter(new FeedbackItem(this,user.getFeedbacks()));
+        linear.setVisibility(View.VISIBLE);
     }
 
     private void findView() {

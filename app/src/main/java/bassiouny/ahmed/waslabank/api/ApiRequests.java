@@ -167,7 +167,27 @@ public class ApiRequests {
     // url => requests/drivers
     // parameter => date , page getTripsByDate ( 10 , 20 , .. etc )
     public static void getTripsByDate(TripsByDate tripsByDate, final BaseResponseInterface<List<TripDetails>> anInterface) {
-        Call<TripDetailsListResponse> response = ApiConfig.httpApiInterface.getTripsByDate(MyApplication.getUserToken(), tripsByDate);
+        Call<TripDetailsListResponse> response = ApiConfig.httpApiInterface.getTripsByDate("requests/drivers",MyApplication.getUserToken(), tripsByDate);
+        response.enqueue(new Callback<TripDetailsListResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<TripDetailsListResponse> call, @NonNull Response<TripDetailsListResponse> response) {
+                // check on response and get data
+                checkValidResult(response, anInterface);
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<TripDetailsListResponse> call, @NonNull Throwable t) {
+                // get error message
+                anInterface.onFailed(t.getLocalizedMessage());
+            }
+        });
+    }
+
+    // get all past trips created by user
+    // url => api/requests/past
+    // parameter => user id , page getTripsByDate ( 10 , 20 , .. etc )
+    public static void getPastTrips(TripsByDate tripsByDate, final BaseResponseInterface<List<TripDetails>> anInterface) {
+        Call<TripDetailsListResponse> response = ApiConfig.httpApiInterface.getTripsByDate("requests/past",MyApplication.getUserToken(), tripsByDate);
         response.enqueue(new Callback<TripDetailsListResponse>() {
             @Override
             public void onResponse(@NonNull Call<TripDetailsListResponse> call, @NonNull Response<TripDetailsListResponse> response) {

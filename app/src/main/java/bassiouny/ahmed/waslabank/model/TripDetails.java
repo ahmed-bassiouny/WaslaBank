@@ -34,7 +34,7 @@ public class TripDetails {
     private String image;
     @SerializedName(ApiKey.IS_CANCELED)
     private String Canceled;
-    @SerializedName(ApiKey.DATE_TIME)
+    @SerializedName(value = ApiKey.DATE_TIME, alternate = ApiKey.START_AT)
     private String dateTime;
     @SerializedName(ApiKey.AVAILABLE_PLACE)
     private String availablePlaces;
@@ -100,15 +100,17 @@ public class TripDetails {
     }
 
     public String getTime() {
-        return DateTimeManager.changeDateFormat(dateTime, DateTimeFormat.DATE_TIME_24_FORMAT, DateTimeFormat.TIME_24_WITHOUT_SECOND_FORMAT);
+        return DateTimeManager.changeDateFormat(getDateTime(), DateTimeFormat.DATE_TIME_24_FORMAT, DateTimeFormat.TIME_24_WITHOUT_SECOND_FORMAT);
     }
 
     public String getDateTime() {
+        if (dateTime == null)
+            dateTime = "";
         return dateTime;
     }
 
     public String getDate() {
-        return DateTimeManager.changeDateFormat(dateTime, DateTimeFormat.DATE_TIME_24_FORMAT, DateTimeFormat.DATE);
+        return DateTimeManager.changeDateFormat(getDateTime(), DateTimeFormat.DATE_TIME_24_FORMAT, DateTimeFormat.DATE);
     }
 
     public String getAvailablePlaces() {

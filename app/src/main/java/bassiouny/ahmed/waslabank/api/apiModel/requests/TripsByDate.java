@@ -15,16 +15,19 @@ public class TripsByDate {
     private String date;
     @SerializedName(ApiKey.PAGE)
     private int page;
+    @SerializedName(ApiKey.USER_ID)
+    private int userId;
 
     private TripsByDate(Builder builder) {
         date = builder.date;
         page = builder.page;
+        userId = builder.userId;
     }
-
 
     public static final class Builder {
         private String date;
         private int page;
+        private int userId;
 
         public Builder() {
         }
@@ -36,6 +39,11 @@ public class TripsByDate {
 
         public Builder page(int val) {
             page = val;
+            return this;
+        }
+
+        public Builder userId(int val) {
+            userId = val;
             return this;
         }
 

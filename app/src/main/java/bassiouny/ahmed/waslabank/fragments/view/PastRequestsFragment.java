@@ -2,20 +2,46 @@ package bassiouny.ahmed.waslabank.fragments.view;
 
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewStub;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import java.util.List;
+
+import bassiouny.ahmed.genericmanager.SharedPrefManager;
 import bassiouny.ahmed.waslabank.R;
+import bassiouny.ahmed.waslabank.adapter.RequestsItem;
+import bassiouny.ahmed.waslabank.api.ApiRequests;
+import bassiouny.ahmed.waslabank.api.apiModel.requests.TripsByDate;
+import bassiouny.ahmed.waslabank.interfaces.BaseResponseInterface;
+import bassiouny.ahmed.waslabank.interfaces.ItemClickInterface;
+import bassiouny.ahmed.waslabank.model.TripDetails;
+import bassiouny.ahmed.waslabank.model.User;
+import bassiouny.ahmed.waslabank.utils.SharedPrefKey;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PastRequestsFragment extends Fragment {
+public class PastRequestsFragment extends Fragment implements ItemClickInterface<Integer> {
 
 
+    // local
     private static PastRequestsFragment mInstance;
+    private RequestsItem requestsItem;
+    // view
+    private SwipeRefreshLayout refresh;
+    private RecyclerView recycler;
+    private TextView tvNoTrip;
+    private int currentPage = 10; // item per page first = 10 second page = 20 third page = 30 .. etc
 
     public PastRequestsFragment() {
         // Required empty public constructor
@@ -36,4 +62,74 @@ public class PastRequestsFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_past_requests, container, false);
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        findView(view);
+        initObject();
+        onClick();
+        fetchData();
+
+    }
+
+    private void onClick() {
+        refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                currentPage = 10;
+                fetchData();
+            }
+        });
+    }
+
+    private void initObject() {
+        requestsItem = new RequestsItem(this);
+        recycler.setAdapter(requestsItem);
+    }
+
+    private void findView(View view) {
+        refresh = view.findViewById(R.id.refresh);
+        tvNoTrip = view.findViewById(R.id.tv_no_trip);
+        recycler = view.findViewById(R.id.recycler);
+        recycler.setLayoutManager(new LinearLayoutManager(getContext()));
+    }
+
+    private void fetchData() {
+        refresh.setRefreshing(true);
+        TripsByDate.Builder builder = new TripsByDate.Builder();
+        builder.userId(SharedPrefManager.getObject(SharedPrefKey.USER, User.class).getId());
+        builder.page(currentPage);
+        ApiRequests.getPastTrips(builder.build(), new BaseResponseInterface<List<TripDetails>>() {
+            @Override
+            public void onSuccess(List<TripDetails> tripDetails) {
+                if (tripDetails.size() == 0) {
+                    recycler.setVisibility(View.INVISIBLE);
+                    tvNoTrip.setVisibility(View.VISIBLE);
+                    return;
+                }
+                if (currentPage == 10) {
+                    // in this case list dont have item
+                    // set item in list
+                    requestsItem.setList(tripDetails);
+                } else {
+                    // add more items to list
+                    requestsItem.addList(tripDetails);
+                }
+                refresh.setRefreshing(false);
+                recycler.setVisibility(View.VISIBLE);
+                tvNoTrip.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onFailed(String errorMessage) {
+                Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
+                refresh.setRefreshing(false);
+            }
+        });
+    }
+
+    @Override
+    public void getItem(@Nullable Integer tripId, int position) {
+
+    }
 }

@@ -54,9 +54,9 @@ public interface HttpApiInterface {
     @POST()
     Call<GenericResponse> checkUserData(@Url String url, @Body UserSignUpRequest user);
 
-    @POST("requests/drivers")
+    @POST()
     @Headers(HEADER_KEY)
-    Call<TripDetailsListResponse> getTripsByDate(@Header(AUTHORIZATION) String token, @Body TripsByDate tripsByDate);
+    Call<TripDetailsListResponse> getTripsByDate(@Url String url,@Header(AUTHORIZATION) String token, @Body TripsByDate tripsByDate);
 
     @FormUrlEncoded
     @POST("requests/one/request")
@@ -136,7 +136,7 @@ public interface HttpApiInterface {
 
 
     @FormUrlEncoded()
-    @POST("api/auth/me")
+    @POST("auth/me")
     @Headers(HEADER_KEY)
     Call<UserResponse> getUserProfile(@Header(AUTHORIZATION) String token, @Field(ApiKey.ID) int userId);
 

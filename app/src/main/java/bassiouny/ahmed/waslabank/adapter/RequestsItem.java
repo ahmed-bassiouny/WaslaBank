@@ -83,6 +83,10 @@ public class RequestsItem extends RecyclerView.Adapter<RequestsItem.MyViewHolder
         this.list = list;
         notifyDataSetChanged();
     }
+    public void addList(List<TripDetails> list) {
+        this.list.addAll(list);
+        notifyDataSetChanged();
+    }
     @Override
     public int getItemCount() {
         return list.size();

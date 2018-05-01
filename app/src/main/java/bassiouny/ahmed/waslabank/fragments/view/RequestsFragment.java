@@ -46,7 +46,7 @@ public class RequestsFragment extends Fragment implements ItemClickInterface<Int
     private TextView tvNoTrip;
     // local variable
     private RequestsController controller;
-    private int currentPage = 10;
+    private int currentPage = 10; // item per page first = 10 second page = 20 third page = 30 .. etc
     private RequestsItem adapter;
     private Calendar cal;
 
@@ -103,7 +103,7 @@ public class RequestsFragment extends Fragment implements ItemClickInterface<Int
                     tvNoTrip.setVisibility(View.INVISIBLE);
                     adapter.setList(tripDetails);
                 }else {
-                    recyclerView.setVisibility(View.INVISIBLE);
+                    recyclerView.setVisibility(View.GONE);
                     tvNoTrip.setVisibility(View.VISIBLE);
                 }
             }
@@ -156,10 +156,10 @@ public class RequestsFragment extends Fragment implements ItemClickInterface<Int
     private void loading(boolean isLoading) {
         if (isLoading) {
             viewStubProgress.setVisibility(View.VISIBLE);
-            recyclerView.setVisibility(View.INVISIBLE);
-            tvNoTrip.setVisibility(View.INVISIBLE);
+            recyclerView.setVisibility(View.GONE);
+            tvNoTrip.setVisibility(View.GONE);
         } else {
-            viewStubProgress.setVisibility(View.INVISIBLE);
+            viewStubProgress.setVisibility(View.GONE);
             recyclerView.setVisibility(View.VISIBLE);
         }
     }
