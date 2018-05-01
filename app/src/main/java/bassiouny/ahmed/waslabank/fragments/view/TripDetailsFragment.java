@@ -285,7 +285,7 @@ public class TripDetailsFragment extends Fragment implements ObserverInterface<T
                 status = tripNotRunningDriver;
             }
         } else {
-            // driver
+            // user
             // check if i joined in trip && trip running now
             if (tripDetails.getIsJoined() && tripDetails.getIsRunning()) {
                 // user can't cancel
@@ -333,6 +333,8 @@ public class TripDetailsFragment extends Fragment implements ObserverInterface<T
 
     // request to access location (run time permission )
     private void requestLocationPermissionAndGetLocation() {
+        if(getContext() == null)
+            return;
         if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED)
             requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, requestLocationPermission);
         else

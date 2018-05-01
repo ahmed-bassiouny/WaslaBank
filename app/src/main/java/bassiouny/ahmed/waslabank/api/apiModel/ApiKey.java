@@ -73,4 +73,6 @@ public class ApiKey {
     public static final String OLD_PASSWORD = "old_password";
     public static final String USER_ID_FROM = "user_id_from";
     public static final String USER_ID_TO = "user_id_to";
+    public static final String IS_ACCEPTED = "is_accepted";
+    public static final String USERS_IN_TRIP = "users_in_trip";
 }

@@ -67,6 +67,8 @@
     </array>
     <string name="join_trip">Join Trip</string>
     <string name="trip_details">Trip Details</string>
+    <string name="details">Details</string>
+    <string name="kilo_share">Kilo Share</string>
     <string name="title_activity_request_info">RequestInfoActivity</string>
     <string name="about_us">About US</string>
     <string name="contact_us">Contact us</string>
@@ -118,6 +120,7 @@
     <string name="comment">Comment</string>
     <string name="enter_rate">Enter your rate</string>
     <string name="reject">Reject</string>
-    <string name="accept">Accept</string>
+    <string name="accept">Accept -</string>
     <string name="accepted">Accepted</string>
+    <string name="users">Users</string>
 </resources>

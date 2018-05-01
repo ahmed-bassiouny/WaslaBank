@@ -48,6 +48,8 @@ public class TripDetails {
     private int isRunning;
     @SerializedName(ApiKey.IS_FINISHED)
     private int isFinished;
+    @SerializedName(ApiKey.USERS_IN_TRIP)
+    private List<UserInTrip> userInTrip;
 
     public int getId() {
         return id;
@@ -147,5 +149,11 @@ public class TripDetails {
         if (isFinished)
             this.isFinished = 1;
         else this.isFinished = 0;
+    }
+
+    public List<UserInTrip> getUserInTrip() {
+        if (userInTrip == null)
+            userInTrip = new ArrayList<>();
+        return userInTrip;
     }
 }

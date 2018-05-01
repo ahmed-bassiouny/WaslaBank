@@ -3,16 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="10dp"
-    android:layout_marginEnd="20dp"
-    android:layout_marginStart="20dp"
-    android:layout_marginTop="10dp"
-    android:orientation="horizontal">
+    android:layout_gravity="center"
+    android:gravity="center">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/iv_avatar"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:layout_centerVertical="true"
         android:layout_alignParentStart="true"
         android:contentDescription="@null"
         android:src="@drawable/person" />
@@ -24,9 +22,8 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_toEndOf="@+id/iv_avatar"
-        android:layout_toStartOf="@+id/tv_reject"
+        android:layout_toStartOf="@+id/tv_accept"
         android:textColor="@color/black"
-        android:layout_centerVertical="true"
         android:textSize="@dimen/input_size" />
 
     <TextView
@@ -35,26 +32,29 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_user_name"
         android:layout_marginEnd="8dp"
+        android:layout_toStartOf="@+id/tv_accept"
         android:layout_marginStart="8dp"
         android:layout_toEndOf="@+id/iv_avatar"
-        android:textSize="@dimen/input_size" />
-
-    <TextView
-        android:id="@+id/tv_accept"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:text="@string/accept"
-        android:layout_centerVertical="true"
         android:textSize="@dimen/input_size" />
 
     <TextView
         android:id="@+id/tv_reject"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toStartOf="@+id/tv_accept"
+        android:layout_alignParentEnd="true"
         android:text="@string/reject"
+        android:layout_centerVertical="true"
+        android:textColor="@color/red"
+        android:textSize="@dimen/input_size" />
+
+    <TextView
+        android:id="@+id/tv_accept"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toStartOf="@+id/tv_reject"
+        android:text="@string/accept"
         android:layout_marginEnd="5dp"
+        android:textColor="@color/colorPrimary"
         android:layout_centerVertical="true"
         android:textSize="@dimen/input_size" />
 

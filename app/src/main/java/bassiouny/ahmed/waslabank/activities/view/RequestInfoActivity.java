@@ -71,7 +71,7 @@ public class RequestInfoActivity extends MyToolbar implements MyObserverInterfac
 
         // Set up the ViewPager with the sections adapter.
         mViewPager.setAdapter(mSectionsPagerAdapter);
-        mViewPager.setOffscreenPageLimit(3);
+        mViewPager.setOffscreenPageLimit(4);
 
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
@@ -113,7 +113,7 @@ public class RequestInfoActivity extends MyToolbar implements MyObserverInterfac
         // FeedbackFragment ==> feedback list object
         observerInterfaces.get(2).update(tripDetails.getFeedbacks());
         // user in trip requests
-        observerInterfaces.get(3).update(null);
+        observerInterfaces.get(3).update(tripDetails.getUserInTrip());
     }
 
 

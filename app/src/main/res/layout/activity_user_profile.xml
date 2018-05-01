@@ -147,7 +147,7 @@
                     android:background="@color/second"
                     android:gravity="center"
                     android:paddingBottom="10dp"
-                    android:text="@string/points"
+                    android:text="@string/kilo_share"
                     android:textAllCaps="true"
                     android:textColor="@color/white"
                     android:textSize="@dimen/small_text"
