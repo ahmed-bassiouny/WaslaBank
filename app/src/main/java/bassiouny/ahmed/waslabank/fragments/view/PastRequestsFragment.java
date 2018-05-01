@@ -37,19 +37,25 @@ public class PastRequestsFragment extends Fragment implements ItemClickInterface
     // local
     private static PastRequestsFragment mInstance;
     private RequestsItem requestsItem;
+    private static String currentUrl;
+    private int currentPage = 10; // item per page first = 10 second page = 20 third page = 30 .. etc
     // view
     private SwipeRefreshLayout refresh;
     private RecyclerView recycler;
     private TextView tvNoTrip;
-    private int currentPage = 10; // item per page first = 10 second page = 20 third page = 30 .. etc
 
     public PastRequestsFragment() {
         // Required empty public constructor
     }
 
-    public static PastRequestsFragment getInstance() {
+    public static PastRequestsFragment getInstance(boolean pastRequests) {
         if (mInstance == null) {
             mInstance = new PastRequestsFragment();
+        }
+        if (pastRequests) {
+            currentUrl = "requests/past";
+        } else {
+            currentUrl = "";
         }
         return mInstance;
     }
@@ -99,7 +105,7 @@ public class PastRequestsFragment extends Fragment implements ItemClickInterface
         TripsByDate.Builder builder = new TripsByDate.Builder();
         builder.userId(SharedPrefManager.getObject(SharedPrefKey.USER, User.class).getId());
         builder.page(currentPage);
-        ApiRequests.getPastTrips(builder.build(), new BaseResponseInterface<List<TripDetails>>() {
+        ApiRequests.getPastTrips(currentUrl, builder.build(), new BaseResponseInterface<List<TripDetails>>() {
             @Override
             public void onSuccess(List<TripDetails> tripDetails) {
                 if (tripDetails.size() == 0) {

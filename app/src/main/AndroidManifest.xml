@@ -103,6 +103,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeDialog"
             android:windowSoftInputMode="adjustNothing" />
+        <activity android:name=".activities.view.ViewOrdersActivity"></activity>
     </application>
 
 </manifest>

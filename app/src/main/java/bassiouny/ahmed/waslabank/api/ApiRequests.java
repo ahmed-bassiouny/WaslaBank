@@ -183,11 +183,11 @@ public class ApiRequests {
         });
     }
 
-    // get all past trips created by user
-    // url => api/requests/past
+    // get all past trips created by user , order
+    // url => api/requests/past ,
     // parameter => user id , page getTripsByDate ( 10 , 20 , .. etc )
-    public static void getPastTrips(TripsByDate tripsByDate, final BaseResponseInterface<List<TripDetails>> anInterface) {
-        Call<TripDetailsListResponse> response = ApiConfig.httpApiInterface.getTripsByDate("requests/past",MyApplication.getUserToken(), tripsByDate);
+    public static void getPastTrips(String url, TripsByDate tripsByDate, final BaseResponseInterface<List<TripDetails>> anInterface) {
+        Call<TripDetailsListResponse> response = ApiConfig.httpApiInterface.getTripsByDate(url,MyApplication.getUserToken(), tripsByDate);
         response.enqueue(new Callback<TripDetailsListResponse>() {
             @Override
             public void onResponse(@NonNull Call<TripDetailsListResponse> call, @NonNull Response<TripDetailsListResponse> response) {
