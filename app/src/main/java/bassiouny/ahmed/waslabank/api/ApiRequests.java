@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import java.util.List;
 
 import bassiouny.ahmed.genericmanager.SharedPrefManager;
+import bassiouny.ahmed.waslabank.api.apiModel.requests.AcceptRejectUser;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.ChangePasswordRequest;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.ContactUsRequest;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.CreateTripRequest;
@@ -520,4 +521,21 @@ public class ApiRequests {
         });
     }
 
+    // make driver accept user in trip or reject it
+    public static void acceptRejectUser(AcceptRejectUser acceptRejectUser, final BaseResponseInterface anInterface) {
+        Call<GenericResponse> response = ApiConfig.httpApiInterface.acceptRejectUser(MyApplication.getUserToken(), acceptRejectUser);
+        response.enqueue(new Callback<GenericResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<GenericResponse> call, @NonNull Response<GenericResponse> response) {
+                // check on response and get data
+                checkValidResult(response, anInterface);
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<GenericResponse> call, @NonNull Throwable t) {
+                // get error message
+                anInterface.onFailed(t.getLocalizedMessage());
+            }
+        });
+    }
 }

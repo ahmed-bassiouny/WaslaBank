@@ -84,7 +84,7 @@ public class RequestsActivity extends MyToolbar {
                 case 0:
                     return RequestsFragment.getInstance();
                 case 1:
-                    return PastRequestsFragment.getInstance();
+                    return PastRequestsFragment.getInstance(true);
             }
             return null;
         }

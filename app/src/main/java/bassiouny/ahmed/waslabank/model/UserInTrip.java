@@ -21,6 +21,7 @@ public class UserInTrip {
     private String userImage;
     @SerializedName(ApiKey.IS_ACCEPTED)
     private boolean isAccepted;
+    private boolean loading;
 
     public int getUserId() {
         return userId;
@@ -40,5 +41,17 @@ public class UserInTrip {
 
     public boolean isAccepted() {
         return isAccepted;
+    }
+
+    public void setAccepted() {
+        isAccepted = true;
+    }
+
+    public boolean isLoading() {
+        return loading;
+    }
+
+    public void setLoading(boolean loading) {
+        this.loading = loading;
     }
 }

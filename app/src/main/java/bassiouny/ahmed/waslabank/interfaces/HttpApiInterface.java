@@ -1,6 +1,7 @@
 package bassiouny.ahmed.waslabank.interfaces;
 
 import bassiouny.ahmed.waslabank.api.apiModel.ApiKey;
+import bassiouny.ahmed.waslabank.api.apiModel.requests.AcceptRejectUser;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.ChangePasswordRequest;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.ContactUsRequest;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.CreateTripRequest;
@@ -139,5 +140,10 @@ public interface HttpApiInterface {
     @POST("auth/me")
     @Headers(HEADER_KEY)
     Call<UserResponse> getUserProfile(@Header(AUTHORIZATION) String token, @Field(ApiKey.ID) int userId);
+
+
+    @POST("requests/one/request/accept/user")
+    @Headers(HEADER_KEY)
+    Call<GenericResponse> acceptRejectUser(@Header(AUTHORIZATION) String token, @Body AcceptRejectUser acceptRejectUser);
 
 }

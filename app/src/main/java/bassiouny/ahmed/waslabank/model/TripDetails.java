@@ -50,6 +50,8 @@ public class TripDetails {
     private int isFinished;
     @SerializedName(ApiKey.USERS_IN_TRIP)
     private List<UserInTrip> userInTrip;
+    @SerializedName(ApiKey.IS_ACCEPTED)
+    private boolean isAccepted;
 
     public int getId() {
         return id;
@@ -141,10 +143,8 @@ public class TripDetails {
         else this.isJoined = 0;
     }
 
-    public void setIsRunning(boolean isRunning) {
-        if (isRunning)
-            this.isRunning = 1;
-        else this.isRunning = 0;
+    public void setIsRunning() {
+        this.isRunning = 1;
     }
 
     public void setIsFinished(boolean isFinished) {
@@ -157,5 +157,9 @@ public class TripDetails {
         if (userInTrip == null)
             userInTrip = new ArrayList<>();
         return userInTrip;
+    }
+
+    public boolean isAccepted() {
+        return isAccepted;
     }
 }

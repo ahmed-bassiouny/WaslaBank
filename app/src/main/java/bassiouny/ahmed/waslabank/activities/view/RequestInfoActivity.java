@@ -113,7 +113,7 @@ public class RequestInfoActivity extends MyToolbar implements MyObserverInterfac
         // FeedbackFragment ==> feedback list object
         observerInterfaces.get(2).update(tripDetails.getFeedbacks());
         // user in trip requests
-        observerInterfaces.get(3).update(tripDetails.getUserInTrip());
+        observerInterfaces.get(3).update(tripDetails);
     }
 
 

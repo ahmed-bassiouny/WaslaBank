@@ -29,12 +29,10 @@ public class UserInTripItem extends RecyclerView.Adapter<UserInTripItem.MyViewHo
     private Context context;
     private List<UserInTripFirebase> users;
     private ItemClickInterface itemClickInterface;
-    private List<Integer> usersId;
 
     public UserInTripItem(Context context) {
         this.context = context;
         users = new ArrayList<>();
-        usersId = new ArrayList<>();
         itemClickInterface = (ItemClickInterface) context;
     }
 

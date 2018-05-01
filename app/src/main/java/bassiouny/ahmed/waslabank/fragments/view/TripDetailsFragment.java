@@ -140,7 +140,7 @@ public class TripDetailsFragment extends Fragment implements ObserverInterface<T
                                     public void onSuccess(Object o) {
                                         if (getActivity() == null)
                                             return;
-                                        tripDetails.setIsRunning(true);
+                                        tripDetails.setIsRunning();
                                         loading(false);
                                     }
 
@@ -287,7 +287,7 @@ public class TripDetailsFragment extends Fragment implements ObserverInterface<T
         } else {
             // user
             // check if i joined in trip && trip running now
-            if (tripDetails.getIsJoined() && tripDetails.getIsRunning()) {
+            if (tripDetails.getIsJoined() && tripDetails.getIsRunning()&&tripDetails.isAccepted()) {
                 // user can't cancel
                 btnCancel.setVisibility(View.INVISIBLE);
                 // user view map

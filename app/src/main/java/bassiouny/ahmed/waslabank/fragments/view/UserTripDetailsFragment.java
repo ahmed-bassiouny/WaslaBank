@@ -11,27 +11,33 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.List;
 
 import bassiouny.ahmed.waslabank.R;
 import bassiouny.ahmed.waslabank.activities.view.ShowUserProfileActivity;
 import bassiouny.ahmed.waslabank.adapter.UsersTripDetailsItem;
+import bassiouny.ahmed.waslabank.api.ApiRequests;
+import bassiouny.ahmed.waslabank.api.apiModel.requests.AcceptRejectUser;
+import bassiouny.ahmed.waslabank.interfaces.BaseResponseInterface;
 import bassiouny.ahmed.waslabank.interfaces.ObserverInterface;
 import bassiouny.ahmed.waslabank.interfaces.UserTripDetailsInterface;
+import bassiouny.ahmed.waslabank.model.TripDetails;
 import bassiouny.ahmed.waslabank.model.User;
 import bassiouny.ahmed.waslabank.model.UserInTrip;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class UserTripDetailsFragment extends Fragment implements ObserverInterface<List<UserInTrip>>,UserTripDetailsInterface {
-
+public class UserTripDetailsFragment extends Fragment implements ObserverInterface<TripDetails>, UserTripDetailsInterface {
 
 
     private static UserTripDetailsFragment mInstance;
     private RecyclerView recycler;
     private List<UserInTrip> userInTrips;
+    private int tripId;
+    private UsersTripDetailsItem adapter;
 
     public UserTripDetailsFragment() {
         // Required empty public constructor
@@ -60,26 +66,88 @@ public class UserTripDetailsFragment extends Fragment implements ObserverInterfa
     }
 
     @Override
-    public void update(List<UserInTrip> userInTrips) {
-        this.userInTrips = userInTrips;
-        recycler.setAdapter(new UsersTripDetailsItem(this,userInTrips));
+    public void update(TripDetails tripDetails) {
+        this.userInTrips = tripDetails.getUserInTrip();
+        tripId = tripDetails.getId();
+        adapter = new UsersTripDetailsItem(this, userInTrips);
+        recycler.setAdapter(adapter);
 
     }
 
     @Override
-    public void accept(int position) {
-        
+    public void accept(final int position) {
+        final UserInTrip user = userInTrips.get(position);
+        if (!user.isAccepted() && tripId != 0) {
+            // make loading progress visible
+            user.setLoading(true);
+            adapter.changeItem(user, position);
+            // create request object
+            AcceptRejectUser.Builder builder = new AcceptRejectUser.Builder();
+            builder.requestId(tripId);
+            builder.userId(user.getUserId());
+            builder.isAccept(true);
+            ApiRequests.acceptRejectUser(builder.build(), new BaseResponseInterface() {
+                @Override
+                public void onSuccess(Object o) {
+                    // accept user
+                    user.setAccepted();
+                    // make loading progress hidden
+                    user.setLoading(false);
+                    // update current array
+                    userInTrips.set(position, user);
+                    // change item in adapter
+                    adapter.changeItem(user, position);
+                }
+
+                @Override
+                public void onFailed(String errorMessage) {
+                    Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
+                    // make loading progress hidden
+                    user.setLoading(false);
+                    // change item in adapter
+                    adapter.changeItem(user, position);
+                }
+            });
+        }
     }
 
     @Override
-    public void reject(int position) {
+    public void reject(final int position) {
+        final UserInTrip user = userInTrips.get(position);
+        if (tripId != 0 && !user.isAccepted()) {
+            // make loading progress visible
+            user.setLoading(true);
+            adapter.changeItem(user, position);
+            // create request object
+            AcceptRejectUser.Builder builder = new AcceptRejectUser.Builder();
+            builder.requestId(tripId);
+            builder.userId(user.getUserId());
+            builder.isAccept(false);
+            ApiRequests.acceptRejectUser(builder.build(), new BaseResponseInterface() {
+                @Override
+                public void onSuccess(Object o) {
+                    // remove current item from array
+                    userInTrips.remove(position);
+                    // remove item in adapter
+                    adapter.removeItem(position);
+                }
 
+                @Override
+                public void onFailed(String errorMessage) {
+                    Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
+                    // make loading progress hidden
+                    user.setLoading(false);
+                    // change item in adapter
+                    adapter.changeItem(user, position);
+                }
+            });
+        }
     }
 
     @Override
     public void viewProfile(int position) {
         Intent intent = new Intent(getContext(), ShowUserProfileActivity.class);
-        intent.putExtra("USER_ID",userInTrips.get(position).getUserId());
+        intent.putExtra("USER_ID", userInTrips.get(position).getUserId());
         startActivity(intent);
     }
 }

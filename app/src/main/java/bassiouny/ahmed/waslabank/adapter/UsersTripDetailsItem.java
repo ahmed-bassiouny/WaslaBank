@@ -94,17 +94,33 @@ public class UsersTripDetailsItem extends RecyclerView.Adapter<UsersTripDetailsI
         holder.tvUserName.setText(userInTrip.getUserName());
         holder.tvUserPhone.setText(userInTrip.getUserPhone());
         MyGlideApp.setImageCenterInside(fragment.getContext(), holder.ivAvatar, userInTrip.getUserImage());
-        if (userInTrip.isAccepted()) {
+        if(userInTrip.isLoading()){
+            holder.tvReject.setVisibility(View.INVISIBLE);
+            holder.tvAccept.setVisibility(View.INVISIBLE);
+            holder.viewStubProgress.setVisibility(View.VISIBLE);
+        } else if (userInTrip.isAccepted()) {
             // user in trip
-            holder.tvReject.setVisibility(View.GONE);
-            holder.tvAccept.setText(fragment.getContext().getString(R.string.accepted));
-            holder.tvAccept.setTextColor(fragment.getContext().getResources().getColor(R.color.green));
+            holder.viewStubProgress.setVisibility(View.GONE);
+            holder.tvAccept.setVisibility(View.INVISIBLE);
+            holder.tvReject.setText(fragment.getContext().getString(R.string.accepted));
+            holder.tvReject.setTextColor(fragment.getContext().getResources().getColor(R.color.green));
         } else {
             // user waiting driver reply
+            holder.viewStubProgress.setVisibility(View.GONE);
             holder.tvReject.setVisibility(View.VISIBLE);
             holder.tvAccept.setText(fragment.getContext().getString(R.string.accept));
             holder.tvAccept.setTextColor(fragment.getContext().getResources().getColor(R.color.colorPrimary));
         }
+    }
+
+    public void changeItem(UserInTrip user,int position){
+        this.users.set(position,user);
+        notifyItemChanged(position);
+    }
+
+    public void removeItem(int position){
+        this.users.remove(position);
+        notifyItemRemoved(position);
     }
 
     @Override
