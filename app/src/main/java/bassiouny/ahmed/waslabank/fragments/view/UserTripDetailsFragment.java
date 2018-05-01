@@ -1,6 +1,7 @@
 package bassiouny.ahmed.waslabank.fragments.view;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,6 +15,7 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import bassiouny.ahmed.waslabank.R;
+import bassiouny.ahmed.waslabank.activities.view.ShowUserProfileActivity;
 import bassiouny.ahmed.waslabank.adapter.UsersTripDetailsItem;
 import bassiouny.ahmed.waslabank.interfaces.ObserverInterface;
 import bassiouny.ahmed.waslabank.interfaces.UserTripDetailsInterface;
@@ -29,6 +31,7 @@ public class UserTripDetailsFragment extends Fragment implements ObserverInterfa
 
     private static UserTripDetailsFragment mInstance;
     private RecyclerView recycler;
+    private List<UserInTrip> userInTrips;
 
     public UserTripDetailsFragment() {
         // Required empty public constructor
@@ -58,6 +61,7 @@ public class UserTripDetailsFragment extends Fragment implements ObserverInterfa
 
     @Override
     public void update(List<UserInTrip> userInTrips) {
+        this.userInTrips = userInTrips;
         recycler.setAdapter(new UsersTripDetailsItem(this,userInTrips));
 
     }
@@ -74,6 +78,8 @@ public class UserTripDetailsFragment extends Fragment implements ObserverInterfa
 
     @Override
     public void viewProfile(int position) {
-
+        Intent intent = new Intent(getContext(), ShowUserProfileActivity.class);
+        intent.putExtra("USER_ID",userInTrips.get(position).getUserId());
+        startActivity(intent);
     }
 }

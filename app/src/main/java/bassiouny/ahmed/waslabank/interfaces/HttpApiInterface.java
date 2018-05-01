@@ -134,4 +134,10 @@ public interface HttpApiInterface {
     @Headers(HEADER_KEY)
     Call<GenericResponse> sendFeedback(@Header(AUTHORIZATION) String token, @Body FeedbackRequest feedbackRequest);
 
+
+    @FormUrlEncoded()
+    @POST("api/auth/me")
+    @Headers(HEADER_KEY)
+    Call<UserResponse> getUserProfile(@Header(AUTHORIZATION) String token, @Field(ApiKey.ID) int userId);
+
 }

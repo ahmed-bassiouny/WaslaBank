@@ -481,4 +481,23 @@ public class ApiRequests {
             }
         });
     }
+
+    // get user profile
+    public static void getUserProfile(int userId, final BaseResponseInterface<User> anInterface) {
+        Call<UserResponse> response = ApiConfig.httpApiInterface.getUserProfile(MyApplication.getUserToken(),userId);
+        response.enqueue(new Callback<UserResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<UserResponse> call, @NonNull Response<UserResponse> response) {
+                // check on response and get data
+                checkValidResult(response, anInterface);
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<UserResponse> call, @NonNull Throwable t) {
+                // get error message
+                anInterface.onFailed(t.getLocalizedMessage());
+            }
+        });
+    }
+
 }

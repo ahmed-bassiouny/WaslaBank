@@ -93,7 +93,7 @@ public class UsersTripDetailsItem extends RecyclerView.Adapter<UsersTripDetailsI
         UserInTrip userInTrip = users.get(position);
         holder.tvUserName.setText(userInTrip.getUserName());
         holder.tvUserPhone.setText(userInTrip.getUserPhone());
-        MyGlideApp.setImage(fragment.getContext(), holder.ivAvatar, userInTrip.getUserImage());
+        MyGlideApp.setImageCenterInside(fragment.getContext(), holder.ivAvatar, userInTrip.getUserImage());
         if (userInTrip.isAccepted()) {
             // user in trip
             holder.tvReject.setVisibility(View.GONE);
