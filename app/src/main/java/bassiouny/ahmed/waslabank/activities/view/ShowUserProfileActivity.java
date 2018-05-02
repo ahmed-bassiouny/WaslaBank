@@ -20,6 +20,7 @@ import bassiouny.ahmed.waslabank.interfaces.BaseResponseInterface;
 import bassiouny.ahmed.waslabank.model.User;
 import bassiouny.ahmed.waslabank.utils.MyGlideApp;
 import bassiouny.ahmed.waslabank.utils.MyToolbar;
+import bassiouny.ahmed.waslabank.utils.MyUtils;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ShowUserProfileActivity extends AppCompatActivity {
@@ -44,6 +45,16 @@ public class ShowUserProfileActivity extends AppCompatActivity {
             findView();
         findView();
         loadUserData();
+        onClick();
+    }
+
+    private void onClick() {
+        tvUserPhone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MyUtils.dialContactPhone(ShowUserProfileActivity.this,tvUserPhone.getText().toString());
+            }
+        });
     }
 
     private void loadUserData() {

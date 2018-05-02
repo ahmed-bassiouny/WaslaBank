@@ -15,7 +15,7 @@ public class ViewOrdersActivity extends MyToolbar {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_orders);
         // set tool bar title
-        initToolbar("",true);
+        initToolbar(getString(R.string.orders),true);
         // set back image button
         addBackImage();
         // set notification image button

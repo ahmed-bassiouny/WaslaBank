@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.*;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
@@ -50,7 +51,7 @@ public class MyUtils {
 
         FragmentManager fragmentManager = fragmentActivity.getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(container, fragment);
+        fragmentTransaction.add(container, fragment);
         if (bundle != null) {
             fragment.setArguments(bundle);
         }
@@ -139,5 +140,9 @@ public class MyUtils {
             }
         });
         alertDialog.show();
+    }
+
+    public static void dialContactPhone(Context context, String phoneNumber) {
+        context.startActivity(new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phoneNumber, null)));
     }
 }

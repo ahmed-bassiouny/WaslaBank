@@ -48,6 +48,16 @@ public class HomeActivity extends MyToolbar implements ItemClickInterface {
         addSupportActionbar();
         findView();
         initObject();
+        onClick();
+    }
+
+    private void onClick() {
+        tvOrders.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomeActivity.this,ViewOrdersActivity.class));
+            }
+        });
     }
 
     @Override

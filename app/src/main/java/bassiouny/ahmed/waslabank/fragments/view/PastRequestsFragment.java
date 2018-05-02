@@ -55,7 +55,7 @@ public class PastRequestsFragment extends Fragment implements ItemClickInterface
         if (pastRequests) {
             currentUrl = "requests/past";
         } else {
-            currentUrl = "";
+            currentUrl = "requests/orders";
         }
         return mInstance;
     }
@@ -111,6 +111,7 @@ public class PastRequestsFragment extends Fragment implements ItemClickInterface
                 if (tripDetails.size() == 0) {
                     recycler.setVisibility(View.INVISIBLE);
                     tvNoTrip.setVisibility(View.VISIBLE);
+                    refresh.setRefreshing(false);
                     return;
                 }
                 if (currentPage == 10) {
