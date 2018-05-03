@@ -17,9 +17,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         super.onMessageReceived(remoteMessage);
         CustomNotificationManager customNotificationManager = CustomNotificationManager.getInstance(this);
         if (remoteMessage.getNotification() != null) {
-            customNotificationManager.setTitle(getString(R.string.app_name));
+            customNotificationManager.setTitle(remoteMessage.getNotification().getTitle());
             customNotificationManager.setBody(remoteMessage.getNotification().getBody());
-            customNotificationManager.setIcon(R.mipmap.ic_launcher_round);
+            customNotificationManager.setIcon(R.mipmap.ic_launcher);
             customNotificationManager.show(1);
         }
     }

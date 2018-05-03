@@ -94,7 +94,7 @@ public class UsersTripDetailsItem extends RecyclerView.Adapter<UsersTripDetailsI
         holder.tvUserName.setText(userInTrip.getUserName());
         holder.tvUserPhone.setText(userInTrip.getUserPhone());
         MyGlideApp.setImageCenterInside(fragment.getContext(), holder.ivAvatar, userInTrip.getUserImage());
-        if(userInTrip.isLoading()){
+        if (userInTrip.isLoading()) {
             holder.tvReject.setVisibility(View.INVISIBLE);
             holder.tvAccept.setVisibility(View.INVISIBLE);
             holder.viewStubProgress.setVisibility(View.VISIBLE);
@@ -113,12 +113,16 @@ public class UsersTripDetailsItem extends RecyclerView.Adapter<UsersTripDetailsI
         }
     }
 
-    public void changeItem(UserInTrip user,int position){
-        this.users.set(position,user);
+    public void changeItem(UserInTrip user, int position) {
+        if (users.size() == 0)
+            return;
+        this.users.set(position, user);
         notifyItemChanged(position);
     }
 
-    public void removeItem(int position){
+    public void removeItem(int position) {
+        if (users.size() == 0)
+            return;
         this.users.remove(position);
         notifyItemRemoved(position);
     }

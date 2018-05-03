@@ -52,7 +52,7 @@ public class HomeActivity extends MyToolbar implements ItemClickInterface {
     }
 
     private void onClick() {
-        tvOrders.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.linear_point).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(HomeActivity.this,ViewOrdersActivity.class));
@@ -152,9 +152,13 @@ public class HomeActivity extends MyToolbar implements ItemClickInterface {
                 break;
             // log out
             case 4:
+                // save token in variable to clear shared pref
+                // after clear it save token in shared pref
+                String token = SharedPrefManager.getString(SharedPrefKey.TOKEN);
                 SharedPrefManager.clearSharedPref();
                 startActivity(new Intent(HomeActivity.this, SplashActivity.class));
                 MyApplication.setUserToken("");
+                SharedPrefManager.setString(SharedPrefKey.TOKEN,token);
                 finish();
                 break;
         }
