@@ -68,7 +68,7 @@
         android:layout_below="@+id/toolbar"
         android:layout_toEndOf="@+id/linear_point"
         android:gravity="center"
-
+        android:id="@+id/linear_order"
         android:orientation="vertical"
         android:paddingBottom="7dp"
         android:paddingEnd="10dp"

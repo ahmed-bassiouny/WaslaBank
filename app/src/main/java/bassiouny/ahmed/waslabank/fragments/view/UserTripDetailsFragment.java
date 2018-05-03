@@ -26,6 +26,7 @@ import bassiouny.ahmed.waslabank.interfaces.UserTripDetailsInterface;
 import bassiouny.ahmed.waslabank.model.TripDetails;
 import bassiouny.ahmed.waslabank.model.User;
 import bassiouny.ahmed.waslabank.model.UserInTrip;
+import bassiouny.ahmed.waslabank.utils.SimpleDividerItemDecoration;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -63,6 +64,7 @@ public class UserTripDetailsFragment extends Fragment implements ObserverInterfa
         super.onViewCreated(view, savedInstanceState);
         recycler = view.findViewById(R.id.recycler);
         recycler.setLayoutManager(new LinearLayoutManager(getContext()));
+        recycler.addItemDecoration(new SimpleDividerItemDecoration(getContext()));
     }
 
     @Override

@@ -38,7 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/comment"
-            android:inputType="textPassword"
+            android:inputType="text"
             android:minHeight="100dp"
             android:textSize="@dimen/input_size" />
     </android.support.design.widget.TextInputLayout>

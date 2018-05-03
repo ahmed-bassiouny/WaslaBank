@@ -52,7 +52,7 @@ public class HomeActivity extends MyToolbar implements ItemClickInterface {
     }
 
     private void onClick() {
-        findViewById(R.id.linear_point).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.linear_order).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(HomeActivity.this,ViewOrdersActivity.class));
