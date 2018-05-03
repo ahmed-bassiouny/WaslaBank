@@ -51,7 +51,7 @@ public class MyUtils {
 
         FragmentManager fragmentManager = fragmentActivity.getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(container, fragment);
+        fragmentTransaction.replace(container, fragment);
         if (bundle != null) {
             fragment.setArguments(bundle);
         }
