@@ -1,6 +1,7 @@
 package bassiouny.ahmed.waslabank.fragments.view;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -19,6 +20,7 @@ import java.util.List;
 
 import bassiouny.ahmed.genericmanager.SharedPrefManager;
 import bassiouny.ahmed.waslabank.R;
+import bassiouny.ahmed.waslabank.activities.view.RequestInfoActivity;
 import bassiouny.ahmed.waslabank.adapter.RequestsItem;
 import bassiouny.ahmed.waslabank.api.ApiRequests;
 import bassiouny.ahmed.waslabank.api.apiModel.requests.TripsByDate;
@@ -39,6 +41,8 @@ public class PastRequestsFragment extends Fragment implements ItemClickInterface
     private RequestsItem requestsItem;
     private static String currentUrl;
     private int currentPage = 10; // item per page first = 10 second page = 20 third page = 30 .. etc
+    // this variable show if this view for orders or past requests
+    private static boolean pastRequestsView = false;
     // view
     private SwipeRefreshLayout refresh;
     private RecyclerView recycler;
@@ -49,10 +53,11 @@ public class PastRequestsFragment extends Fragment implements ItemClickInterface
     }
 
     public static PastRequestsFragment getInstance(boolean pastRequests) {
+        pastRequestsView = pastRequests;
         if (mInstance == null) {
             mInstance = new PastRequestsFragment();
         }
-        if (pastRequests) {
+        if (pastRequestsView) {
             currentUrl = "requests/past";
         } else {
             currentUrl = "requests/orders";
@@ -137,6 +142,10 @@ public class PastRequestsFragment extends Fragment implements ItemClickInterface
 
     @Override
     public void getItem(@Nullable Integer tripId, int position) {
-
+        if (getActivity() == null || pastRequestsView)
+            return;
+        Intent intent = new Intent(getActivity(), RequestInfoActivity.class);
+        intent.putExtra("TRIP_ID", tripId);
+        startActivity(intent);
     }
 }

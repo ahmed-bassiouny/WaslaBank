@@ -70,6 +70,8 @@ public class UserTripDetailsFragment extends Fragment implements ObserverInterfa
     @Override
     public void update(TripDetails tripDetails) {
         this.userInTrips = tripDetails.getUserInTrip();
+        if (userInTrips.size() == 0)
+            return;
         tripId = tripDetails.getId();
         adapter = new UsersTripDetailsItem(this, userInTrips);
         recycler.setAdapter(adapter);
