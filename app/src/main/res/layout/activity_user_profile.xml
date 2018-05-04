@@ -162,6 +162,7 @@
                     android:gravity="center"
                     android:paddingBottom="10dp"
                     android:text="@string/orders"
+                    android:id="@+id/tv_order_name"
                     android:textAllCaps="true"
                     android:textColor="@color/white"
                     android:textSize="@dimen/small_text"

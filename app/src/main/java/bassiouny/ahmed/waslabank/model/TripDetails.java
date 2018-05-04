@@ -16,7 +16,7 @@ import bassiouny.ahmed.waslabank.utils.MyUtils;
 
 public class TripDetails {
 
-    @SerializedName(ApiKey.ID)
+    @SerializedName(ApiKey.REQUEST_ID)
     private int id;
     @SerializedName(ApiKey.START_POINT_ADDRESS)
     private String startPointText;

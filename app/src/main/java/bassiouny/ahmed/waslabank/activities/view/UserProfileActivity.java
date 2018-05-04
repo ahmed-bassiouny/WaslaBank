@@ -73,10 +73,26 @@ public class UserProfileActivity extends MyToolbar implements MyObserverInterfac
         findView();
         // init objects
         initObjects();
+        onClick();
         // set user information
         // get total rate , point , order from user information object
         userInfo = SharedPrefManager.getObject(SharedPrefKey.USER_INFO, UserInfo.class);
         setUserInformation();
+    }
+
+    private void onClick() {
+        findViewById(R.id.tv_order_name).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(UserProfileActivity.this,ViewOrdersActivity.class));
+            }
+        });
+        tvOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(UserProfileActivity.this,ViewOrdersActivity.class));
+            }
+        });
     }
 
     @Override
