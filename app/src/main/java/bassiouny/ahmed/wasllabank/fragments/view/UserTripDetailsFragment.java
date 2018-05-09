@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 import java.util.List;
 
 import bassiouny.ahmed.wasllabank.R;
+import bassiouny.ahmed.wasllabank.activities.view.RequestInfoActivity;
 import bassiouny.ahmed.wasllabank.activities.view.ShowUserProfileActivity;
 import bassiouny.ahmed.wasllabank.adapter.UsersTripDetailsItem;
 import bassiouny.ahmed.wasllabank.api.ApiRequests;
@@ -25,6 +27,7 @@ import bassiouny.ahmed.wasllabank.interfaces.ObserverInterface;
 import bassiouny.ahmed.wasllabank.interfaces.UserTripDetailsInterface;
 import bassiouny.ahmed.wasllabank.model.TripDetails;
 import bassiouny.ahmed.wasllabank.model.UserInTrip;
+import bassiouny.ahmed.wasllabank.utils.MyGlideApp;
 import bassiouny.ahmed.wasllabank.utils.SimpleDividerItemDecoration;
 
 /**
@@ -38,6 +41,7 @@ public class UserTripDetailsFragment extends Fragment implements ObserverInterfa
     private List<UserInTrip> userInTrips;
     private int tripId;
     private UsersTripDetailsItem adapter;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     public UserTripDetailsFragment() {
         // Required empty public constructor
@@ -62,8 +66,15 @@ public class UserTripDetailsFragment extends Fragment implements ObserverInterfa
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         recycler = view.findViewById(R.id.recycler);
+        swipeRefreshLayout = view.findViewById(R.id.swipe);
         recycler.setLayoutManager(new LinearLayoutManager(getContext()));
         recycler.addItemDecoration(new SimpleDividerItemDecoration(getContext()));
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getUsersFromTripDetails();
+            }
+        });
     }
 
     @Override
@@ -152,5 +163,24 @@ public class UserTripDetailsFragment extends Fragment implements ObserverInterfa
         Intent intent = new Intent(getContext(), ShowUserProfileActivity.class);
         intent.putExtra("USER_ID", userInTrips.get(position).getUserId());
         startActivity(intent);
+    }
+
+    private void getUsersFromTripDetails() {
+        swipeRefreshLayout.setRefreshing(true);
+        ApiRequests.getTripRequestById(tripId, new BaseResponseInterface<TripDetails>() {
+            @Override
+            public void onSuccess(TripDetails tripDetails) {
+                update(tripDetails);
+                swipeRefreshLayout.setRefreshing(false);
+            }
+
+            @Override
+            public void onFailed(String errorMessage) {
+                if (getActivity() == null)
+                    return;
+                Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
     }
 }
