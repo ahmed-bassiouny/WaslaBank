@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context="bassiouny.ahmed.waslabank.activities.view.RequestsActivity">
+    tools:context="bassiouny.ahmed.wasllabank.activities.view.RequestsActivity">
 
     <include
         android:id="@+id/toolbar"

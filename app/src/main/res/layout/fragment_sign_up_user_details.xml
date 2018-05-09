@@ -6,7 +6,7 @@
     android:layout_gravity="center"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context="bassiouny.ahmed.waslabank.fragments.view.SignUpFragment">
+    tools:context="bassiouny.ahmed.wasllabank.fragments.view.SignUpFragment">
 
     <TextView
         android:layout_width="wrap_content"

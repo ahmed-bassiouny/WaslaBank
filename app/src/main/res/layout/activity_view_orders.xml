@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="bassiouny.ahmed.waslabank.activities.view.ViewOrdersActivity">
+    tools:context="bassiouny.ahmed.wasllabank.activities.view.ViewOrdersActivity">
 
     <include
         android:id="@+id/toolbar"

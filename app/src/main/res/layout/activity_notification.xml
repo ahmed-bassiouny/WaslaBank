@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg"
     android:orientation="vertical"
-    tools:context="bassiouny.ahmed.waslabank.activities.view.NotificationActivity">
+    tools:context="bassiouny.ahmed.wasllabank.activities.view.NotificationActivity">
 
     <include
         android:id="@+id/toolbar"

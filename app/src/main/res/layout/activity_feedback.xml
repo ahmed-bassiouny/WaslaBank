@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="@drawable/round_fill_white_small_radius"
-    tools:context="bassiouny.ahmed.waslabank.activities.view.FeedbackActivity">
+    tools:context="bassiouny.ahmed.wasllabank.activities.view.FeedbackActivity">
 
     <TextView
         android:layout_width="wrap_content"

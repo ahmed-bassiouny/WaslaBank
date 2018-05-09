@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    tools:context="bassiouny.ahmed.waslabank.activities.view.UserProfileActivity">
+    tools:context="bassiouny.ahmed.wasllabank.activities.view.UserProfileActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
