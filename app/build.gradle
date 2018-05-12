@@ -21,11 +21,11 @@ repositories {
 android {
     compileSdkVersion 27
     defaultConfig {
-        applicationId "bassiouny.ahmed.waslabank"
+        applicationId "com.wasllabank"
         minSdkVersion 19
         targetSdkVersion 27
         versionCode 1
-        versionName "2.0"
+        versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

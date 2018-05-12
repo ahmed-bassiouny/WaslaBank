@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/background1"
     android:padding="15dp"
-    tools:context="bassiouny.ahmed.wasllabank.fragments.view.SignUpFragment">
+    tools:context="bassiouny.ahmed.wasllabank.com.wasllabank.fragments.view.SignUpFragment">
 
     <ImageView
         android:id="@+id/iv_back"

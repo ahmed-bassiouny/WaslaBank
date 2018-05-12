@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    tools:context="bassiouny.ahmed.wasllabank.activities.view.RequestInfoActivity">
+    tools:context="bassiouny.ahmed.wasllabank.com.wasllabank.activities.view.RequestInfoActivity">
 
 
     <include
@@ -48,7 +48,7 @@
             android:id="@+id/tabItem2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/driver" />
+            android:text="@string/host" />
 
         <android.support.design.widget.TabItem
             android:id="@+id/tabItem3"
@@ -60,7 +60,7 @@
             android:id="@+id/tabItem4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/users" />
+            android:text="@string/guests" />
 
     </android.support.design.widget.TabLayout>
 

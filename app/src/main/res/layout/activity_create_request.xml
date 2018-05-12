@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:background="@drawable/bg"
     android:fillViewport="true"
-    tools:context="bassiouny.ahmed.wasllabank.activities.view.CreateRequestActivity">
+    tools:context="bassiouny.ahmed.wasllabank.com.wasllabank.activities.view.CreateRequestActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

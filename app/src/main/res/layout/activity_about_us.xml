@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
-    tools:context="bassiouny.ahmed.wasllabank.activities.view.AboutUsActivity">
+    tools:context="bassiouny.ahmed.wasllabank.com.wasllabank.activities.view.AboutUsActivity">
 
     <include
         android:id="@+id/toolbar"

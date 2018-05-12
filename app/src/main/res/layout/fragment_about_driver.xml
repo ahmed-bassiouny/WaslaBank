@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="10dp"
-    tools:context="bassiouny.ahmed.wasllabank.fragments.view.AboutFragment">
+    tools:context="bassiouny.ahmed.wasllabank.com.wasllabank.fragments.view.AboutFragment">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/iv_avatar"

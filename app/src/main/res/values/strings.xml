@@ -1,8 +1,6 @@
 <resources>
     <string name="app_name">Waslla Bank</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="slogan">FREE..FAST..ON DEMAND</string>
     <string name="sign_in">Sign In</string>
     <string name="sign_up">Sign Up</string>
@@ -123,4 +121,6 @@
     <string name="accept">Accept -</string>
     <string name="accepted">Accepted</string>
     <string name="users">Users</string>
+    <string name="host">Host</string>
+    <string name="guests">Guests</string>
 </resources>
