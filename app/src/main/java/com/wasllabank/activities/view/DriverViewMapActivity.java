@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.wasllabank.R;
 import com.wasllabank.api.ApiRequests;
 import com.wasllabank.api.apiModel.requests.FeedbackRequest;
 import com.wasllabank.api.apiModel.requests.FinishTripRequest;
@@ -267,11 +268,8 @@ public class DriverViewMapActivity extends MyToolbar implements OnMapReadyCallba
             public void onSuccess(Object o) {
                 // remove current user
                 FirebaseRoot.deleteUserTripLocation(tripId, userInTripFirebase.getUserId());
-                /*// get all users still in trip
-                // todo why i write this line of code
-                // todo i comment this code
-                // todo why!!!!!!!!!!!!!!!!!!!!
-                todo FirebaseRoot.addListenerForUsers(tripId, userListener);*/
+                // get all users still in trip
+                FirebaseRoot.addListenerForUsers(tripId, userListener);
                 // make driver rate user
                 // create feedback builder
                 FeedbackRequest.Builder builder = new FeedbackRequest.Builder();
@@ -296,11 +294,12 @@ public class DriverViewMapActivity extends MyToolbar implements OnMapReadyCallba
         });
     }
 
-    public ImageView addFinishTripButton() {
+    public TextView addFinishTripButton() {
         // create finishTrip image view
-        ImageView finishTrip = new ImageView(this);
+        TextView finishTrip = new TextView(this);
         // finishTrip image view src
-        finishTrip.setImageDrawable(getResources().getDrawable(com.wasllabank.R.drawable.ic_cancel));
+        finishTrip.setTextColor(getResources().getColor(R.color.colorPrimary));
+        finishTrip.setText(getResources().getString(R.string.end_trip));
         // handle click item
         finishTrip.setOnClickListener(new View.OnClickListener() {
             @Override

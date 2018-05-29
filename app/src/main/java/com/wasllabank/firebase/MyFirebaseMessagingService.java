@@ -23,7 +23,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             customNotificationManager.setTitle(remoteMessage.getNotification().getTitle());
             customNotificationManager.setBody(remoteMessage.getNotification().getBody());
             customNotificationManager.setIcon(com.wasllabank.R.mipmap.ic_launcher);
-            //customNotificationManager.setContentIntent(openHomeScreen());
+            //customNotificationManager.setContentIntent(openHomeScreen());;
+            customNotificationManager.removeNotificationAfterClick();
             customNotificationManager.show(1);
         }
     }

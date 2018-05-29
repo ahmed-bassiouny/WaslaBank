@@ -48,7 +48,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-messaging:15.0.2'
     testImplementation 'junit:junit:4.12'
     // my library
-    implementation 'com.github.ahmed-bassiouny:GenericManager-Android:1.11'
+    implementation 'com.github.ahmed-bassiouny:GenericManager-Android:1.12'
     // retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.4.1'

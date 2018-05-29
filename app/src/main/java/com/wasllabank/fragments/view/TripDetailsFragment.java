@@ -299,17 +299,18 @@ public class TripDetailsFragment extends Fragment implements ObserverInterface<T
                 btnCancel.setVisibility(View.VISIBLE);
                 btnJoinTrip.setVisibility(View.INVISIBLE);
                 status = tripJoinedUser;
-            } else if (!tripDetails.getIsJoined() && !tripDetails.getIsRunning()) {
+                // todo client request user can make request if driver started trip
+            } else /*if (!tripDetails.getIsJoined() && !tripDetails.getIsRunning()) */{
                 // this case user not in trip && trip not running
                 btnCancel.setVisibility(View.INVISIBLE);
                 btnJoinTrip.setText(getString(com.wasllabank.R.string.join_trip));
                 btnJoinTrip.setVisibility(View.VISIBLE);
                 status = tripNotJoinedUser;
-            } else {
+            } /*else {
                 // this case user not in trip and trip running
                 btnCancel.setVisibility(View.INVISIBLE);
                 btnJoinTrip.setVisibility(View.INVISIBLE);
-            }
+            }*/
         }
     }
 

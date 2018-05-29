@@ -76,6 +76,7 @@ public class CreateRequestActivity extends MyToolbar {
             public void onClick(View view) {
                 try {
                     startActivityForResult(builder.build(CreateRequestActivity.this), PLACE_PICKER_REQUEST_FROM);
+                    etFrom.setEnabled(false);
                 } catch (GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException e) {
                     e.printStackTrace();
                 }
@@ -86,6 +87,7 @@ public class CreateRequestActivity extends MyToolbar {
             public void onClick(View view) {
                 try {
                     startActivityForResult(builder.build(CreateRequestActivity.this), PLACE_PICKER_REQUEST_TO);
+                    etTo.setEnabled(false);
                 } catch (GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException e) {
                     e.printStackTrace();
                 }
@@ -173,12 +175,14 @@ public class CreateRequestActivity extends MyToolbar {
             builderCreateTripRequest.startPointLng(place.getLatLng().longitude);
             builderCreateTripRequest.startPointText(place.getAddress().toString());
             etFrom.setText(place.getAddress().toString());
+            etFrom.setEnabled(true);
         } else if (requestCode == PLACE_PICKER_REQUEST_TO) {
             Place place = PlacePicker.getPlace(this, data);
             builderCreateTripRequest.endPointLat(place.getLatLng().latitude);
             builderCreateTripRequest.endPointLng(place.getLatLng().longitude);
             builderCreateTripRequest.endPointText(place.getAddress().toString());
             etTo.setText(place.getAddress().toString());
+            etTo.setEnabled(true);
         }
     }
 
