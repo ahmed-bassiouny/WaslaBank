@@ -8,7 +8,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
-        android:name="com.wasllabank.utils.MyApplication"
+        android:name=".utils.MyApplication"
         android:allowBackup="true"
         android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
@@ -24,13 +24,13 @@
             android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name="com.wasllabank.activities.view.SignUpActivity"
+            android:name=".activities.view.SignUpActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.wasllabank.activities.view.SignInActivity"
+            android:name=".activities.view.SignInActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.wasllabank.activities.view.SplashActivity"
+            android:name=".activities.view.SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -39,71 +39,75 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.wasllabank.activities.view.WaitingAdminActivity"
+            android:name=".activities.view.WaitingAdminActivity"
             android:screenOrientation="portrait" />
 
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="a07905da1fb4c784f0369b04a71691297ca15843" />
 
-        <activity android:name="com.wasllabank.activities.view.UserProfileActivity" />
-        <activity android:name="com.wasllabank.activities.view.HomeActivity" />
+        <activity android:name=".activities.view.UserProfileActivity" />
+        <activity android:name=".activities.view.HomeActivity" />
         <activity
-            android:name="com.wasllabank.activities.view.RequestsActivity"
+            android:name=".activities.view.RequestsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.wasllabank.activities.view.RequestInfoActivity"
+            android:name=".activities.view.RequestInfoActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.wasllabank.activities.view.CurrentTripActivity"
+            android:name=".activities.view.CurrentTripActivity"
             android:screenOrientation="portrait" />
-        <activity android:name="com.wasllabank.activities.view.AboutUsActivity" />
+        <activity android:name=".activities.view.AboutUsActivity" />
         <activity
-            android:name="com.wasllabank.activities.view.ContactUsActivity"
+            android:name=".activities.view.ContactUsActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustNothing" />
-        <activity android:name="com.wasllabank.activities.view.CreateRequestActivity" />
+        <activity android:name=".activities.view.CreateRequestActivity" />
         <activity
-            android:name="com.wasllabank.activities.view.EditProfileActivity"
+            android:name=".activities.view.EditProfileActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustNothing" />
         <activity
-            android:name="com.wasllabank.activities.view.ChangePasswordActivity"
+            android:name=".activities.view.ChangePasswordActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeDialog"
             android:windowSoftInputMode="adjustNothing" />
         <activity
-            android:name="com.wasllabank.activities.view.NotificationActivity"
+            android:name=".activities.view.NotificationActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.wasllabank.activities.view.DriverViewMapActivity"
+            android:name=".activities.view.DriverViewMapActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.wasllabank.activities.view.UserViewMapActivity"
+            android:name=".activities.view.UserViewMapActivity"
             android:screenOrientation="portrait" />
 
-        <service android:name="com.wasllabank.firebase.MyFirebaseInstanceIDService">
+        <service android:name=".firebase.MyFirebaseInstanceIDService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
-        <service android:name="com.wasllabank.firebase.MyFirebaseMessagingService">
+        <service android:name=".firebase.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
         <activity
-            android:name="com.wasllabank.activities.view.FeedbackActivity"
+            android:name=".activities.view.FeedbackActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeDialog"
             android:windowSoftInputMode="adjustNothing" />
         <activity
-            android:name="com.wasllabank.activities.view.ShowUserProfileActivity"
+            android:name=".activities.view.ShowUserProfileActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeDialog"
             android:windowSoftInputMode="adjustNothing" />
-        <activity android:name="com.wasllabank.activities.view.ViewOrdersActivity"></activity>
+        <activity android:name=".activities.view.ViewOrdersActivity" />
+        <activity android:name=".activities.view.CancelTripActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeDialog"
+            android:windowSoftInputMode="adjustNothing"/>
     </application>
 
 </manifest>

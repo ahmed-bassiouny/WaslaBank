@@ -16,11 +16,14 @@ public class TripStatusRequest {
     private int isFinished;
     @SerializedName(ApiKey.IS_CANCELED)
     private int isCanceled;
+    @SerializedName(ApiKey.COMMENT)
+    private String comment;
 
     private TripStatusRequest(Builder builder) {
         requestId = builder.requestId;
         isFinished = builder.isFinished;
         isCanceled = builder.isCanceled;
+        comment = builder.comment;
     }
 
 
@@ -28,12 +31,17 @@ public class TripStatusRequest {
         private int requestId;
         private int isFinished;
         private int isCanceled;
+        private String comment;
 
         public Builder() {
         }
 
         public Builder requestId(int val) {
             requestId = val;
+            return this;
+        }
+        public Builder comment(String val) {
+            comment = val;
             return this;
         }
 

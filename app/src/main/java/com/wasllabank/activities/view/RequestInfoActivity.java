@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import android.view.ViewStub;
@@ -57,10 +58,11 @@ public class RequestInfoActivity extends MyToolbar implements MyObserverInterfac
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
+    protected void onStart() {
+        super.onStart();
         getTripDetails();
     }
+
 
     private void initObjects() {
         // Create the adapter that will return a fragment for each of the three

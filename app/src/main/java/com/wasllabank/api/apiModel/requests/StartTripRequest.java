@@ -21,6 +21,8 @@ public class StartTripRequest {
     private double startPointLat;
     @SerializedName(ApiKey.START_POINT_LNG)
     private double startPointLng;
+    @SerializedName(ApiKey.COMMENT)
+    private String comment;
 
     private StartTripRequest(Builder builder) {
         userId = builder.userId;
@@ -29,6 +31,7 @@ public class StartTripRequest {
         isJoined = builder.isJoined;
         startPointLat = builder.startPointLat;
         startPointLng = builder.startPointLng;
+        comment = builder.comment;
     }
 
 
@@ -39,6 +42,7 @@ public class StartTripRequest {
         private int isJoined;
         private double startPointLat;
         private double startPointLng;
+        private String comment;
 
         public Builder() {
         }
@@ -73,6 +77,10 @@ public class StartTripRequest {
 
         public Builder startPointLng(double val) {
             startPointLng = val;
+            return this;
+        }
+        public Builder comment(String val) {
+            comment = val;
             return this;
         }
 

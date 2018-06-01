@@ -2,6 +2,7 @@ package com.wasllabank.fragments.view;
 
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -18,6 +19,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.wasllabank.activities.view.CancelTripActivity;
 import com.wasllabank.activities.view.DriverViewMapActivity;
 import com.wasllabank.activities.view.UserViewMapActivity;
 import com.wasllabank.fragments.controller.TripDetailsController;
@@ -38,6 +40,7 @@ import bassiouny.ahmed.genericmanager.SharedPrefManager;
 public class TripDetailsFragment extends Fragment implements ObserverInterface<TripDetails>, LocationListener {
 
 
+    private static final int REQUEST_CODE = 30;
     // local variable
     private static TripDetailsFragment mInstance;
     private int userId;
@@ -46,6 +49,7 @@ public class TripDetailsFragment extends Fragment implements ObserverInterface<T
     private LocationManager locationManager;
     private final int requestLocationPermission = 1;
     private Location location; // current location
+    private String comment;
 
     // Driver
     public final int tripRunningDriver = 1;
@@ -164,7 +168,7 @@ public class TripDetailsFragment extends Fragment implements ObserverInterface<T
                         // trip now not running
                         // user can join trip
                         loading(true);
-                        getController().joinTrip(tripDetails.getId(), userId, true, new BaseResponseInterface() {
+                        getController().joinTrip(tripDetails.getId(), userId, true,comment, new BaseResponseInterface() {
                             @Override
                             public void onSuccess(Object o) {
                                 if (getActivity() == null)
@@ -188,53 +192,7 @@ public class TripDetailsFragment extends Fragment implements ObserverInterface<T
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                loading(true);
-                switch (status) {
-                    case tripNotRunningDriver:
-                        // driver can cancel trip
-                        getController().finishTrip(tripDetails.getId(), false, true, new BaseResponseInterface() {
-                            @Override
-                            public void onSuccess(Object o) {
-                                // this mean trip canceled
-                                // finish activity
-                                if (getActivity() == null)
-                                    return;
-                                getActivity().finish();
-                                // todo remove trip from requests list
-
-                            }
-
-                            @Override
-                            public void onFailed(String errorMessage) {
-                                if (getActivity() == null)
-                                    return;
-                                Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
-                                loading(false);
-                            }
-                        });
-                        break;
-                    case tripJoinedUser:
-                        // user can cancel joined
-                        loading(true);
-                        getController().joinTrip(tripDetails.getId(), userId, false, new BaseResponseInterface() {
-                            @Override
-                            public void onSuccess(Object o) {
-                                if (getActivity() == null)
-                                    return;
-                                tripDetails.setIsJoined(false);
-                                loading(false);
-                            }
-
-                            @Override
-                            public void onFailed(String errorMessage) {
-                                if (getActivity() == null)
-                                    return;
-                                Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
-                                loading(false);
-                            }
-                        });
-                        break;
-                }
+                startActivityForResult(new Intent(getContext(), CancelTripActivity.class),REQUEST_CODE);
             }
         });
     }
@@ -361,5 +319,58 @@ public class TripDetailsFragment extends Fragment implements ObserverInterface<T
         SharedPrefManager.setObject(SharedPrefKey.CURRENT_TRIP, currentTripRequest);
         locationManager.removeListener(this);*/
         TripDetailsFragment.this.location = location;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(REQUEST_CODE ==  requestCode && resultCode == Activity.RESULT_OK){
+            comment = data.getStringExtra("comment");
+            loading(true);
+            switch (status) {
+                case tripNotRunningDriver:
+                    // driver can cancel trip
+                    getController().finishTrip(tripDetails.getId(), false, true,comment, new BaseResponseInterface() {
+                        @Override
+                        public void onSuccess(Object o) {
+                            // this mean trip canceled
+                            // finish activity
+                            if (getActivity() == null)
+                                return;
+                            getActivity().finish();
+                        }
+
+                        @Override
+                        public void onFailed(String errorMessage) {
+                            if (getActivity() == null)
+                                return;
+                            Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
+                            loading(false);
+                        }
+                    });
+                    break;
+                case tripJoinedUser:
+                    // user can cancel joined
+                    loading(true);
+                    getController().joinTrip(tripDetails.getId(), userId, false,comment, new BaseResponseInterface() {
+                        @Override
+                        public void onSuccess(Object o) {
+                            if (getActivity() == null)
+                                return;
+                            tripDetails.setIsJoined(false);
+                            loading(false);
+                        }
+
+                        @Override
+                        public void onFailed(String errorMessage) {
+                            if (getActivity() == null)
+                                return;
+                            Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
+                            loading(false);
+                        }
+                    });
+                    break;
+            }
+        }
     }
 }
