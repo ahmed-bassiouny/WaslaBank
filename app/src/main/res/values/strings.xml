@@ -124,4 +124,5 @@
     <string name="host">Host</string>
     <string name="guests">Guests</string>
     <string name="end_trip">End Trip</string>
+    <string name="current_trip">Current Trip</string>
 </resources>

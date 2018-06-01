@@ -24,6 +24,8 @@ public class UserInfo {
     private float rate;
     @SerializedName(ApiKey.FEEDBACK)
     private List<Feedback> feedbacks;
+    @SerializedName(ApiKey.CURRENT_REQUEST_ID)
+    private int currentRequest;
 
     public int getPoint() {
         return point;
@@ -46,6 +48,11 @@ public class UserInfo {
             feedbacks = new ArrayList<>();
         return feedbacks;
     }
+
+    public int getCurrentRequest() {
+        return currentRequest;
+    }
+
     public void clearFeedback(){
         feedbacks.clear();
     }

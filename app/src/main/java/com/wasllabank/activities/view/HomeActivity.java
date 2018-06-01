@@ -6,9 +6,11 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.wasllabank.R;
 import com.wasllabank.adapter.HomeMenuItem;
 import com.wasllabank.api.ApiRequests;
 import com.wasllabank.interfaces.ItemClickInterface;
@@ -28,9 +30,11 @@ public class HomeActivity extends MyToolbar implements ItemClickInterface {
     private RecyclerView recyclerView;
     private TextView tvPoint, tvRequests, tvOrders;
     private RatingBar rating;
+    private Button btnCurrentRequest;
     //local variable
     private int[] menuImages;
     private String[] menuStrings;
+    private int currentRequest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +58,16 @@ public class HomeActivity extends MyToolbar implements ItemClickInterface {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(HomeActivity.this,ViewOrdersActivity.class));
+            }
+        });
+        btnCurrentRequest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(currentRequest == 0)
+                    return;
+                Intent intent = new Intent(HomeActivity.this,RequestInfoActivity.class);
+                intent.putExtra("TRIP_ID",currentRequest);
+                startActivity(intent);
             }
         });
     }
@@ -98,6 +112,7 @@ public class HomeActivity extends MyToolbar implements ItemClickInterface {
         tvRequests = findViewById(com.wasllabank.R.id.tv_requests);
         tvOrders = findViewById(com.wasllabank.R.id.tv_order);
         rating = findViewById(com.wasllabank.R.id.rating);
+        btnCurrentRequest = findViewById(R.id.btn_current_request);
     }
 
     /*
@@ -167,6 +182,12 @@ public class HomeActivity extends MyToolbar implements ItemClickInterface {
         ApiRequests.getUserInfo(new BaseResponseInterface<UserInfo>() {
             @Override
             public void onSuccess(UserInfo userInfo) {
+                currentRequest = userInfo.getCurrentRequest();
+                if(currentRequest == 0){
+                    btnCurrentRequest.setVisibility(View.GONE);
+                }else {
+                    btnCurrentRequest.setVisibility(View.VISIBLE);
+                }
                 SharedPrefManager.setObject(SharedPrefKey.USER_INFO, userInfo);
                 setUserData(userInfo);
             }
