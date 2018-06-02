@@ -32,11 +32,7 @@
         <activity
             android:name=".activities.view.SplashActivity"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".activities.view.WaitingAdminActivity"
@@ -109,7 +105,13 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeDialog"
             android:windowSoftInputMode="adjustNothing" />
-        <activity android:name=".activities.view.SignUpUserImagesActivity"></activity>
+        <activity android:name=".activities.view.SignUpUserImagesActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

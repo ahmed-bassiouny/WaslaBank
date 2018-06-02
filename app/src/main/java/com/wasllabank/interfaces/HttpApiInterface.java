@@ -147,4 +147,10 @@ public interface HttpApiInterface {
     @Headers(HEADER_KEY)
     Call<GenericResponse> acceptRejectUser(@Header(AUTHORIZATION) String token, @Body AcceptRejectUser acceptRejectUser);
 
+
+    @POST("registration/registration_images_document")
+    @Multipart
+    Call<GenericResponse> uploadLicense(@Part MultipartBody.Part file,
+                                     @Part(ApiKey.ID) RequestBody userId,@Part(ApiKey.TYPE) RequestBody type);
+
 }

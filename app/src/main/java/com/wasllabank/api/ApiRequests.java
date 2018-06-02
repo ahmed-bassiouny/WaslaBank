@@ -20,6 +20,7 @@ import com.wasllabank.utils.MyApplication;
 import com.wasllabank.utils.MyUtils;
 import com.wasllabank.utils.SharedPrefKey;
 
+import java.io.File;
 import java.util.List;
 
 import bassiouny.ahmed.genericmanager.SharedPrefManager;
@@ -540,5 +541,34 @@ public class ApiRequests {
                 anInterface.onFailed(t.getLocalizedMessage());
             }
         });
+    }
+    private static void uploadLicense(String type, MultipartBody.Part part, final BaseResponseInterface<User> anInterface) {
+        //SharedPrefManager.getObject(SharedPrefKey.USER, User.class).getId()
+        Call<GenericResponse> response = ApiConfig.httpApiInterface.uploadLicense(part
+                , MyUtils.createPartFromString(String.valueOf(2))
+                ,MyUtils.createPartFromString(type)
+        );
+        response.enqueue(new Callback<GenericResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<GenericResponse> call, @NonNull Response<GenericResponse> response) {
+                // check on response and get data
+                checkValidResult(response, anInterface);
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<GenericResponse> call, @NonNull Throwable t) {
+                // get error message
+                anInterface.onFailed(t.getLocalizedMessage());
+            }
+        });
+    }
+    public static void uploadCarLicense(MultipartBody.Part part, final BaseResponseInterface anInterface) {
+        uploadLicense("car_license_image",part,anInterface);
+    }
+    public static void uploadDrivingLicense(MultipartBody.Part part, final BaseResponseInterface anInterface) {
+        uploadLicense("driving_license_image",part,anInterface);
+    }
+    public static void uploadNationalId(MultipartBody.Part part, final BaseResponseInterface anInterface) {
+        uploadLicense("national_id_image",part,anInterface);
     }
 }

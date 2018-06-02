@@ -13,6 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.wasllabank.R;
+import com.wasllabank.api.ApiRequests;
+import com.wasllabank.interfaces.BaseResponseInterface;
 import com.wasllabank.utils.MyToolbar;
 import com.wasllabank.utils.MyUtils;
 
@@ -21,7 +23,7 @@ import java.io.File;
 import pl.aprilapps.easyphotopicker.DefaultCallback;
 import pl.aprilapps.easyphotopicker.EasyImage;
 
-public class SignUpUserImagesActivity extends MyToolbar {
+public class SignUpUserImagesActivity extends MyToolbar implements BaseResponseInterface {
 
 
     private ViewStub viewStubProgress;
@@ -29,16 +31,17 @@ public class SignUpUserImagesActivity extends MyToolbar {
     private ImageView img;
     private LinearLayout linear;
     private File image;
-    private int i = 0; // 0 => national id , 1 => user license , 2 => driving license
+    private int i = 0; // 0 => national id , 1 => car license , 2 => driving license
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up_user_images);
-        initToolbar("Select Image",true);
+        initToolbar("Select Image", true);
         addSupportActionbar();
         findView();
         onClick();
+        setTitle();
     }
 
     private void onClick() {
@@ -54,10 +57,7 @@ public class SignUpUserImagesActivity extends MyToolbar {
                 if (image == null) {
                     Toast.makeText(SignUpUserImagesActivity.this, R.string.select_photo, Toast.LENGTH_SHORT).show();
                 } else {
-                    // todo when uploaded image done
-                    loading(false);
-                    i++;
-                    setTitle();
+                    uploadImage();
                 }
             }
         });
@@ -93,28 +93,58 @@ public class SignUpUserImagesActivity extends MyToolbar {
 
     private void loading(boolean start) {
         if (start) {
-            linear.setVisibility(View.GONE);
+            linear.setVisibility(View.INVISIBLE);
             viewStubProgress.setVisibility(View.VISIBLE);
         } else {
             linear.setVisibility(View.VISIBLE);
-            viewStubProgress.setVisibility(View.GONE);
+            viewStubProgress.setVisibility(View.INVISIBLE);
         }
     }
 
     private void setTitle() {
+        image = null;
+        img.setImageDrawable(getResources().getDrawable(R.drawable.placeholder));
         switch (i) {
             case 0:
                 tvTitle.setText(getString(R.string.select_national_id));
                 break;
             case 1:
-                tvTitle.setText(getString(R.string.select_driving_license));
-                break;
-            case 2:
                 tvTitle.setText(getString(R.string.select_car_license));
                 break;
+            case 2:
+                tvTitle.setText(getString(R.string.select_driving_license));
+                break;
             default:
-                startActivity(new Intent(SignUpUserImagesActivity.this,WaitingAdminActivity.class));
+                startActivity(new Intent(SignUpUserImagesActivity.this, WaitingAdminActivity.class));
                 finish();
         }
+    }
+
+    private void uploadImage() {
+        loading(true);
+        switch (i) {
+            case 0:
+                ApiRequests.uploadNationalId(MyUtils.convertFileToPart(image), this);
+                return;
+            case 1:
+                ApiRequests.uploadCarLicense(MyUtils.convertFileToPart(image), this);
+                return;
+            case 2:
+                ApiRequests.uploadDrivingLicense(MyUtils.convertFileToPart(image), this);
+                return;
+        }
+    }
+
+    @Override
+    public void onSuccess(Object o) {
+        loading(false);
+        i++;
+        setTitle();
+    }
+
+    @Override
+    public void onFailed(String errorMessage) {
+        Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
+        loading(false);
     }
 }
