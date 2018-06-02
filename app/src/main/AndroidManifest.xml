@@ -104,10 +104,12 @@
             android:theme="@style/AppThemeDialog"
             android:windowSoftInputMode="adjustNothing" />
         <activity android:name=".activities.view.ViewOrdersActivity" />
-        <activity android:name=".activities.view.CancelTripActivity"
+        <activity
+            android:name=".activities.view.CancelTripActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeDialog"
-            android:windowSoftInputMode="adjustNothing"/>
+            android:windowSoftInputMode="adjustNothing" />
+        <activity android:name=".activities.view.SignUpUserImagesActivity"></activity>
     </application>
 
 </manifest>
