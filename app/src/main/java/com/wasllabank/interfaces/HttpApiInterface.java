@@ -149,8 +149,9 @@ public interface HttpApiInterface {
 
 
     @POST("registration/registration_images_document")
+    @Headers(HEADER_KEY)
     @Multipart
-    Call<GenericResponse> uploadLicense(@Part MultipartBody.Part file,
+    Call<GenericResponse> uploadLicense(@Header(AUTHORIZATION) String token,@Part MultipartBody.Part file,
                                      @Part(ApiKey.ID) RequestBody userId,@Part(ApiKey.TYPE) RequestBody type);
 
 }

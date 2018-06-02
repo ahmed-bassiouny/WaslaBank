@@ -64,8 +64,8 @@ public class User extends UserInfo {
         return MyUtils.getBoolean(active);
     }
 
-    public boolean getApproved() {
-        return MyUtils.getBoolean(approved);
+    public int getApproved() {
+        return approved;
     }
 
     public boolean getBlocked() {

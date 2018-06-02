@@ -18,6 +18,7 @@ import java.io.File;
 
 import com.wasllabank.R;
 import com.wasllabank.activities.view.HomeActivity;
+import com.wasllabank.activities.view.SignUpUserImagesActivity;
 import com.wasllabank.activities.view.WaitingAdminActivity;
 import com.wasllabank.api.apiModel.ApiKey;
 import com.wasllabank.model.User;
@@ -78,10 +79,12 @@ public class MyUtils {
         // create intent
         Intent intent;
 
-        if (user.getApproved()) {
+        if (user.getApproved() == 0) {
             intent = new Intent(activity, HomeActivity.class);
-        } else {
+        } else if (user.getApproved() == 1) {
             intent = new Intent(activity, WaitingAdminActivity.class);
+        }else {
+            intent = new Intent(activity, SignUpUserImagesActivity.class);
         }
         // set token in my application
         MyApplication.setUserToken(user.getToken());

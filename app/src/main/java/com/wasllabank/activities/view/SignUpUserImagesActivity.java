@@ -125,13 +125,13 @@ public class SignUpUserImagesActivity extends MyToolbar implements BaseResponseI
         switch (i) {
             case 0:
                 ApiRequests.uploadNationalId(MyUtils.convertFileToPart(image), this);
-                return;
+                break;
             case 1:
                 ApiRequests.uploadCarLicense(MyUtils.convertFileToPart(image), this);
-                return;
+                break;
             case 2:
                 ApiRequests.uploadDrivingLicense(MyUtils.convertFileToPart(image), this);
-                return;
+                break;
         }
     }
 

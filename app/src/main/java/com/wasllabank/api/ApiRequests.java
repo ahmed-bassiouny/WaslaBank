@@ -544,8 +544,8 @@ public class ApiRequests {
     }
     private static void uploadLicense(String type, MultipartBody.Part part, final BaseResponseInterface<User> anInterface) {
         //SharedPrefManager.getObject(SharedPrefKey.USER, User.class).getId()
-        Call<GenericResponse> response = ApiConfig.httpApiInterface.uploadLicense(part
-                , MyUtils.createPartFromString(String.valueOf(2))
+        Call<GenericResponse> response = ApiConfig.httpApiInterface.uploadLicense(MyApplication.getUserToken(),part
+                , MyUtils.createPartFromString(String.valueOf(SharedPrefManager.getObject(SharedPrefKey.USER, User.class).getId()))
                 ,MyUtils.createPartFromString(type)
         );
         response.enqueue(new Callback<GenericResponse>() {

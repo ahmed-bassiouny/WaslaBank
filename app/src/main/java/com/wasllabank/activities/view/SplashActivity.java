@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.wasllabank.model.User;
+import com.wasllabank.utils.MyUtils;
 import com.wasllabank.utils.SharedPrefKey;
 
 import bassiouny.ahmed.genericmanager.SharedPrefManager;
@@ -45,8 +46,7 @@ public class SplashActivity extends AppCompatActivity {
     private void checkUserAccess(){
         User user = SharedPrefManager.getObject(SharedPrefKey.USER,User.class);
         if(user != null){
-            Intent intent = new Intent(SplashActivity.this,HomeActivity.class);
-            startActivity(intent);
+            MyUtils.openHomeScreen(SplashActivity.this,user);
             finish();
         }
     }
