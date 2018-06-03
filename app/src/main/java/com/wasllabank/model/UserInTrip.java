@@ -13,6 +13,8 @@ public class UserInTrip {
 
     @SerializedName(ApiKey.USER_ID)
     private int userId;
+    @SerializedName(ApiKey.REQUEST_ID)
+    private int requestId;
     @SerializedName(ApiKey.NAME)
     private String userName;
     @SerializedName(ApiKey.PHONE)
@@ -21,6 +23,8 @@ public class UserInTrip {
     private String userImage;
     @SerializedName(ApiKey.IS_ACCEPTED)
     private boolean isAccepted;
+    @SerializedName(ApiKey.IS_ENTERED)
+    private boolean isEntered;
     private boolean loading;
 
     public int getUserId() {
@@ -53,5 +57,17 @@ public class UserInTrip {
 
     public void setLoading(boolean loading) {
         this.loading = loading;
+    }
+
+    public int getRequestId() {
+        return requestId;
+    }
+
+    public boolean getIsEntered() {
+        return isEntered;
+    }
+
+    public void setIsEntered() {
+        this.isEntered = true;
     }
 }

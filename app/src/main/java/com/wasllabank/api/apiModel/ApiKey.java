@@ -75,4 +75,8 @@ public class ApiKey {
     public static final String USER_ID_TO = "user_id_to";
     public static final String IS_ACCEPTED = "is_accepted";
     public static final String USERS_IN_TRIP = "users_in_trip";
+    public static final String IS_ENTERED = "is_entered";
+
+    public static final String LAT = "lat";
+    public static final String LNG = "lng";
 }

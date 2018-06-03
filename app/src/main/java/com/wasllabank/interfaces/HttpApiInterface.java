@@ -11,6 +11,7 @@ import com.wasllabank.api.apiModel.requests.StartTripRequest;
 import com.wasllabank.api.apiModel.requests.TripDetailsRequest;
 import com.wasllabank.api.apiModel.requests.TripStatusRequest;
 import com.wasllabank.api.apiModel.requests.TripsByDate;
+import com.wasllabank.api.apiModel.requests.UserInTripRequest;
 import com.wasllabank.api.apiModel.requests.UserLoginRequest;
 import com.wasllabank.api.apiModel.requests.UserSignUpRequest;
 import com.wasllabank.api.apiModel.response.AboutResponse;
@@ -18,6 +19,7 @@ import com.wasllabank.api.apiModel.response.GenericResponse;
 import com.wasllabank.api.apiModel.response.NotificationResponse;
 import com.wasllabank.api.apiModel.response.TripDetailsListResponse;
 import com.wasllabank.api.apiModel.response.TripDetailsResponse;
+import com.wasllabank.api.apiModel.response.UserInTripResponse;
 import com.wasllabank.api.apiModel.response.UserInfoResponse;
 import com.wasllabank.api.apiModel.response.UserResponse;
 
@@ -154,4 +156,15 @@ public interface HttpApiInterface {
     Call<GenericResponse> uploadLicense(@Header(AUTHORIZATION) String token,@Part MultipartBody.Part file,
                                      @Part(ApiKey.ID) RequestBody userId,@Part(ApiKey.TYPE) RequestBody type);
 
+
+
+    @FormUrlEncoded()
+    @POST("requests/accepted/users/list")
+    @Headers(HEADER_KEY)
+    Call<UserInTripResponse> getUserInCurrentTrip(@Header(AUTHORIZATION) String token, @Field(ApiKey.REQUEST_ID) int requestId);
+
+
+    @POST("requests/join/leave/user")
+    @Headers(HEADER_KEY)
+    Call<GenericResponse> joinOrLeaveUserInCurrentTrip(@Header(AUTHORIZATION) String token, @Body() UserInTripRequest userInTripRequest);
 }

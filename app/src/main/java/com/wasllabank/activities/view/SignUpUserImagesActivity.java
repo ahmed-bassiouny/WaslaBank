@@ -37,7 +37,7 @@ public class SignUpUserImagesActivity extends MyToolbar implements BaseResponseI
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up_user_images);
-        initToolbar("Select Image", true);
+        initToolbar("Add your documents", true);
         addSupportActionbar();
         findView();
         onClick();
@@ -59,6 +59,12 @@ public class SignUpUserImagesActivity extends MyToolbar implements BaseResponseI
                 } else {
                     uploadImage();
                 }
+            }
+        });
+        img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MyUtils.openChooserWithGallery(SignUpUserImagesActivity.this);
             }
         });
     }

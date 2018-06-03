@@ -6,15 +6,18 @@ import com.wasllabank.api.apiModel.requests.AcceptRejectUser;
 import com.wasllabank.api.apiModel.requests.FeedbackRequest;
 import com.wasllabank.api.apiModel.requests.FinishTripRequest;
 import com.wasllabank.api.apiModel.requests.TripStatusRequest;
+import com.wasllabank.api.apiModel.requests.UserInTripRequest;
 import com.wasllabank.api.apiModel.requests.UserLoginRequest;
 import com.wasllabank.api.apiModel.response.AboutResponse;
 import com.wasllabank.api.apiModel.response.GenericResponse;
 import com.wasllabank.api.apiModel.response.NotificationResponse;
 import com.wasllabank.api.apiModel.response.ParentResponse;
 import com.wasllabank.api.apiModel.response.TripDetailsListResponse;
+import com.wasllabank.api.apiModel.response.UserInTripResponse;
 import com.wasllabank.model.Notification;
 import com.wasllabank.model.TripDetails;
 import com.wasllabank.model.User;
+import com.wasllabank.model.UserInTrip;
 import com.wasllabank.model.UserInfo;
 import com.wasllabank.utils.MyApplication;
 import com.wasllabank.utils.MyUtils;
@@ -570,5 +573,55 @@ public class ApiRequests {
     }
     public static void uploadNationalId(MultipartBody.Part part, final BaseResponseInterface anInterface) {
         uploadLicense("national_id_image",part,anInterface);
+    }
+
+    // get users in trip
+    public static void getUserInCurrentTrip(int requestId, final BaseResponseInterface<List<UserInTrip>> anInterface) {
+        Call<UserInTripResponse> response = ApiConfig.httpApiInterface.getUserInCurrentTrip(MyApplication.getUserToken(),
+                requestId);
+        response.enqueue(new Callback<UserInTripResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<UserInTripResponse> call, @NonNull Response<UserInTripResponse> response) {
+                // check on response and get data
+                checkValidResult(response, anInterface);
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<UserInTripResponse> call, @NonNull Throwable t) {
+                // get error message
+                anInterface.onFailed(t.getLocalizedMessage());
+            }
+        });
+    }
+
+    // add or leave users in trip
+    private static void joinOrLeaveUserInCurrentTrip(UserInTripRequest userInTripRequest, final BaseResponseInterface anInterface) {
+        Call<GenericResponse> response = ApiConfig.httpApiInterface.joinOrLeaveUserInCurrentTrip(MyApplication.getUserToken(),
+                userInTripRequest);
+        response.enqueue(new Callback<GenericResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<GenericResponse> call, @NonNull Response<GenericResponse> response) {
+                // check on response and get data
+                checkValidResult(response, anInterface);
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<GenericResponse> call, @NonNull Throwable t) {
+                // get error message
+                anInterface.onFailed(t.getLocalizedMessage());
+            }
+        });
+    }
+    public static void joinUserInCurrentTrip(int userId,int requestId,
+                                              double lat ,double lng ,
+                                              final BaseResponseInterface anInterface) {
+        UserInTripRequest user = new UserInTripRequest(requestId,userId,"join",lat,lng);
+        joinOrLeaveUserInCurrentTrip(user,anInterface);
+    }
+    public static void leaveUserInCurrentTrip(int userId,int requestId,
+                                              double lat ,double lng ,
+                                              final BaseResponseInterface anInterface) {
+        UserInTripRequest user = new UserInTripRequest(requestId,userId,"leave",lat,lng);
+        joinOrLeaveUserInCurrentTrip(user,anInterface);
     }
 }

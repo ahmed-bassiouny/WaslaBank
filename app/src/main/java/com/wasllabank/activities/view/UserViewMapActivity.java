@@ -75,9 +75,6 @@ public class UserViewMapActivity extends MyToolbar implements OnMapReadyCallback
         if (tripId == 0 || driverId == 0)
             finish();
 
-        // add user information in firebase
-        // user information => name , image
-        FirebaseRoot.setUserInfo(tripId, user.getId(), user.getImage(), user.getName());
         // mae listener on user
         // when driver delete user root
         // show feedback activity and close it

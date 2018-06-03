@@ -133,4 +133,5 @@
     <string name="select_car_license">Please Select Car License</string>
     <string name="select_driving_license">Please Select Driving License</string>
     <string name="select_national_id">Please Select National ID</string>
+    <string name="logout">Logout</string>
 </resources>

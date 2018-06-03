@@ -1,5 +1,6 @@
 package com.wasllabank.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +11,7 @@ import android.view.ViewStub;
 import android.widget.TextView;
 
 import com.wasllabank.interfaces.ItemClickInterface;
+import com.wasllabank.model.UserInTrip;
 import com.wasllabank.model.UserInTripFirebase;
 import com.wasllabank.utils.MyGlideApp;
 
@@ -24,14 +26,14 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class UserInTripItem extends RecyclerView.Adapter<UserInTripItem.MyViewHolder> {
 
-    private Context context;
-    private List<UserInTripFirebase> users;
+    private Activity activity;
+    private List<UserInTrip> users;
     private ItemClickInterface itemClickInterface;
 
-    public UserInTripItem(Context context) {
-        this.context = context;
-        users = new ArrayList<>();
-        itemClickInterface = (ItemClickInterface) context;
+    public UserInTripItem(Activity activity, List<UserInTrip> users) {
+        this.activity = activity;
+        this.users = users;
+        itemClickInterface = (ItemClickInterface) activity;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -68,21 +70,21 @@ public class UserInTripItem extends RecyclerView.Adapter<UserInTripItem.MyViewHo
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        UserInTripFirebase item = users.get(position);
-        holder.tvUserName.setText(item.getName());
-        MyGlideApp.setImage(context, holder.ivAvatar, item.getImage());
-        if (item.isLoading) {
+        UserInTrip item = users.get(position);
+        holder.tvUserName.setText(item.getUserName());
+        MyGlideApp.setImage(activity, holder.ivAvatar, item.getUserImage());
+        if (item.isLoading()) {
             holder.viewStub.setVisibility(View.VISIBLE);
             holder.joinLeave.setVisibility(View.INVISIBLE);
         } else {
             holder.viewStub.setVisibility(View.GONE);
             holder.joinLeave.setVisibility(View.VISIBLE);
-            if (item.isJoined()) {
-                holder.joinLeave.setText(context.getResources().getString(com.wasllabank.R.string.arrive));
-                holder.joinLeave.setTextColor(context.getResources().getColor(com.wasllabank.R.color.red));
+            if (item.getIsEntered()) {
+                holder.joinLeave.setText(activity.getResources().getString(com.wasllabank.R.string.arrive));
+                holder.joinLeave.setTextColor(activity.getResources().getColor(com.wasllabank.R.color.red));
             } else {
-                holder.joinLeave.setText(context.getResources().getString(com.wasllabank.R.string.join));
-                holder.joinLeave.setTextColor(context.getResources().getColor(com.wasllabank.R.color.green));
+                holder.joinLeave.setText(activity.getResources().getString(com.wasllabank.R.string.join));
+                holder.joinLeave.setTextColor(activity.getResources().getColor(com.wasllabank.R.color.green));
             }
         }
     }
@@ -94,24 +96,21 @@ public class UserInTripItem extends RecyclerView.Adapter<UserInTripItem.MyViewHo
 
     public void loading(int position, boolean isLoading) {
         if (isLoading) {
-            UserInTripFirebase user = users.get(position);
-            user.isLoading = true;
+            UserInTrip user = users.get(position);
+            user.setLoading(true);
             users.set(position, user);
         } else {
-            UserInTripFirebase user = users.get(position);
-            user.isLoading = false;
+            UserInTrip user = users.get(position);
+            user.setLoading(false);
             users.set(position, user);
         }
         notifyItemChanged(position);
     }
 
-    public void clearList() {
-        this.users.clear();
-    }
-
-    public void addUser(UserInTripFirebase user) {
-        this.users.add(user);
-
-        notifyDataSetChanged();
+    public void joinedUser(int position){
+        UserInTrip item = users.get(position);
+        item.setIsEntered();
+        users.set(position,item);
+        notifyItemChanged(position);
     }
 }

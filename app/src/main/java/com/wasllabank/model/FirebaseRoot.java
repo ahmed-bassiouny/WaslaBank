@@ -49,7 +49,7 @@ public class FirebaseRoot {
                 .updateChildren(locationMap);
     }
 
-    public static void setUserInfo(int tripId, int userId, String image, String name) {
+    /*public static void setUserInfo(int tripId, int userId, String image, String name) {
         Map<String, Object> locationMap = new HashMap<>();
         locationMap.put(imageStr, image);
         locationMap.put(nameStr, name);
@@ -60,7 +60,7 @@ public class FirebaseRoot {
                 .child(user)
                 .child(String.valueOf(userId))
                 .updateChildren(locationMap);
-    }
+    }*/
 
     public static void setUserTripLocation(int tripId, int userId, double startLat, double startLng, String startDateTime, OnCompleteListener onCompleteListener) {
         Map<String, Object> locationMap = new HashMap<>();
