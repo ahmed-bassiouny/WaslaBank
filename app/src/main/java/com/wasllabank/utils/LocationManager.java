@@ -2,7 +2,9 @@ package com.wasllabank.utils;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+
 import com.google.android.gms.location.LocationListener;
+
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 
@@ -44,7 +46,7 @@ public class LocationManager implements GoogleApiClient.ConnectionCallbacks, Goo
     @SuppressLint("RestrictedApi")
     @Override
     public void onConnected(Bundle bundle) {
-        if(request ==null)
+        if (request == null)
             request = new LocationRequest().setNumUpdates(numberOfUpdate).setInterval(wainitForNextLocation);
         addListener();
     }
@@ -59,12 +61,14 @@ public class LocationManager implements GoogleApiClient.ConnectionCallbacks, Goo
     }
 
     @SuppressWarnings("MissingPermission")
-    private void addListener(){
-        if(mGoogleApiClient.isConnected())
+    private void addListener() {
+        if (mGoogleApiClient.isConnected())
             LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, request, locationListener);
     }
+
     public void removeListener(LocationListener locationListener) {
-        LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, locationListener);
+        if (mGoogleApiClient.isConnected())
+            LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, locationListener);
     }
 
 }

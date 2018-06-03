@@ -131,7 +131,6 @@ public class FirebaseRoot {
                 .child(String.valueOf(tripId))
                 .child(user)
                 .child(String.valueOf(userId))
-                .child("name")
                 .addValueEventListener(valueEventListener);
     }
 }

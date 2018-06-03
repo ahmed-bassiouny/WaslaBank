@@ -113,4 +113,8 @@ public class UserInTripItem extends RecyclerView.Adapter<UserInTripItem.MyViewHo
         users.set(position,item);
         notifyItemChanged(position);
     }
+    public void removeItem(int position){
+        users.remove(position);
+        notifyItemRemoved(position);
+    }
 }

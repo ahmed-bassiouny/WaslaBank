@@ -121,10 +121,14 @@ public class DriverViewMapActivity extends MyToolbar implements OnMapReadyCallba
         ApiRequests.getUserInCurrentTrip(tripId, new BaseResponseInterface<List<UserInTrip>>() {
             @Override
             public void onSuccess(List<UserInTrip> userInTrips) {
-                adapter = new UserInTripItem(DriverViewMapActivity.this,userInTrips);
-                recycler.setAdapter(adapter);
+                if(userInTrips.size() == 0 ){
+                    tvNoUser.setVisibility(View.VISIBLE);
+                }else {
+                    adapter = new UserInTripItem(DriverViewMapActivity.this,userInTrips);
+                    recycler.setAdapter(adapter);
+                    recycler.setVisibility(View.VISIBLE);
+                }
                 viewStubProgress.setVisibility(View.GONE);
-                recycler.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -144,11 +148,16 @@ public class DriverViewMapActivity extends MyToolbar implements OnMapReadyCallba
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        startLoadUserJoinedInTrip();
+    }
+    @Override
     protected void onResume() {
         super.onResume();
         getController().openGps();
-        startLoadUserJoinedInTrip();
     }
+
 
     @Override
     protected void onDestroy() {
@@ -282,6 +291,8 @@ public class DriverViewMapActivity extends MyToolbar implements OnMapReadyCallba
                     public void onSuccess(Object o) {
                         // stop loading
                         adapter.loading(position, false);
+                        // remove user from list
+                        adapter.removeItem(position);
                         // remove current user (lat,lng) from firebase
                         FirebaseRoot.deleteUserTripLocation(tripId, userId);
 
