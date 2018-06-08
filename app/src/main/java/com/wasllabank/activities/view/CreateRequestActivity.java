@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.wasllabank.utils.SharedPrefKey;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
@@ -75,7 +76,10 @@ public class CreateRequestActivity extends MyToolbar {
             @Override
             public void onClick(View view) {
                 try {
-                    startActivityForResult(builder.build(CreateRequestActivity.this), PLACE_PICKER_REQUEST_FROM);
+                    Intent intent =
+                            new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_OVERLAY)
+                                    .build(CreateRequestActivity.this);
+                    startActivityForResult(intent, PLACE_PICKER_REQUEST_FROM);
                     etFrom.setEnabled(false);
                 } catch (GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException e) {
                     e.printStackTrace();
@@ -86,7 +90,11 @@ public class CreateRequestActivity extends MyToolbar {
             @Override
             public void onClick(View view) {
                 try {
-                    startActivityForResult(builder.build(CreateRequestActivity.this), PLACE_PICKER_REQUEST_TO);
+
+                    Intent intent =
+                            new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_OVERLAY)
+                                    .build(CreateRequestActivity.this);
+                    startActivityForResult(intent, PLACE_PICKER_REQUEST_TO);
                     etTo.setEnabled(false);
                 } catch (GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException e) {
                     e.printStackTrace();
@@ -170,14 +178,14 @@ public class CreateRequestActivity extends MyToolbar {
         if (resultCode != RESULT_OK)
             return;
         if (requestCode == PLACE_PICKER_REQUEST_FROM) {
-            Place place = PlacePicker.getPlace(this, data);
+            Place place = PlaceAutocomplete.getPlace(this, data);
             builderCreateTripRequest.startPointLat(place.getLatLng().latitude);
             builderCreateTripRequest.startPointLng(place.getLatLng().longitude);
             builderCreateTripRequest.startPointText(place.getAddress().toString());
             etFrom.setText(place.getAddress().toString());
             etFrom.setEnabled(true);
         } else if (requestCode == PLACE_PICKER_REQUEST_TO) {
-            Place place = PlacePicker.getPlace(this, data);
+            Place place = PlaceAutocomplete.getPlace(this, data);
             builderCreateTripRequest.endPointLat(place.getLatLng().latitude);
             builderCreateTripRequest.endPointLng(place.getLatLng().longitude);
             builderCreateTripRequest.endPointText(place.getAddress().toString());

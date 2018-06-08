@@ -58,10 +58,11 @@ public class RequestInfoActivity extends MyToolbar implements MyObserverInterfac
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
+    protected void onResume() {
+        super.onResume();
         getTripDetails();
     }
+
 
 
     private void initObjects() {

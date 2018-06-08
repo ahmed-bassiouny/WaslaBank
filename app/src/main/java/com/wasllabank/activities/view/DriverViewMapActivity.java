@@ -118,6 +118,7 @@ public class DriverViewMapActivity extends MyToolbar implements OnMapReadyCallba
     private void startLoadUserJoinedInTrip() {
         viewStubProgress.setVisibility(View.VISIBLE);
         recycler.setVisibility(View.INVISIBLE);
+        tvNoUser.setVisibility(View.GONE);
         ApiRequests.getUserInCurrentTrip(tripId, new BaseResponseInterface<List<UserInTrip>>() {
             @Override
             public void onSuccess(List<UserInTrip> userInTrips) {
@@ -228,7 +229,7 @@ public class DriverViewMapActivity extends MyToolbar implements OnMapReadyCallba
     }
 
     @Override
-    public void getItem(@Nullable final UserInTrip user, final int position) {
+    public void getItem(final UserInTrip user, final int position) {
         // user in trip and still waiting to joined
         if (!user.getIsEntered()) {
             // join user to this trip
@@ -353,13 +354,15 @@ public class DriverViewMapActivity extends MyToolbar implements OnMapReadyCallba
         // create finishTrip image view
         TextView finishTrip = new TextView(this);
         // finishTrip image view src
-        finishTrip.setTextColor(getResources().getColor(R.color.colorPrimary));
+        finishTrip.setTextColor(getResources().getColor(R.color.white));
         finishTrip.setText(getResources().getString(R.string.end_trip));
+        finishTrip.setPadding(50,20,50,20);
+        finishTrip.setBackground(getResources().getDrawable(R.drawable.round_fill_red));
         // handle click item
         finishTrip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (adapter.getItemCount() == 0) {
+                if (adapter == null ||adapter.getItemCount() == 0) {
                     // driver can finish trip
                     AlertDialog.Builder builder;
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

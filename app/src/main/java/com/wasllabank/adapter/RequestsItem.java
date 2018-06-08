@@ -71,7 +71,7 @@ public class RequestsItem extends RecyclerView.Adapter<RequestsItem.MyViewHolder
         TripDetails item = list.get(position);
         holder.tvLocationFrom.setText("From : "+item.getStartPointText());
         holder.tvLocationTo.setText("To : "+item.getEndPointText());
-        holder.tvUserName.setText("Captain : "+item.getDriver().getName());
+        holder.tvUserName.setText("Host : "+item.getDriver().getName());
         holder.tvTime.setText(item.getTime());
         holder.rating.setRating(item.getDriver().getRate());
         MyGlideApp.setImageWithoutPlaceholder(fragment.getContext(),holder.ivMap,item.getImage());

@@ -166,12 +166,15 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
-        android:textColor="@color/colorPrimary"
-        android:padding="20dp"
+        android:textColor="@color/white"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         android:alpha=".7"
         android:visibility="gone"
         android:id="@+id/btn_current_request"
-        android:background="@drawable/round_fill_white"/>
+        android:background="@drawable/round_fill_accent"/>
 
 
 </RelativeLayout>

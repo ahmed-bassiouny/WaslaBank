@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 
+import com.wasllabank.R;
 import com.wasllabank.fragments.view.RequestsFragment;
 import com.wasllabank.fragments.view.PastRequestsFragment;
 import com.wasllabank.utils.MyToolbar;
@@ -34,7 +35,7 @@ public class RequestsActivity extends MyToolbar {
         super.onCreate(savedInstanceState);
         setContentView(com.wasllabank.R.layout.activity_requests);
         //set toolbar setting
-        initToolbar(getString(com.wasllabank.R.string.requests),true);
+        initToolbar(getString(R.string.trips),true);
         addNotificationImage();
         addBackImage();
         addSupportActionbar();
