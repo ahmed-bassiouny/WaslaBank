@@ -363,6 +363,10 @@ public class DriverViewMapActivity extends MyToolbar implements OnMapReadyCallba
             @Override
             public void onClick(View view) {
                 if (adapter == null ||adapter.getItemCount() == 0) {
+                    if(markerOptions.getPosition() == null){
+                        Toast.makeText(DriverViewMapActivity.this, "Please wait to detect your location and try later", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     // driver can finish trip
                     AlertDialog.Builder builder;
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

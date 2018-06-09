@@ -19,8 +19,8 @@ public class ApiConfig {
 
     private static Retrofit retrofit;
     //private static final String baseUrl = "http://www.wasllabank.com/public/api/";
-    //private static final String baseUrl = "http://www.wasllabank.com/application/public/api/";
-    private static final String baseUrl = "http://www.esameisa.com/demo/waslabank/public/api/";
+    private static final String baseUrl = "http://www.wasllabank.com/application/public/api/";
+    //private static final String baseUrl = "http://www.esameisa.com/demo/waslabank/public/api/";
     public static HttpApiInterface httpApiInterface;
 
 
