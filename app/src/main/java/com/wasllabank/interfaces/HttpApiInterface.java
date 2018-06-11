@@ -167,4 +167,9 @@ public interface HttpApiInterface {
     @POST("requests/join/leave/user")
     @Headers(HEADER_KEY)
     Call<GenericResponse> joinOrLeaveUserInCurrentTrip(@Header(AUTHORIZATION) String token, @Body() UserInTripRequest userInTripRequest);
+
+
+    @FormUrlEncoded()
+    @POST("forget_password")
+    Call<GenericResponse> forgetPassword(@Field(ApiKey.EMAIL) String email);
 }

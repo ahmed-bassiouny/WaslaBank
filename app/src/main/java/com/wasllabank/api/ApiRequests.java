@@ -624,4 +624,22 @@ public class ApiRequests {
         UserInTripRequest user = new UserInTripRequest(requestId,userId,"leave",lat,lng);
         joinOrLeaveUserInCurrentTrip(user,anInterface);
     }
+
+    // forget password
+    public static void forgetPassword(String email, final BaseResponseInterface<String> anInterface) {
+        Call<GenericResponse> response = ApiConfig.httpApiInterface.forgetPassword(email);
+        response.enqueue(new Callback<GenericResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<GenericResponse> call, @NonNull Response<GenericResponse> response) {
+                // check on response and get data
+                checkValidResult(response, anInterface);
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<GenericResponse> call, @NonNull Throwable t) {
+                // get error message
+                anInterface.onFailed(t.getLocalizedMessage());
+            }
+        });
+    }
 }

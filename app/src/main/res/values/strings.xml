@@ -136,4 +136,6 @@
     <string name="logout">Logout</string>
     <string name="trips">Trips</string>
     <string name="past_trips">Past Trips</string>
+    <string name="enter_email">Enter your email to receive recovery information</string>
+    <string name="invalid_email">please enter your mail</string>
 </resources>
