@@ -73,6 +73,8 @@ public class RequestsActivity extends MyToolbar {
                 case 0:
                     return RequestsFragment.getInstance();
                 case 1:
+                    return PastRequestsFragment.getInstance(false);
+                case 2:
                     return PastRequestsFragment.getInstance(true);
             }
             return null;
@@ -80,8 +82,8 @@ public class RequestsActivity extends MyToolbar {
 
         @Override
         public int getCount() {
-            // Show 2 total pages.
-            return 2;
+            // Show 3 total pages.
+            return 3;
         }
     }
 }

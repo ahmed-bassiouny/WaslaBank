@@ -27,10 +27,16 @@
             android:id="@+id/tabItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/trips" />
+            android:text="@string/all_trips" />
 
         <android.support.design.widget.TabItem
             android:id="@+id/tabItem2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/my_upcoming_trips" />
+
+        <android.support.design.widget.TabItem
+            android:id="@+id/tabItem3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/past_trips" />

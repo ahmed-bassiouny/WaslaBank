@@ -138,4 +138,8 @@
     <string name="past_trips">Past Trips</string>
     <string name="enter_email">Enter your email to receive recovery information</string>
     <string name="invalid_email">please enter your mail</string>
+    <string name="upcoming">Upcoming</string>
+    <string name="my_trips">My Trips</string>
+    <string name="all_trips">All Trips</string>
+    <string name="my_upcoming_trips">Upcoming Trips</string>
 </resources>
