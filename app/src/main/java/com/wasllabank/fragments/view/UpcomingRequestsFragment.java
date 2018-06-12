@@ -19,6 +19,7 @@ import com.wasllabank.activities.view.RequestInfoActivity;
 import com.wasllabank.adapter.RequestsItem;
 import com.wasllabank.api.ApiRequests;
 import com.wasllabank.api.apiModel.requests.TripsByDate;
+import com.wasllabank.interfaces.BaseResponseInterface;
 import com.wasllabank.interfaces.ItemClickInterface;
 import com.wasllabank.model.TripDetails;
 import com.wasllabank.model.User;
@@ -28,31 +29,28 @@ import java.util.List;
 
 import bassiouny.ahmed.genericmanager.SharedPrefManager;
 
-import com.wasllabank.interfaces.BaseResponseInterface;
-
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PastRequestsFragment extends Fragment implements ItemClickInterface<Integer> {
+public class UpcomingRequestsFragment extends Fragment implements ItemClickInterface<Integer> {
 
 
     // local
-    private static PastRequestsFragment mInstance;
+    private static UpcomingRequestsFragment mInstance;
     private RequestsItem requestsItem;
     private int currentPage = 10; // item per page first = 10 second page = 20 third page = 30 .. etc
-    // view
     private SwipeRefreshLayout refresh;
     private RecyclerView recycler;
     private TextView tvNoTrip;
-    private String url = "requests/past";
+    private String url = "requests/orders";
 
-    public PastRequestsFragment() {
+    public UpcomingRequestsFragment() {
         // Required empty public constructor
     }
 
-    public static PastRequestsFragment getInstance() {
+    public static UpcomingRequestsFragment getInstance() {
         if (mInstance == null) {
-            mInstance = new PastRequestsFragment();
+            mInstance = new UpcomingRequestsFragment();
         }
         return mInstance;
     }
@@ -134,6 +132,8 @@ public class PastRequestsFragment extends Fragment implements ItemClickInterface
 
     @Override
     public void getItem(@Nullable Integer tripId, int position) {
-
+        Intent intent = new Intent(getActivity(), RequestInfoActivity.class);
+        intent.putExtra("TRIP_ID", tripId);
+        startActivity(intent);
     }
 }

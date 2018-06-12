@@ -11,6 +11,7 @@ import android.os.Bundle;
 import com.wasllabank.R;
 import com.wasllabank.fragments.view.RequestsFragment;
 import com.wasllabank.fragments.view.PastRequestsFragment;
+import com.wasllabank.fragments.view.UpcomingRequestsFragment;
 import com.wasllabank.utils.MyToolbar;
 
 public class RequestsActivity extends MyToolbar {
@@ -73,9 +74,9 @@ public class RequestsActivity extends MyToolbar {
                 case 0:
                     return RequestsFragment.getInstance();
                 case 1:
-                    return PastRequestsFragment.getInstance(false);
+                    return UpcomingRequestsFragment.getInstance();
                 case 2:
-                    return PastRequestsFragment.getInstance(true);
+                    return PastRequestsFragment.getInstance();
             }
             return null;
         }

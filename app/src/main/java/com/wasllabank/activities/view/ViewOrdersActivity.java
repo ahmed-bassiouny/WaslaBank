@@ -24,6 +24,6 @@ public class ViewOrdersActivity extends MyToolbar {
         // past request fragment show two screen
             // first past requests parameter true
             // second order requests parameter false
-        MyUtils.openFragment(com.wasllabank.R.id.frameLayout,this, PastRequestsFragment.getInstance(false),false,null);
+        MyUtils.openFragment(com.wasllabank.R.id.frameLayout,this, PastRequestsFragment.getInstance(),false,null);
     }
 }
