@@ -81,8 +81,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:visibility="invisible"
+            android:visibility="gone"
             android:layout_marginTop="10dp"
             android:id="@+id/progress"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/forget_password"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center"
+            android:id="@+id/forget_password"
+            android:textSize="@dimen/button_size"
+            android:textColor="#444444"/>
     </LinearLayout>
 </RelativeLayout>

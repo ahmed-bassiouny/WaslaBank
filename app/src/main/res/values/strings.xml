@@ -142,4 +142,5 @@
     <string name="my_trips">My Trips</string>
     <string name="all_trips">All Trips</string>
     <string name="my_upcoming_trips">Upcoming Trips</string>
+    <string name="forget_password">Forget Password</string>
 </resources>

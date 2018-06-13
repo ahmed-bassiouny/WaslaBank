@@ -109,8 +109,12 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeDialog"
             android:windowSoftInputMode="adjustNothing" />
-        <activity android:name=".activities.view.SignUpUserImagesActivity"></activity>
-        <activity android:name=".activities.view.ForgetPasswordActivity"></activity>
+        <activity android:name=".activities.view.SignUpUserImagesActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activities.view.ForgetPasswordActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeDialog"
+            android:windowSoftInputMode="adjustNothing"/>
     </application>
 
 </manifest>

@@ -1,5 +1,6 @@
 package com.wasllabank.activities.view;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -47,6 +48,12 @@ public class SignInActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 onBackPressed();
+            }
+        });
+        findViewById(R.id.forget_password).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(SignInActivity.this,ForgetPasswordActivity.class));
             }
         });
         btnSignIn.setOnClickListener(new View.OnClickListener() {
@@ -98,10 +105,10 @@ public class SignInActivity extends AppCompatActivity {
     private void loading(boolean start){
         if(start){
             progress.setVisibility(View.VISIBLE);
-            btnSignIn.setEnabled(false);
+            btnSignIn.setVisibility(View.GONE);
         }else {
-            progress.setVisibility(View.INVISIBLE);
-            btnSignIn.setEnabled(true);
+            progress.setVisibility(View.GONE);
+            btnSignIn.setVisibility(View.VISIBLE);
         }
     }
 }

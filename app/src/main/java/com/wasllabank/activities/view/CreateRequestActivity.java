@@ -52,7 +52,7 @@ public class CreateRequestActivity extends MyToolbar {
         super.onCreate(savedInstanceState);
         setContentView(com.wasllabank.R.layout.activity_create_request);
         // set tool bar
-        initToolbar(getString(com.wasllabank.R.string.create_request),true);
+        initToolbar(getString(com.wasllabank.R.string.create_request), true);
         addBackImage();
         addNotificationImage();
         addSupportActionbar();
@@ -67,7 +67,7 @@ public class CreateRequestActivity extends MyToolbar {
         builderCreateTripRequest = new CreateTripRequest.Builder();
         Calendar cal = Calendar.getInstance();
         calendarView.setSelectedDate(cal);
-        builderCreateTripRequest.date(getValidStringDateFromInt(cal.get(Calendar.YEAR),cal.get(Calendar.MONTH),cal.get(Calendar.DAY_OF_MONTH)));
+        builderCreateTripRequest.date(getValidStringDateFromInt(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)));
 
     }
 
@@ -107,7 +107,7 @@ public class CreateRequestActivity extends MyToolbar {
                 TimePickerDialog timePickerDialog = new TimePickerDialog(CreateRequestActivity.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int i, int i1) {
-                        etTime.setText(getValidStringTimeFromInt(i,i1));
+                        etTime.setText(getValidStringTimeFromInt(i, i1));
                         builderCreateTripRequest.Time(etTime.getText().toString());
 
                     }
@@ -118,7 +118,7 @@ public class CreateRequestActivity extends MyToolbar {
         calendarView.setOnDateChangedListener(new OnDateSelectedListener() {
             @Override
             public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
-                builderCreateTripRequest.date(getValidStringDateFromInt(date.getYear(),date.getMonth(),date.getDay()));
+                builderCreateTripRequest.date(getValidStringDateFromInt(date.getYear(), date.getMonth(), date.getDay()));
 
             }
         });
@@ -175,22 +175,20 @@ public class CreateRequestActivity extends MyToolbar {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode != RESULT_OK)
-            return;
-        if (requestCode == PLACE_PICKER_REQUEST_FROM) {
+        etFrom.setEnabled(true);
+        etTo.setEnabled(true);
+        if (resultCode == RESULT_OK && requestCode == PLACE_PICKER_REQUEST_FROM) {
             Place place = PlaceAutocomplete.getPlace(this, data);
             builderCreateTripRequest.startPointLat(place.getLatLng().latitude);
             builderCreateTripRequest.startPointLng(place.getLatLng().longitude);
             builderCreateTripRequest.startPointText(place.getAddress().toString());
             etFrom.setText(place.getAddress().toString());
-            etFrom.setEnabled(true);
-        } else if (requestCode == PLACE_PICKER_REQUEST_TO) {
+        } else if (resultCode == RESULT_OK && requestCode == PLACE_PICKER_REQUEST_TO) {
             Place place = PlaceAutocomplete.getPlace(this, data);
             builderCreateTripRequest.endPointLat(place.getLatLng().latitude);
             builderCreateTripRequest.endPointLng(place.getLatLng().longitude);
             builderCreateTripRequest.endPointText(place.getAddress().toString());
             etTo.setText(place.getAddress().toString());
-            etTo.setEnabled(true);
         }
     }
 
@@ -210,15 +208,16 @@ public class CreateRequestActivity extends MyToolbar {
         }
     }
 
-    private String getValidStringDateFromInt(int year,int month,int day){
+    private String getValidStringDateFromInt(int year, int month, int day) {
         month++;
-        String dayStr = day>10?String.valueOf(day):"0"+String.valueOf(day);
-        String monthStr = month>10?String.valueOf(month):"0"+String.valueOf(month);
-        return year+"-"+monthStr+"-"+dayStr;
+        String dayStr = day > 10 ? String.valueOf(day) : "0" + String.valueOf(day);
+        String monthStr = month > 10 ? String.valueOf(month) : "0" + String.valueOf(month);
+        return year + "-" + monthStr + "-" + dayStr;
     }
-    private String getValidStringTimeFromInt(int hour,int minute){
-        String hourStr = hour>10?String.valueOf(hour):"0"+String.valueOf(hour);
-        String minuteStr = minute>10?String.valueOf(minute):"0"+String.valueOf(minute);
-        return hourStr+":"+minuteStr;
+
+    private String getValidStringTimeFromInt(int hour, int minute) {
+        String hourStr = hour > 10 ? String.valueOf(hour) : "0" + String.valueOf(hour);
+        String minuteStr = minute > 10 ? String.valueOf(minute) : "0" + String.valueOf(minute);
+        return hourStr + ":" + minuteStr;
     }
 }

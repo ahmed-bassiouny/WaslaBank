@@ -63,8 +63,8 @@ public class ForgetPasswordActivity extends AppCompatActivity {
         viewStubProgress = findViewById(R.id.view_stub_progress);
     }
     public void finishRequest(String msg){
-        btnSend.setVisibility(View.GONE);
-        viewStubProgress.setVisibility(View.VISIBLE);
+        btnSend.setVisibility(View.VISIBLE);
+        viewStubProgress.setVisibility(View.GONE);
         Toast.makeText(ForgetPasswordActivity.this, msg, Toast.LENGTH_SHORT).show();
     }
 
