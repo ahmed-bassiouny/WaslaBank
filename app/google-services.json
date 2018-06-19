@@ -8,6 +8,102 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:787051390858:android:51fa4fd468a0b2e8",
+        "android_client_info": {
+          "package_name": "com.waslla.bank"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "787051390858-cqg88uih1rg5r7muht2rourl25u9hesn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.waslla.bank",
+            "certificate_hash": "cd70e4b155cc34d401601319f88b8df59ab4058d"
+          }
+        },
+        {
+          "client_id": "787051390858-ule179n1dqpeo0sucat2pk3mnj7tiqk0.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "787051390858-ule179n1dqpeo0sucat2pk3mnj7tiqk0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAqihKVCgmWWIpou2H8BwP6-sRcLiQ8KJE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "787051390858-ule179n1dqpeo0sucat2pk3mnj7tiqk0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:787051390858:android:970f572f8ecba1cb",
+        "android_client_info": {
+          "package_name": "com.waslla_bank"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "787051390858-vvrdeltd507nbsbnil4fs5fscg81qq94.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.waslla_bank",
+            "certificate_hash": "cd70e4b155cc34d401601319f88b8df59ab4058d"
+          }
+        },
+        {
+          "client_id": "787051390858-ule179n1dqpeo0sucat2pk3mnj7tiqk0.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "787051390858-ule179n1dqpeo0sucat2pk3mnj7tiqk0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAqihKVCgmWWIpou2H8BwP6-sRcLiQ8KJE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "787051390858-ule179n1dqpeo0sucat2pk3mnj7tiqk0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:787051390858:android:36b38cb73bf5cbae",
         "android_client_info": {
           "package_name": "com.wasllabank"
@@ -21,6 +117,10 @@
             "package_name": "com.wasllabank",
             "certificate_hash": "cd70e4b155cc34d401601319f88b8df59ab4058d"
           }
+        },
+        {
+          "client_id": "787051390858-ule179n1dqpeo0sucat2pk3mnj7tiqk0.apps.googleusercontent.com",
+          "client_type": 3
         },
         {
           "client_id": "787051390858-ule179n1dqpeo0sucat2pk3mnj7tiqk0.apps.googleusercontent.com",
