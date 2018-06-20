@@ -54,12 +54,6 @@ public class HomeActivity extends MyToolbar implements ItemClickInterface {
     }
 
     private void onClick() {
-        findViewById(com.waslla_bank.R.id.linear_order).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(HomeActivity.this,ViewOrdersActivity.class));
-            }
-        });
         btnCurrentRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
