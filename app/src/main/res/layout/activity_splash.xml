@@ -3,6 +3,8 @@
     android:layout_height="match_parent"
     android:background="@drawable/background1"
     android:paddingBottom="100dp"
+    android:layoutDirection="ltr"
+    android:textDirection="ltr"
     android:paddingTop="80dp">
 
     <ImageView
