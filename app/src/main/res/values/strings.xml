@@ -45,7 +45,7 @@
     <string name="invalid_car_number">Car number is empty</string>
     <string name="invalid_license_number">License number is empty</string>
     <string name="invalid_identify_number">ID Number must be 14 number</string>
-    <string name="waiting_admin">Waiting Admin Approve</string>
+    <string name="waiting_admin">Dear user please keep signing in to get the approval notification</string>
     <string name="about">About</string>
     <string name="driver">Driver</string>
     <string name="current_requests">Current Requests</string>

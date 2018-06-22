@@ -100,4 +100,7 @@ public class User extends UserInfo {
         return MyUtils.getString(interesting);
     }
 
+    public void setApproved(int approved) {
+        this.approved = approved;
+    }
 }

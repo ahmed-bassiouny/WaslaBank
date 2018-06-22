@@ -10,6 +10,7 @@ import com.waslla_bank.api.apiModel.requests.UserInTripRequest;
 import com.waslla_bank.api.apiModel.requests.UserLoginRequest;
 import com.waslla_bank.api.apiModel.response.AboutResponse;
 import com.waslla_bank.api.apiModel.response.GenericResponse;
+import com.waslla_bank.api.apiModel.response.IsApproveResponse;
 import com.waslla_bank.api.apiModel.response.NotificationResponse;
 import com.waslla_bank.api.apiModel.response.ParentResponse;
 import com.waslla_bank.api.apiModel.response.TripDetailsListResponse;
@@ -637,6 +638,23 @@ public class ApiRequests {
 
             @Override
             public void onFailure(@NonNull Call<GenericResponse> call, @NonNull Throwable t) {
+                // get error message
+                anInterface.onFailed(t.getLocalizedMessage());
+            }
+        });
+    }
+
+    public static void isApproved(int userId, final BaseResponseInterface<Integer> anInterface) {
+        Call<IsApproveResponse> response = ApiConfig.httpApiInterface.isApproved(userId);
+        response.enqueue(new Callback<IsApproveResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<IsApproveResponse> call, @NonNull Response<IsApproveResponse> response) {
+                // check on response and get data
+                checkValidResult(response, anInterface);
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<IsApproveResponse> call, @NonNull Throwable t) {
                 // get error message
                 anInterface.onFailed(t.getLocalizedMessage());
             }

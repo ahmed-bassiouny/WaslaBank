@@ -16,6 +16,7 @@ import com.waslla_bank.api.apiModel.requests.UserLoginRequest;
 import com.waslla_bank.api.apiModel.requests.UserSignUpRequest;
 import com.waslla_bank.api.apiModel.response.AboutResponse;
 import com.waslla_bank.api.apiModel.response.GenericResponse;
+import com.waslla_bank.api.apiModel.response.IsApproveResponse;
 import com.waslla_bank.api.apiModel.response.NotificationResponse;
 import com.waslla_bank.api.apiModel.response.TripDetailsListResponse;
 import com.waslla_bank.api.apiModel.response.TripDetailsResponse;
@@ -172,4 +173,9 @@ public interface HttpApiInterface {
     @FormUrlEncoded()
     @POST("forget_password")
     Call<GenericResponse> forgetPassword(@Field(ApiKey.EMAIL) String email);
+
+
+    @FormUrlEncoded()
+    @POST("registration/is_approved")
+    Call<IsApproveResponse> isApproved(@Field(ApiKey.ID) int userId);
 }

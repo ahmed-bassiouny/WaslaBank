@@ -79,9 +79,9 @@ public class MyUtils {
         // create intent
         Intent intent;
 
-        if (user.getApproved() == 1) {
+        if (user.getApproved() == Constant.OPEN_HOME) {
             intent = new Intent(activity, HomeActivity.class);
-        } else if (user.getApproved() == 0) {
+        } else if (user.getApproved() == Constant.WAITING_ADMIN) {
             intent = new Intent(activity, WaitingAdminActivity.class);
         }else {
             intent = new Intent(activity, SignUpUserImagesActivity.class);
