@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewStub;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -31,12 +32,14 @@ public class SignUpUserImagesActivity extends MyToolbar implements BaseResponseI
     private ImageView img;
     private LinearLayout linear;
     private File image;
+    private Button btnUpload;
     private int i = 0; // 0 => national id , 1 => car license , 2 => driving license
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up_user_images);
+        btnUpload = findViewById(R.id.btn_upload);
         initToolbar("Add your documents", true);
         addSupportActionbar();
         findView();
@@ -51,7 +54,7 @@ public class SignUpUserImagesActivity extends MyToolbar implements BaseResponseI
                 MyUtils.openChooserWithGallery(SignUpUserImagesActivity.this);
             }
         });
-        findViewById(R.id.btn_upload).setOnClickListener(new View.OnClickListener() {
+        btnUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (image == null) {
@@ -85,6 +88,7 @@ public class SignUpUserImagesActivity extends MyToolbar implements BaseResponseI
                 image = imageFile;
                 Bitmap myBitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
                 img.setImageBitmap(myBitmap);
+                btnUpload.setVisibility(View.VISIBLE);
             }
 
         });
@@ -110,6 +114,7 @@ public class SignUpUserImagesActivity extends MyToolbar implements BaseResponseI
     private void setTitle() {
         image = null;
         img.setImageDrawable(getResources().getDrawable(R.drawable.placeholder));
+        btnUpload.setVisibility(View.INVISIBLE);
         switch (i) {
             case 0:
                 tvTitle.setText(getString(R.string.select_national_id));
